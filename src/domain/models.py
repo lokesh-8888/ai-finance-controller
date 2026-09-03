@@ -60,6 +60,8 @@ class GatewayTransaction(BaseFinancialModel):
     net_amount_cents: StrictInt = Field(..., description="Net settlement amount (gross - fee - tax) in cents")
     payout_batch_id: Optional[str] = Field(default=None, description="Batch transfer identifier (e.g. po_xxx)")
     status: str = Field(default="succeeded", description="Transaction status (e.g. succeeded, refunded)")
+    created_date: Optional[dt.date] = Field(default=None, description="Charge capture date")
+    settled_date: Optional[dt.date] = Field(default=None, description="Estimated or confirmed payout settlement date")
 
     @model_validator(mode="after")
     def validate_net_equation(self) -> "GatewayTransaction":

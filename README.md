@@ -101,21 +101,22 @@ This generates:
 
 ### 3. Run Automated Tests & Evaluation Benchmark
 
-Execute the complete verification suite across Phase 0, Phase 1, Phase 2, and Phase 3 via `pytest`:
+Execute the complete verification suite across all 5 phases via `pytest`:
 
 ```bash
-# Run all 59 tests across Phases 0, 1, 2, and 3
+# Run all 68 tests across Phases 0, 1, 2, 3, and 4
 pytest -v
 
-# Run Phase 3 Operations, Workbench & Audit Trail tests specifically
-pytest -v tests/test_phase3_operations_and_audit.py
+# Run Phase 4 Cash Position & Forecasting tests specifically
+pytest -v tests/test_phase4_cash_forecasting.py
 ```
 
-All 59 unit and benchmark tests validate:
+All 68 unit and benchmark tests validate:
 - **Phase 0**: Integer-cents precision invariance (zero float drift), normalizer utilities, domain model validation
 - **Phase 1**: Bijective atomic set locking, $O(1)$ exact matcher, subset-sum batch solver ($K \in [2, 6]$), throughput $> 70,000$ rec/sec
 - **Phase 2**: Prompt injection sanitization, ambiguity margin gating ($< 8\%$ gap triggers review), zero-failure fallback guarantee, 0% FPR on fraud, and 100% accuracy on the 60-scenario ground-truth matrix
 - **Phase 3**: P0-P4 operational risk ranking, double-entry ledger balance invariant enforcement ($\sum \text{Debits} == \sum \text{Credits}$), 4 human controller 1-click remediation actions, SQLite WAL concurrent writes, and SHA-256 cryptographic audit trail tamper detection
+- **Phase 4**: Real-time treasury cash positioning, monetary conservation invariant ($\Delta \text{Cash} == \sum \text{Inflows} - \sum \text{Outflows}$), $T+2$ gateway payout settlement simulation, 7/14/30-day milestone summaries, cash runway/burn calculations, liquidity trough alerting, and liquidity waterfall bridge closure
 
 ### 4. Run Independent Ground-Truth Evaluation
 
@@ -141,5 +142,7 @@ python -c "from src.evaluation.evaluator import ReconciliationEvaluator; report 
 - [Phase 1 Verification Report](docs/phases/PHASE_1_REPORT.md)
 - [Phase 2 Verification Report](docs/phases/PHASE_2_REPORT.md)
 - [Phase 3 Verification Report](docs/phases/PHASE_3_REPORT.md)
+- [Phase 4 Verification Report](docs/phases/PHASE_4_REPORT.md)
+
 
 
