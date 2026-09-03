@@ -7,6 +7,7 @@ Usage:
 """
 
 import argparse
+import os
 import sys
 
 # Ensure UTF-8 console output on Windows
@@ -62,8 +63,8 @@ def generate_audit_report():
 def main():
     parser = argparse.ArgumentParser(description="AI Finance Controller -- Autonomous Financial Ops Engine")
     parser.add_argument("--app", action="store_true", help="Launch FastAPI REST server and web console")
-    parser.add_argument("--host", default="127.0.0.1", help="Server host (default: 127.0.0.1)")
-    parser.add_argument("--port", type=int, default=8000, help="Server port (default: 8000)")
+    parser.add_argument("--host", default=os.getenv("HOST", "127.0.0.1"), help="Server host (default: 127.0.0.1 or $HOST)")
+    parser.add_argument("--port", type=int, default=int(os.getenv("PORT", "8000")), help="Server port (default: 8000 or $PORT)")
     parser.add_argument("--benchmark", action="store_true", help="Execute multi-seed robustness benchmark")
     parser.add_argument("--runs", type=int, default=20, help="Number of seeds for benchmark (default: 20)")
     parser.add_argument("--report", action="store_true", help="Generate executive audit report memo")

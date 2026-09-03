@@ -1,7 +1,8 @@
-﻿FROM python:3.11-slim
+FROM python:3.11-slim
 
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
+    HOST=0.0.0.0 \
     PORT=8000
 
 WORKDIR /app
@@ -17,4 +18,4 @@ COPY . .
 
 EXPOSE 8000
 
-CMD ["python", "run.py", "--app"]
+CMD ["python", "run.py", "--app", "--host", "0.0.0.0", "--port", "8000"]
