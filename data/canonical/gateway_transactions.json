@@ -1,0 +1,452 @@
+[
+  {
+    "id": "GTW-0001",
+    "order_id": "ORD-EXACT-1000",
+    "gross_amount_cents": 350243,
+    "fee_cents": 0,
+    "tax_cents": 0,
+    "net_amount_cents": 350243,
+    "payout_batch_id": "batch_direct_001",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0002",
+    "order_id": "ORD-EXACT-1001",
+    "gross_amount_cents": 28112,
+    "fee_cents": 0,
+    "tax_cents": 0,
+    "net_amount_cents": 28112,
+    "payout_batch_id": "batch_direct_002",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0003",
+    "order_id": "ORD-EXACT-1002",
+    "gross_amount_cents": 159194,
+    "fee_cents": 0,
+    "tax_cents": 0,
+    "net_amount_cents": 159194,
+    "payout_batch_id": "batch_direct_003",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0004",
+    "order_id": "ORD-EXACT-1003",
+    "gross_amount_cents": 132026,
+    "fee_cents": 0,
+    "tax_cents": 0,
+    "net_amount_cents": 132026,
+    "payout_batch_id": "batch_direct_004",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0005",
+    "order_id": "ORD-EXACT-1004",
+    "gross_amount_cents": 401123,
+    "fee_cents": 0,
+    "tax_cents": 0,
+    "net_amount_cents": 401123,
+    "payout_batch_id": "batch_direct_005",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0006",
+    "order_id": "ORD-EXACT-1005",
+    "gross_amount_cents": 369785,
+    "fee_cents": 0,
+    "tax_cents": 0,
+    "net_amount_cents": 369785,
+    "payout_batch_id": "batch_direct_006",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0007",
+    "order_id": "ORD-EXACT-1006",
+    "gross_amount_cents": 300929,
+    "fee_cents": 0,
+    "tax_cents": 0,
+    "net_amount_cents": 300929,
+    "payout_batch_id": "batch_direct_007",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0008",
+    "order_id": "ORD-EXACT-1007",
+    "gross_amount_cents": 324588,
+    "fee_cents": 0,
+    "tax_cents": 0,
+    "net_amount_cents": 324588,
+    "payout_batch_id": "batch_direct_008",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0009",
+    "order_id": "ORD-EXACT-1008",
+    "gross_amount_cents": 31663,
+    "fee_cents": 0,
+    "tax_cents": 0,
+    "net_amount_cents": 31663,
+    "payout_batch_id": "batch_direct_009",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0010",
+    "order_id": "ORD-EXACT-1009",
+    "gross_amount_cents": 64123,
+    "fee_cents": 0,
+    "tax_cents": 0,
+    "net_amount_cents": 64123,
+    "payout_batch_id": "batch_direct_010",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0011",
+    "order_id": "ORD-EXACT-1010",
+    "gross_amount_cents": 136981,
+    "fee_cents": 0,
+    "tax_cents": 0,
+    "net_amount_cents": 136981,
+    "payout_batch_id": "batch_direct_011",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0012",
+    "order_id": "ORD-EXACT-1011",
+    "gross_amount_cents": 330631,
+    "fee_cents": 0,
+    "tax_cents": 0,
+    "net_amount_cents": 330631,
+    "payout_batch_id": "batch_direct_012",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0013",
+    "order_id": "ORD-EXACT-1012",
+    "gross_amount_cents": 309254,
+    "fee_cents": 0,
+    "tax_cents": 0,
+    "net_amount_cents": 309254,
+    "payout_batch_id": "batch_direct_013",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0014",
+    "order_id": "ORD-EXACT-1013",
+    "gross_amount_cents": 390400,
+    "fee_cents": 0,
+    "tax_cents": 0,
+    "net_amount_cents": 390400,
+    "payout_batch_id": "batch_direct_014",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0015",
+    "order_id": "ORD-EXACT-1014",
+    "gross_amount_cents": 382696,
+    "fee_cents": 0,
+    "tax_cents": 0,
+    "net_amount_cents": 382696,
+    "payout_batch_id": "batch_direct_015",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0016",
+    "order_id": "ORD-STRIPE-4000",
+    "gross_amount_cents": 197600,
+    "fee_cents": 5760,
+    "tax_cents": 0,
+    "net_amount_cents": 191840,
+    "payout_batch_id": "po_stripe_5000",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0017",
+    "order_id": "ORD-STRIPE-4001",
+    "gross_amount_cents": 44466,
+    "fee_cents": 1320,
+    "tax_cents": 0,
+    "net_amount_cents": 43146,
+    "payout_batch_id": "po_stripe_5001",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0018",
+    "order_id": "ORD-STRIPE-4002",
+    "gross_amount_cents": 127484,
+    "fee_cents": 3727,
+    "tax_cents": 0,
+    "net_amount_cents": 123757,
+    "payout_batch_id": "po_stripe_5002",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0019",
+    "order_id": "ORD-STRIPE-4003",
+    "gross_amount_cents": 49833,
+    "fee_cents": 1475,
+    "tax_cents": 0,
+    "net_amount_cents": 48358,
+    "payout_batch_id": "po_stripe_5003",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0020",
+    "order_id": "ORD-STRIPE-4004",
+    "gross_amount_cents": 60953,
+    "fee_cents": 1798,
+    "tax_cents": 0,
+    "net_amount_cents": 59155,
+    "payout_batch_id": "po_stripe_5004",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0021",
+    "order_id": "ORD-STRIPE-4005",
+    "gross_amount_cents": 153738,
+    "fee_cents": 4488,
+    "tax_cents": 0,
+    "net_amount_cents": 149250,
+    "payout_batch_id": "po_stripe_5005",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0022",
+    "order_id": "ORD-STRIPE-4006",
+    "gross_amount_cents": 199277,
+    "fee_cents": 5809,
+    "tax_cents": 0,
+    "net_amount_cents": 193468,
+    "payout_batch_id": "po_stripe_5006",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0023",
+    "order_id": "ORD-STRIPE-4007",
+    "gross_amount_cents": 202081,
+    "fee_cents": 5890,
+    "tax_cents": 0,
+    "net_amount_cents": 196191,
+    "payout_batch_id": "po_stripe_5007",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0024",
+    "order_id": "ORD-STRIPE-4008",
+    "gross_amount_cents": 117842,
+    "fee_cents": 3447,
+    "tax_cents": 0,
+    "net_amount_cents": 114395,
+    "payout_batch_id": "po_stripe_5008",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0025",
+    "order_id": "ORD-STRIPE-4009",
+    "gross_amount_cents": 45435,
+    "fee_cents": 1348,
+    "tax_cents": 0,
+    "net_amount_cents": 44087,
+    "payout_batch_id": "po_stripe_5009",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0026",
+    "order_id": "ORD-BUNDLE-7000",
+    "gross_amount_cents": 72589,
+    "fee_cents": 1815,
+    "tax_cents": 0,
+    "net_amount_cents": 70774,
+    "payout_batch_id": "po_bundle_batch_6000",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0027",
+    "order_id": "ORD-BUNDLE-7001",
+    "gross_amount_cents": 61735,
+    "fee_cents": 1543,
+    "tax_cents": 0,
+    "net_amount_cents": 60192,
+    "payout_batch_id": "po_bundle_batch_6000",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0028",
+    "order_id": "ORD-BUNDLE-7010",
+    "gross_amount_cents": 85000,
+    "fee_cents": 2125,
+    "tax_cents": 0,
+    "net_amount_cents": 82875,
+    "payout_batch_id": "po_bundle_batch_6001",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0029",
+    "order_id": "ORD-BUNDLE-7011",
+    "gross_amount_cents": 40785,
+    "fee_cents": 1020,
+    "tax_cents": 0,
+    "net_amount_cents": 39765,
+    "payout_batch_id": "po_bundle_batch_6001",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0030",
+    "order_id": "ORD-BUNDLE-7012",
+    "gross_amount_cents": 54504,
+    "fee_cents": 1363,
+    "tax_cents": 0,
+    "net_amount_cents": 53141,
+    "payout_batch_id": "po_bundle_batch_6001",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0031",
+    "order_id": "ORD-BUNDLE-7013",
+    "gross_amount_cents": 19331,
+    "fee_cents": 483,
+    "tax_cents": 0,
+    "net_amount_cents": 18848,
+    "payout_batch_id": "po_bundle_batch_6001",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0032",
+    "order_id": "ORD-BUNDLE-7020",
+    "gross_amount_cents": 53347,
+    "fee_cents": 1334,
+    "tax_cents": 0,
+    "net_amount_cents": 52013,
+    "payout_batch_id": "po_bundle_batch_6002",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0033",
+    "order_id": "ORD-BUNDLE-7021",
+    "gross_amount_cents": 64581,
+    "fee_cents": 1615,
+    "tax_cents": 0,
+    "net_amount_cents": 62966,
+    "payout_batch_id": "po_bundle_batch_6002",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0034",
+    "order_id": "ORD-BUNDLE-7030",
+    "gross_amount_cents": 39653,
+    "fee_cents": 991,
+    "tax_cents": 0,
+    "net_amount_cents": 38662,
+    "payout_batch_id": "po_bundle_batch_6003",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0035",
+    "order_id": "ORD-BUNDLE-7031",
+    "gross_amount_cents": 53245,
+    "fee_cents": 1331,
+    "tax_cents": 0,
+    "net_amount_cents": 51914,
+    "payout_batch_id": "po_bundle_batch_6003",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0036",
+    "order_id": "ORD-BUNDLE-7040",
+    "gross_amount_cents": 77435,
+    "fee_cents": 1936,
+    "tax_cents": 0,
+    "net_amount_cents": 75499,
+    "payout_batch_id": "po_bundle_batch_6004",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0037",
+    "order_id": "ORD-BUNDLE-7041",
+    "gross_amount_cents": 63856,
+    "fee_cents": 1596,
+    "tax_cents": 0,
+    "net_amount_cents": 62260,
+    "payout_batch_id": "po_bundle_batch_6004",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0038",
+    "order_id": "ORD-BUNDLE-7042",
+    "gross_amount_cents": 72142,
+    "fee_cents": 1804,
+    "tax_cents": 0,
+    "net_amount_cents": 70338,
+    "payout_batch_id": "po_bundle_batch_6004",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0039",
+    "order_id": "ORD-BUNDLE-7043",
+    "gross_amount_cents": 30726,
+    "fee_cents": 768,
+    "tax_cents": 0,
+    "net_amount_cents": 29958,
+    "payout_batch_id": "po_bundle_batch_6004",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0040",
+    "order_id": "ORD-MISS-3001",
+    "gross_amount_cents": 145000,
+    "fee_cents": 4235,
+    "tax_cents": 0,
+    "net_amount_cents": 140765,
+    "payout_batch_id": "po_orphaned_unsettled",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0041",
+    "order_id": "ORD-UNEXP-5001",
+    "gross_amount_cents": 300000,
+    "fee_cents": 0,
+    "tax_cents": 0,
+    "net_amount_cents": 300000,
+    "payout_batch_id": "po_corrupt_settle",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0042",
+    "order_id": "ORD-REF-7001",
+    "gross_amount_cents": -15000,
+    "fee_cents": 0,
+    "tax_cents": 0,
+    "net_amount_cents": -15000,
+    "payout_batch_id": "po_refund_batch_7001",
+    "status": "refunded"
+  },
+  {
+    "id": "GTW-0043",
+    "order_id": "ORD-PART-8001",
+    "gross_amount_cents": -7500,
+    "fee_cents": 0,
+    "tax_cents": 0,
+    "net_amount_cents": -7500,
+    "payout_batch_id": "po_partial_8001",
+    "status": "refunded"
+  },
+  {
+    "id": "GTW-0044",
+    "order_id": "ORD-TAX-9001",
+    "gross_amount_cents": 108250,
+    "fee_cents": 0,
+    "tax_cents": 8250,
+    "net_amount_cents": 100000,
+    "payout_batch_id": "po_tax_settle",
+    "status": "succeeded"
+  },
+  {
+    "id": "GTW-0045",
+    "order_id": "ORD-TIMING-10001",
+    "gross_amount_cents": 350000,
+    "fee_cents": 0,
+    "tax_cents": 0,
+    "net_amount_cents": 350000,
+    "payout_batch_id": "po_cutoff_batch",
+    "status": "succeeded"
+  }
+]

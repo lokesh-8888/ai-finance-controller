@@ -1,0 +1,474 @@
+[
+  {
+    "id": "BNK-0001",
+    "date": "2026-08-03",
+    "amount_cents": 350243,
+    "raw_description": "CUSTOMER CHECKOUT DIRECT DEPOSIT ORD-EXACT-1000 ACME CORP",
+    "reference_code": "REF-DEP-1000",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0002",
+    "date": "2026-08-13",
+    "amount_cents": 28112,
+    "raw_description": "CUSTOMER CHECKOUT DIRECT DEPOSIT ORD-EXACT-1001 GLOBEX GLOBAL",
+    "reference_code": "REF-DEP-1001",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0003",
+    "date": "2026-08-05",
+    "amount_cents": 159194,
+    "raw_description": "CUSTOMER CHECKOUT DIRECT DEPOSIT ORD-EXACT-1002 INITECH LLC",
+    "reference_code": "REF-DEP-1002",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0004",
+    "date": "2026-08-04",
+    "amount_cents": 132026,
+    "raw_description": "CUSTOMER CHECKOUT DIRECT DEPOSIT ORD-EXACT-1003 UMBRELLA ENTERPRISES",
+    "reference_code": "REF-DEP-1003",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0005",
+    "date": "2026-08-03",
+    "amount_cents": 401123,
+    "raw_description": "CUSTOMER CHECKOUT DIRECT DEPOSIT ORD-EXACT-1004 HOOLI CLOUD",
+    "reference_code": "REF-DEP-1004",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0006",
+    "date": "2026-08-13",
+    "amount_cents": 369785,
+    "raw_description": "CUSTOMER CHECKOUT DIRECT DEPOSIT ORD-EXACT-1005 STARK INDUSTRIES",
+    "reference_code": "REF-DEP-1005",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0007",
+    "date": "2026-08-03",
+    "amount_cents": 300929,
+    "raw_description": "CUSTOMER CHECKOUT DIRECT DEPOSIT ORD-EXACT-1006 WAYNE LOGISTICS",
+    "reference_code": "REF-DEP-1006",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0008",
+    "date": "2026-08-08",
+    "amount_cents": 324588,
+    "raw_description": "CUSTOMER CHECKOUT DIRECT DEPOSIT ORD-EXACT-1007 CYBERDYNE SYSTEMS",
+    "reference_code": "REF-DEP-1007",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0009",
+    "date": "2026-08-02",
+    "amount_cents": 31663,
+    "raw_description": "CUSTOMER CHECKOUT DIRECT DEPOSIT ORD-EXACT-1008 SOYLENT CORP",
+    "reference_code": "REF-DEP-1008",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0010",
+    "date": "2026-08-05",
+    "amount_cents": 64123,
+    "raw_description": "CUSTOMER CHECKOUT DIRECT DEPOSIT ORD-EXACT-1009 MASSIVE DYNAMIC",
+    "reference_code": "REF-DEP-1009",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0011",
+    "date": "2026-08-10",
+    "amount_cents": 136981,
+    "raw_description": "CUSTOMER CHECKOUT DIRECT DEPOSIT ORD-EXACT-1010 PIED PIPER",
+    "reference_code": "REF-DEP-1010",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0012",
+    "date": "2026-08-02",
+    "amount_cents": 330631,
+    "raw_description": "CUSTOMER CHECKOUT DIRECT DEPOSIT ORD-EXACT-1011 DUNDER MIFFLIN",
+    "reference_code": "REF-DEP-1011",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0013",
+    "date": "2026-08-05",
+    "amount_cents": 309254,
+    "raw_description": "CUSTOMER CHECKOUT DIRECT DEPOSIT ORD-EXACT-1012 WONKA CONFECTIONS",
+    "reference_code": "REF-DEP-1012",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0014",
+    "date": "2026-08-12",
+    "amount_cents": 390400,
+    "raw_description": "CUSTOMER CHECKOUT DIRECT DEPOSIT ORD-EXACT-1013 BLUTH DEVELOPMENT",
+    "reference_code": "REF-DEP-1013",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0015",
+    "date": "2026-08-10",
+    "amount_cents": 382696,
+    "raw_description": "CUSTOMER CHECKOUT DIRECT DEPOSIT ORD-EXACT-1014 APERTURE SCIENCE",
+    "reference_code": "REF-DEP-1014",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0016",
+    "date": "2026-08-10",
+    "amount_cents": -464898,
+    "raw_description": "ACH OUTWARD VENDOR PMT INV-2026-0001 DATADOG INC",
+    "reference_code": "ACH-OUT-2000",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0017",
+    "date": "2026-08-16",
+    "amount_cents": -496029,
+    "raw_description": "ACH OUTWARD VENDOR PMT INV-2026-0002 SNOWFLAKE INC",
+    "reference_code": "ACH-OUT-2001",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0018",
+    "date": "2026-08-07",
+    "amount_cents": -316704,
+    "raw_description": "ACH OUTWARD VENDOR PMT INV-2026-0003 FIGMA DESIGN",
+    "reference_code": "ACH-OUT-2002",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0019",
+    "date": "2026-08-13",
+    "amount_cents": -192414,
+    "raw_description": "ACH OUTWARD VENDOR PMT INV-2026-0004 SLACK TECHNOLOGIES",
+    "reference_code": "ACH-OUT-2003",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0020",
+    "date": "2026-08-11",
+    "amount_cents": -381778,
+    "raw_description": "ACH OUTWARD VENDOR PMT INV-2026-0005 GITHUB INC",
+    "reference_code": "ACH-OUT-2004",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0021",
+    "date": "2026-08-10",
+    "amount_cents": -188032,
+    "raw_description": "ACH OUTWARD VENDOR PMT INV-2026-0006 ATLASSIAN CORP",
+    "reference_code": "ACH-OUT-2005",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0022",
+    "date": "2026-08-08",
+    "amount_cents": -377944,
+    "raw_description": "ACH OUTWARD VENDOR PMT INV-2026-0007 TWILIO API",
+    "reference_code": "ACH-OUT-2006",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0023",
+    "date": "2026-08-13",
+    "amount_cents": -122251,
+    "raw_description": "ACH OUTWARD VENDOR PMT INV-2026-0008 ZOOM VIDEO",
+    "reference_code": "ACH-OUT-2007",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0024",
+    "date": "2026-08-12",
+    "amount_cents": -126414,
+    "raw_description": "ACH OUTWARD VENDOR PMT INV-2026-0009 NOTION LABS",
+    "reference_code": "ACH-OUT-2008",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0025",
+    "date": "2026-08-16",
+    "amount_cents": -385663,
+    "raw_description": "ACH OUTWARD VENDOR PMT INV-2026-0010 FASTLY CDN",
+    "reference_code": "ACH-OUT-2009",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0026",
+    "date": "2026-08-07",
+    "amount_cents": -302370,
+    "raw_description": "ACH OUTWARD VENDOR PMT INV-2026-0011 VERCEL INC",
+    "reference_code": "ACH-OUT-2010",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0027",
+    "date": "2026-08-15",
+    "amount_cents": -506741,
+    "raw_description": "ACH OUTWARD VENDOR PMT INV-2026-0012 CLOUDFLARE DNS",
+    "reference_code": "ACH-OUT-2011",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0028",
+    "date": "2026-08-13",
+    "amount_cents": -155889,
+    "raw_description": "ACH OUTWARD VENDOR PMT INV-2026-0013 DOCKER INC",
+    "reference_code": "ACH-OUT-2012",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0029",
+    "date": "2026-08-15",
+    "amount_cents": -107627,
+    "raw_description": "ACH OUTWARD VENDOR PMT INV-2026-0014 MONGODB ATLAS",
+    "reference_code": "ACH-OUT-2013",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0030",
+    "date": "2026-08-16",
+    "amount_cents": -332419,
+    "raw_description": "ACH OUTWARD VENDOR PMT INV-2026-0015 PAGERDUTY OPERATIONS",
+    "reference_code": "ACH-OUT-2014",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0031",
+    "date": "2026-08-14",
+    "amount_cents": 191840,
+    "raw_description": "STRIPE PAYMENTS PAYOUT TRANSFER po_stripe_5000",
+    "reference_code": "po_stripe_5000",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0032",
+    "date": "2026-08-09",
+    "amount_cents": 43146,
+    "raw_description": "STRIPE PAYMENTS PAYOUT TRANSFER po_stripe_5001",
+    "reference_code": "po_stripe_5001",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0033",
+    "date": "2026-08-17",
+    "amount_cents": 123757,
+    "raw_description": "STRIPE PAYMENTS PAYOUT TRANSFER po_stripe_5002",
+    "reference_code": "po_stripe_5002",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0034",
+    "date": "2026-08-15",
+    "amount_cents": 48358,
+    "raw_description": "STRIPE PAYMENTS PAYOUT TRANSFER po_stripe_5003",
+    "reference_code": "po_stripe_5003",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0035",
+    "date": "2026-08-20",
+    "amount_cents": 59155,
+    "raw_description": "STRIPE PAYMENTS PAYOUT TRANSFER po_stripe_5004",
+    "reference_code": "po_stripe_5004",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0036",
+    "date": "2026-08-22",
+    "amount_cents": 149250,
+    "raw_description": "STRIPE PAYMENTS PAYOUT TRANSFER po_stripe_5005",
+    "reference_code": "po_stripe_5005",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0037",
+    "date": "2026-08-13",
+    "amount_cents": 193468,
+    "raw_description": "STRIPE PAYMENTS PAYOUT TRANSFER po_stripe_5006",
+    "reference_code": "po_stripe_5006",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0038",
+    "date": "2026-08-19",
+    "amount_cents": 196191,
+    "raw_description": "STRIPE PAYMENTS PAYOUT TRANSFER po_stripe_5007",
+    "reference_code": "po_stripe_5007",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0039",
+    "date": "2026-08-16",
+    "amount_cents": 114395,
+    "raw_description": "STRIPE PAYMENTS PAYOUT TRANSFER po_stripe_5008",
+    "reference_code": "po_stripe_5008",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0040",
+    "date": "2026-08-13",
+    "amount_cents": 44087,
+    "raw_description": "STRIPE PAYMENTS PAYOUT TRANSFER po_stripe_5009",
+    "reference_code": "po_stripe_5009",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0041",
+    "date": "2026-08-18",
+    "amount_cents": 130966,
+    "raw_description": "MERCHANT SETTLEMENT WIRE BUNDLE po_bundle_batch_6000 COUNT 2",
+    "reference_code": "po_bundle_batch_6000",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0042",
+    "date": "2026-08-19",
+    "amount_cents": 194629,
+    "raw_description": "MERCHANT SETTLEMENT WIRE BUNDLE po_bundle_batch_6001 COUNT 4",
+    "reference_code": "po_bundle_batch_6001",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0043",
+    "date": "2026-08-18",
+    "amount_cents": 114979,
+    "raw_description": "MERCHANT SETTLEMENT WIRE BUNDLE po_bundle_batch_6002 COUNT 2",
+    "reference_code": "po_bundle_batch_6002",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0044",
+    "date": "2026-08-19",
+    "amount_cents": 90576,
+    "raw_description": "MERCHANT SETTLEMENT WIRE BUNDLE po_bundle_batch_6003 COUNT 2",
+    "reference_code": "po_bundle_batch_6003",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0045",
+    "date": "2026-08-17",
+    "amount_cents": 238055,
+    "raw_description": "MERCHANT SETTLEMENT WIRE BUNDLE po_bundle_batch_6004 COUNT 4",
+    "reference_code": "po_bundle_batch_6004",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0046",
+    "date": "2026-08-13",
+    "amount_cents": -130200,
+    "raw_description": "INTL WIRE OUT EUR AWS EMEA SARL FX 1.0850",
+    "reference_code": "FX-EUR-101",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0047",
+    "date": "2026-08-15",
+    "amount_cents": -108800,
+    "raw_description": "WIRE TRANSFER LONDON UK DATADOG INC GBP 850 FX 1.28",
+    "reference_code": "FX-GBP-202",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0048",
+    "date": "2026-08-17",
+    "amount_cents": -450000,
+    "raw_description": "ACH DEBIT MICROSOFT CORP CLOUD SERVICES",
+    "reference_code": "ACH-MSFT-303",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0049",
+    "date": "2026-08-19",
+    "amount_cents": -320000,
+    "raw_description": "DIRECT DEBIT GOOG CLOUD SERVICES REQ-404",
+    "reference_code": "DD-GOOG-404",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0050",
+    "date": "2026-08-21",
+    "amount_cents": -580000,
+    "raw_description": "ACH DISBURSEMENT SNOWFLAKE INC WAREHOUSE",
+    "reference_code": "ACH-SNOW-505",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0051",
+    "date": "2026-08-23",
+    "amount_cents": -175000,
+    "raw_description": "ACH DEBIT FIGMA DESIGN INV-2026-0021",
+    "reference_code": "REF-DUP-1",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0052",
+    "date": "2026-08-23",
+    "amount_cents": -175000,
+    "raw_description": "ACH DEBIT FIGMA DESIGN INV-2026-0021 (DUPLICATE POSTING)",
+    "reference_code": "REF-DUP-1",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0053",
+    "date": "2026-08-24",
+    "amount_cents": -98000,
+    "raw_description": "ACH OUTWARD PMT INV-2026-0022 SLACK",
+    "reference_code": "ACH-SLACK-2",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0054",
+    "date": "2026-08-25",
+    "amount_cents": 287550,
+    "raw_description": "INWARD DEPOSIT SETTLEMENT ORD-UNEXP-5001 SHORTAGE",
+    "reference_code": "REF-SHORT-5001",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0055",
+    "date": "2026-08-26",
+    "amount_cents": 1500000,
+    "raw_description": "WIRE INWARD REF 883921 PRIVATE UNIDENTIFIED",
+    "reference_code": "WIRE-UNKNOWN-883921",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0056",
+    "date": "2026-08-27",
+    "amount_cents": -15000,
+    "raw_description": "STRIPE CUSTOMER REFUND CHARGEBACK ORD-REF-7001",
+    "reference_code": "REF-CHG-7001",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0057",
+    "date": "2026-08-28",
+    "amount_cents": -7500,
+    "raw_description": "MERCHANT PARTIAL CREDIT ADJUSTMENT ORD-PART-8001",
+    "reference_code": "REF-PART-8001",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0058",
+    "date": "2026-08-29",
+    "amount_cents": 100000,
+    "raw_description": "GATEWAY NET PAYOUT (TAX EXCLUDED) ORD-TAX-9001",
+    "reference_code": "REF-TAX-9001",
+    "account_id": "ACCT-OPERATING-01"
+  },
+  {
+    "id": "BNK-0059",
+    "date": "2026-09-02",
+    "amount_cents": 350000,
+    "raw_description": "BATCH DEPOSIT CROSS-MONTH SETTLEMENT ORD-TIMING-10001",
+    "reference_code": "REF-CUTOFF-1001",
+    "account_id": "ACCT-OPERATING-01"
+  }
+]
