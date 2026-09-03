@@ -1,0 +1,13 @@
+﻿version: '3.8'
+
+services:
+  ai-finance-controller:
+    build: .
+    container_name: ai_finance_controller
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+    environment:
+      - PORT=8000
+    restart: unless-stopped
