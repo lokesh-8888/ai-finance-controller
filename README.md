@@ -101,20 +101,21 @@ This generates:
 
 ### 3. Run Automated Tests & Evaluation Benchmark
 
-Execute the complete verification suite across Phase 0, Phase 1, and Phase 2 via `pytest`:
+Execute the complete verification suite across Phase 0, Phase 1, Phase 2, and Phase 3 via `pytest`:
 
 ```bash
-# Run all tests across Phases 0, 1, and 2
+# Run all 59 tests across Phases 0, 1, 2, and 3
 pytest -v
 
-# Run Phase 2 AI Investigator & Evaluation Benchmark tests specifically
-pytest -v tests/test_phase2_ai_investigator.py
+# Run Phase 3 Operations, Workbench & Audit Trail tests specifically
+pytest -v tests/test_phase3_operations_and_audit.py
 ```
 
-All 43 unit and benchmark tests validate:
+All 59 unit and benchmark tests validate:
 - **Phase 0**: Integer-cents precision invariance (zero float drift), normalizer utilities, domain model validation
 - **Phase 1**: Bijective atomic set locking, $O(1)$ exact matcher, subset-sum batch solver ($K \in [2, 6]$), throughput $> 70,000$ rec/sec
 - **Phase 2**: Prompt injection sanitization, ambiguity margin gating ($< 8\%$ gap triggers review), zero-failure fallback guarantee, 0% FPR on fraud, and 100% accuracy on the 60-scenario ground-truth matrix
+- **Phase 3**: P0-P4 operational risk ranking, double-entry ledger balance invariant enforcement ($\sum \text{Debits} == \sum \text{Credits}$), 4 human controller 1-click remediation actions, SQLite WAL concurrent writes, and SHA-256 cryptographic audit trail tamper detection
 
 ### 4. Run Independent Ground-Truth Evaluation
 
@@ -139,4 +140,6 @@ python -c "from src.evaluation.evaluator import ReconciliationEvaluator; report 
 - [Phase 0 Verification Report](docs/phases/PHASE_0_REPORT.md)
 - [Phase 1 Verification Report](docs/phases/PHASE_1_REPORT.md)
 - [Phase 2 Verification Report](docs/phases/PHASE_2_REPORT.md)
+- [Phase 3 Verification Report](docs/phases/PHASE_3_REPORT.md)
+
 
