@@ -1,0 +1,286 @@
+{
+  "generated_at": "2026-09-03 14:25:51 UTC",
+  "period": "2026-08-31",
+  "benchmark_report": {
+    "total_scenarios": 60,
+    "deterministic_matches_count": 48,
+    "ai_investigated_count": 12,
+    "classification_accuracy": 1.0,
+    "precision_macro": 1.0,
+    "recall_macro": 1.0,
+    "f1_score_macro": 1.0,
+    "false_positive_rate_fraud": 0.0,
+    "baseline_deterministic_accuracy_pct": 80.0,
+    "post_ai_final_accuracy_pct": 100.0,
+    "accuracy_lift_pct": 20.0,
+    "average_ai_latency_ms": 0.06,
+    "total_ai_latency_ms": 0.67,
+    "confusion_matrix": {
+      "EXACT_MATCH": {
+        "EXACT_MATCH": 33,
+        "FEE_DIFFERENCE": 0,
+        "TAX_DIFFERENCE": 0,
+        "REFUND": 0,
+        "ADJUSTMENT": 0,
+        "TIMING_DIFFERENCE": 0,
+        "MISSING_SETTLEMENT": 0,
+        "DUPLICATE": 0,
+        "UNEXPLAINED_MISMATCH": 0
+      },
+      "FEE_DIFFERENCE": {
+        "EXACT_MATCH": 0,
+        "FEE_DIFFERENCE": 10,
+        "TAX_DIFFERENCE": 0,
+        "REFUND": 0,
+        "ADJUSTMENT": 0,
+        "TIMING_DIFFERENCE": 0,
+        "MISSING_SETTLEMENT": 0,
+        "DUPLICATE": 0,
+        "UNEXPLAINED_MISMATCH": 0
+      },
+      "TAX_DIFFERENCE": {
+        "EXACT_MATCH": 0,
+        "FEE_DIFFERENCE": 0,
+        "TAX_DIFFERENCE": 1,
+        "REFUND": 0,
+        "ADJUSTMENT": 0,
+        "TIMING_DIFFERENCE": 0,
+        "MISSING_SETTLEMENT": 0,
+        "DUPLICATE": 0,
+        "UNEXPLAINED_MISMATCH": 0
+      },
+      "REFUND": {
+        "EXACT_MATCH": 0,
+        "FEE_DIFFERENCE": 0,
+        "TAX_DIFFERENCE": 0,
+        "REFUND": 2,
+        "ADJUSTMENT": 0,
+        "TIMING_DIFFERENCE": 0,
+        "MISSING_SETTLEMENT": 0,
+        "DUPLICATE": 0,
+        "UNEXPLAINED_MISMATCH": 0
+      },
+      "ADJUSTMENT": {
+        "EXACT_MATCH": 0,
+        "FEE_DIFFERENCE": 0,
+        "TAX_DIFFERENCE": 0,
+        "REFUND": 0,
+        "ADJUSTMENT": 5,
+        "TIMING_DIFFERENCE": 0,
+        "MISSING_SETTLEMENT": 0,
+        "DUPLICATE": 0,
+        "UNEXPLAINED_MISMATCH": 0
+      },
+      "TIMING_DIFFERENCE": {
+        "EXACT_MATCH": 0,
+        "FEE_DIFFERENCE": 0,
+        "TAX_DIFFERENCE": 0,
+        "REFUND": 0,
+        "ADJUSTMENT": 0,
+        "TIMING_DIFFERENCE": 3,
+        "MISSING_SETTLEMENT": 0,
+        "DUPLICATE": 0,
+        "UNEXPLAINED_MISMATCH": 0
+      },
+      "MISSING_SETTLEMENT": {
+        "EXACT_MATCH": 0,
+        "FEE_DIFFERENCE": 0,
+        "TAX_DIFFERENCE": 0,
+        "REFUND": 0,
+        "ADJUSTMENT": 0,
+        "TIMING_DIFFERENCE": 0,
+        "MISSING_SETTLEMENT": 2,
+        "DUPLICATE": 0,
+        "UNEXPLAINED_MISMATCH": 0
+      },
+      "DUPLICATE": {
+        "EXACT_MATCH": 0,
+        "FEE_DIFFERENCE": 0,
+        "TAX_DIFFERENCE": 0,
+        "REFUND": 0,
+        "ADJUSTMENT": 0,
+        "TIMING_DIFFERENCE": 0,
+        "MISSING_SETTLEMENT": 0,
+        "DUPLICATE": 2,
+        "UNEXPLAINED_MISMATCH": 0
+      },
+      "UNEXPLAINED_MISMATCH": {
+        "EXACT_MATCH": 0,
+        "FEE_DIFFERENCE": 0,
+        "TAX_DIFFERENCE": 0,
+        "REFUND": 0,
+        "ADJUSTMENT": 0,
+        "TIMING_DIFFERENCE": 0,
+        "MISSING_SETTLEMENT": 0,
+        "DUPLICATE": 0,
+        "UNEXPLAINED_MISMATCH": 2
+      }
+    },
+    "action_breakdown": {
+      "AUTO_RESOLVE": 58,
+      "REVIEW_REQUIRED": 0,
+      "ESCALATE_FRAUD": 2
+    }
+  },
+  "cash_position": {
+    "as_of_date": "2026-08-31",
+    "settled_cash_cents": 25000000,
+    "in_flight_gateway_cents": 0,
+    "unsettled_ar_cents": 0,
+    "committed_ap_cents": 0,
+    "adjusted_net_cash_cents": 25000000
+  },
+  "forecast_report": {
+    "lowest_trough_balance_cents": 25250000,
+    "lowest_trough_date": "2026-09-01",
+    "trough_alert_triggered": false,
+    "horizon_summaries": {
+      "7_DAY": {
+        "horizon_days": 7,
+        "closing_date": "2026-09-07",
+        "total_inflows_cents": 1750000,
+        "total_outflows_cents": 0,
+        "net_change_cents": 1750000,
+        "closing_cash_cents": 26750000
+      },
+      "14_DAY": {
+        "horizon_days": 14,
+        "closing_date": "2026-09-14",
+        "total_inflows_cents": 3500000,
+        "total_outflows_cents": 0,
+        "net_change_cents": 3500000,
+        "closing_cash_cents": 28500000
+      },
+      "30_DAY": {
+        "horizon_days": 30,
+        "closing_date": "2026-09-30",
+        "total_inflows_cents": 7500000,
+        "total_outflows_cents": 0,
+        "net_change_cents": 7500000,
+        "closing_cash_cents": 32500000
+      }
+    }
+  },
+  "quarantined_exceptions": [
+    {
+      "scenario_id": "SCEN-ANOM-051",
+      "scenario_type": "DUPLICATE",
+      "risk_priority": "P1_HIGH",
+      "bank_line_id": "BNK-0051,BNK-0052",
+      "gateway_tx_id": null,
+      "erp_entry_id": "GL-00060",
+      "invoice_id": "INV-2026-0021",
+      "expected_status": "DUPLICATE_QUARANTINED",
+      "variance_cents": 175000,
+      "explanation": "Bank posted duplicate disbursement BNK-0052 of $1,750.00 for invoice INV-2026-0021."
+    },
+    {
+      "scenario_id": "SCEN-ANOM-052",
+      "scenario_type": "DUPLICATE",
+      "risk_priority": "P1_HIGH",
+      "bank_line_id": "BNK-0053",
+      "gateway_tx_id": null,
+      "erp_entry_id": "GL-00061,GL-00062",
+      "invoice_id": "INV-2026-0022",
+      "expected_status": "DUPLICATE_QUARANTINED",
+      "variance_cents": 98000,
+      "explanation": "ERP contains duplicate ledger entry GL-00062 for single bank disbursement of $980.00."
+    },
+    {
+      "scenario_id": "SCEN-ANOM-053",
+      "scenario_type": "MISSING_SETTLEMENT",
+      "risk_priority": "P1_HIGH",
+      "bank_line_id": null,
+      "gateway_tx_id": "GTW-0040",
+      "erp_entry_id": "GL-00063",
+      "invoice_id": null,
+      "expected_status": "SETTLEMENT_MISSING",
+      "variance_cents": 140765,
+      "explanation": "Gateway captured $1,450.00 on 2026-08-06 but payout never credited to operating bank account."
+    },
+    {
+      "scenario_id": "SCEN-ANOM-054",
+      "scenario_type": "MISSING_SETTLEMENT",
+      "risk_priority": "P1_HIGH",
+      "bank_line_id": null,
+      "gateway_tx_id": null,
+      "erp_entry_id": "GL-00064",
+      "invoice_id": "INV-2026-0023",
+      "expected_status": "UNPAID_INVOICE",
+      "variance_cents": 210000,
+      "explanation": "AP Invoice INV-2026-0023 for $2,100.00 booked in ERP but pending bank wire settlement."
+    },
+    {
+      "scenario_id": "SCEN-ANOM-055",
+      "scenario_type": "UNEXPLAINED_MISMATCH",
+      "risk_priority": "P0_CRITICAL",
+      "bank_line_id": "BNK-0054",
+      "gateway_tx_id": "GTW-0041",
+      "erp_entry_id": "GL-00065",
+      "invoice_id": null,
+      "expected_status": "UNEXPLAINED_VARIANCE",
+      "variance_cents": 12450,
+      "explanation": "Critical unexplained variance of $124.50 between bank deposit ($2,875.50) and ERP/Gateway ($3,000.00)."
+    },
+    {
+      "scenario_id": "SCEN-ANOM-056",
+      "scenario_type": "UNEXPLAINED_MISMATCH",
+      "risk_priority": "P0_CRITICAL",
+      "bank_line_id": "BNK-0055",
+      "gateway_tx_id": null,
+      "erp_entry_id": null,
+      "invoice_id": null,
+      "expected_status": "UNBOOKED_DEPOSIT",
+      "variance_cents": 1500000,
+      "explanation": "Unidentified bank wire of $15,000.00 received with no matching ERP journal entry or customer billing record."
+    },
+    {
+      "scenario_id": "SCEN-ANOM-057",
+      "scenario_type": "REFUND",
+      "risk_priority": "P2_MEDIUM",
+      "bank_line_id": "BNK-0056",
+      "gateway_tx_id": "GTW-0042",
+      "erp_entry_id": "GL-00066",
+      "invoice_id": null,
+      "expected_status": "REFUND_MATCHED",
+      "variance_cents": 0,
+      "explanation": "Processed customer refund of $150.00 matching gateway return, bank deduction, and ERP credit memo."
+    },
+    {
+      "scenario_id": "SCEN-ANOM-058",
+      "scenario_type": "REFUND",
+      "risk_priority": "P2_MEDIUM",
+      "bank_line_id": "BNK-0057",
+      "gateway_tx_id": "GTW-0043",
+      "erp_entry_id": "GL-00067",
+      "invoice_id": null,
+      "expected_status": "REFUND_MATCHED",
+      "variance_cents": 0,
+      "explanation": "Partial refund adjustment of $75.00 reconciled between gateway, bank debit, and ERP credit memo."
+    },
+    {
+      "scenario_id": "SCEN-ANOM-059",
+      "scenario_type": "TAX_DIFFERENCE",
+      "risk_priority": "P1_HIGH",
+      "bank_line_id": "BNK-0058",
+      "gateway_tx_id": "GTW-0044",
+      "erp_entry_id": "GL-00068",
+      "invoice_id": null,
+      "expected_status": "TAX_EXPLAINED",
+      "variance_cents": 8250,
+      "explanation": "Discrepancy of $82.50 explained by 8.25% state sales tax withheld by marketplace facilitator."
+    },
+    {
+      "scenario_id": "SCEN-ANOM-060",
+      "scenario_type": "TIMING_DIFFERENCE",
+      "risk_priority": "P2_MEDIUM",
+      "bank_line_id": "BNK-0059",
+      "gateway_tx_id": "GTW-0045",
+      "erp_entry_id": "GL-00069",
+      "invoice_id": null,
+      "expected_status": "TIMING_IN_FLIGHT",
+      "variance_cents": 0,
+      "explanation": "Transaction initiated 2026-08-31 posted in ERP August close; bank deposit received 2026-09-02 (T+2 cross-period settlement)."
+    }
+  ]
+}

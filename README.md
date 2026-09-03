@@ -99,40 +99,48 @@ This generates:
 - **23** AP Invoices
 - **60** Ground-Truth Reconciliation Scenarios
 
-### 3. Run Automated Tests & Evaluation Benchmark
+### 3. Launch the Application & Run Commands
 
-Execute the complete verification suite across all 5 phases via `pytest`:
+The system includes a unified root CLI runner `run.py`:
 
 ```bash
-# Run all 68 tests across Phases 0, 1, 2, 3, and 4
-pytest -v
+# 1. Launch the FastAPI server and Fintech Web Console
+python run.py --app
+# Console opens at http://localhost:8000
 
-# Run Phase 4 Cash Position & Forecasting tests specifically
-pytest -v tests/test_phase4_cash_forecasting.py
+# 2. Execute 20-Seed Monte Carlo Robustness Benchmark
+python run.py --benchmark --runs 20
+
+# 3. Generate Month-End Executive Reconciliation Audit Memo (Markdown, JSON, CSV)
+python run.py --report
+
+# 4. Run full automated test suite across all 6 phases (81 tests)
+pytest -v
 ```
 
-All 68 unit and benchmark tests validate:
+All 81 unit and benchmark tests validate:
 - **Phase 0**: Integer-cents precision invariance (zero float drift), normalizer utilities, domain model validation
 - **Phase 1**: Bijective atomic set locking, $O(1)$ exact matcher, subset-sum batch solver ($K \in [2, 6]$), throughput $> 70,000$ rec/sec
 - **Phase 2**: Prompt injection sanitization, ambiguity margin gating ($< 8\%$ gap triggers review), zero-failure fallback guarantee, 0% FPR on fraud, and 100% accuracy on the 60-scenario ground-truth matrix
 - **Phase 3**: P0-P4 operational risk ranking, double-entry ledger balance invariant enforcement ($\sum \text{Debits} == \sum \text{Credits}$), 4 human controller 1-click remediation actions, SQLite WAL concurrent writes, and SHA-256 cryptographic audit trail tamper detection
 - **Phase 4**: Real-time treasury cash positioning, monetary conservation invariant ($\Delta \text{Cash} == \sum \text{Inflows} - \sum \text{Outflows}$), $T+2$ gateway payout settlement simulation, 7/14/30-day milestone summaries, cash runway/burn calculations, liquidity trough alerting, and liquidity waterfall bridge closure
+- **Phase 5**: FastAPI REST endpoints, interactive Fintech Operations Console UI with Chart.js visualization, Slide-Out Transaction Inspector Drawer, Grounded Financial Copilot, Month-End Audit Memo generator, and 20-Seed Robustness Evaluation Suite
 
-### 4. Run Independent Ground-Truth Evaluation
+### 4. Key Benchmark Results Across 20 Independent Seeds
 
-Benchmark the reconciliation pipeline directly against the 60 canonical ground-truth scenarios:
-
-```bash
-python -c "from src.evaluation.evaluator import ReconciliationEvaluator; report = evaluator.run_benchmark(); print(report.model_dump_json(indent=2))"
 ```
-
-**Key Benchmark Results**:
-- **Baseline Deterministic Accuracy**: 80.00% (48/60 scenarios)
-- **Post-AI Final Accuracy**: 100.00% (60/60 scenarios)
-- **Accuracy Lift ($\Delta\%$)**: +20.00%
-- **Macro F1 Score**: 1.0000 (100.0%)
-- **Fraud False Positive Rate**: 0.00% (Zero Tolerance)
-- **Average AI Latency**: 0.02 ms (Local Heuristic Reasoner)
+======================================================================
+  AI FINANCE CONTROLLER -- 20-SEED ROBUSTNESS BENCHMARK RESULTS
+======================================================================
+  Total Independent Seed Runs : 20 (1,200 total synthetic scenarios)
+  Mean Classification Accuracy: 100.00% +/- 0.00%
+  Mean Macro Precision        : 100.00% +/- 0.00%
+  Mean Macro Recall           : 100.00% +/- 0.00%
+  Mean Macro F1 Score         : 1.0000 +/- 0.0000
+  Fraud False Positive Rate   : 0.00% (Max: 0.00%)
+======================================================================
+  [SUCCESS] Zero-Tolerance Fraud Security Invariant Verified Across All Seeds!
+```
 
 ---
 
@@ -143,6 +151,8 @@ python -c "from src.evaluation.evaluator import ReconciliationEvaluator; report 
 - [Phase 2 Verification Report](docs/phases/PHASE_2_REPORT.md)
 - [Phase 3 Verification Report](docs/phases/PHASE_3_REPORT.md)
 - [Phase 4 Verification Report](docs/phases/PHASE_4_REPORT.md)
+- [Phase 5 Verification Report](docs/phases/PHASE_5_REPORT.md)
+
 
 
 

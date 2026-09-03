@@ -1,0 +1,61 @@
+scenario_id,scenario_type,risk_priority,variance_cents,variance_display,expected_status,explanation
+SCEN-EX-001,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,"1:1 clean parity across Gateway ($3,502.43), Bank deposit, and ERP Cash receipt for Acme Corp."
+SCEN-EX-002,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,"1:1 clean parity across Gateway ($281.12), Bank deposit, and ERP Cash receipt for Globex Global."
+SCEN-EX-003,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,"1:1 clean parity across Gateway ($1,591.94), Bank deposit, and ERP Cash receipt for Initech LLC."
+SCEN-EX-004,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,"1:1 clean parity across Gateway ($1,320.26), Bank deposit, and ERP Cash receipt for Umbrella Enterprises."
+SCEN-EX-005,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,"1:1 clean parity across Gateway ($4,011.23), Bank deposit, and ERP Cash receipt for Hooli Cloud."
+SCEN-EX-006,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,"1:1 clean parity across Gateway ($3,697.85), Bank deposit, and ERP Cash receipt for Stark Industries."
+SCEN-EX-007,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,"1:1 clean parity across Gateway ($3,009.29), Bank deposit, and ERP Cash receipt for Wayne Logistics."
+SCEN-EX-008,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,"1:1 clean parity across Gateway ($3,245.88), Bank deposit, and ERP Cash receipt for Cyberdyne Systems."
+SCEN-EX-009,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,"1:1 clean parity across Gateway ($316.63), Bank deposit, and ERP Cash receipt for Soylent Corp."
+SCEN-EX-010,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,"1:1 clean parity across Gateway ($641.23), Bank deposit, and ERP Cash receipt for Massive Dynamic."
+SCEN-EX-011,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,"1:1 clean parity across Gateway ($1,369.81), Bank deposit, and ERP Cash receipt for Pied Piper."
+SCEN-EX-012,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,"1:1 clean parity across Gateway ($3,306.31), Bank deposit, and ERP Cash receipt for Dunder Mifflin."
+SCEN-EX-013,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,"1:1 clean parity across Gateway ($3,092.54), Bank deposit, and ERP Cash receipt for Wonka Confections."
+SCEN-EX-014,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,"1:1 clean parity across Gateway ($3,904.00), Bank deposit, and ERP Cash receipt for Bluth Development."
+SCEN-EX-015,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,"1:1 clean parity across Gateway ($3,826.96), Bank deposit, and ERP Cash receipt for Aperture Science."
+SCEN-EX-016,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,"1:1 clean match between AP Invoice INV-2026-0001 ($4,648.98), Bank debit, and ERP AP clearing for Datadog Inc."
+SCEN-EX-017,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,"1:1 clean match between AP Invoice INV-2026-0002 ($4,960.29), Bank debit, and ERP AP clearing for Snowflake Inc."
+SCEN-EX-018,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,"1:1 clean match between AP Invoice INV-2026-0003 ($3,167.04), Bank debit, and ERP AP clearing for Figma Design."
+SCEN-EX-019,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,"1:1 clean match between AP Invoice INV-2026-0004 ($1,924.14), Bank debit, and ERP AP clearing for Slack Technologies."
+SCEN-EX-020,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,"1:1 clean match between AP Invoice INV-2026-0005 ($3,817.78), Bank debit, and ERP AP clearing for GitHub Inc."
+SCEN-EX-021,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,"1:1 clean match between AP Invoice INV-2026-0006 ($1,880.32), Bank debit, and ERP AP clearing for Atlassian Corp."
+SCEN-EX-022,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,"1:1 clean match between AP Invoice INV-2026-0007 ($3,779.44), Bank debit, and ERP AP clearing for Twilio API."
+SCEN-EX-023,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,"1:1 clean match between AP Invoice INV-2026-0008 ($1,222.51), Bank debit, and ERP AP clearing for Zoom Video."
+SCEN-EX-024,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,"1:1 clean match between AP Invoice INV-2026-0009 ($1,264.14), Bank debit, and ERP AP clearing for Notion Labs."
+SCEN-EX-025,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,"1:1 clean match between AP Invoice INV-2026-0010 ($3,856.63), Bank debit, and ERP AP clearing for Fastly CDN."
+SCEN-EX-026,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,"1:1 clean match between AP Invoice INV-2026-0011 ($3,023.70), Bank debit, and ERP AP clearing for Vercel Inc."
+SCEN-EX-027,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,"1:1 clean match between AP Invoice INV-2026-0012 ($5,067.41), Bank debit, and ERP AP clearing for Cloudflare DNS."
+SCEN-EX-028,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,"1:1 clean match between AP Invoice INV-2026-0013 ($1,558.89), Bank debit, and ERP AP clearing for Docker Inc."
+SCEN-EX-029,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,"1:1 clean match between AP Invoice INV-2026-0014 ($1,076.27), Bank debit, and ERP AP clearing for MongoDB Atlas."
+SCEN-EX-030,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,"1:1 clean match between AP Invoice INV-2026-0015 ($3,324.19), Bank debit, and ERP AP clearing for PagerDuty Operations."
+SCEN-FEE-031,FEE_DIFFERENCE,P2_MEDIUM,5760,$57.60,FEE_EXPLAINED,"Customer gross payment of $1,976.00 was settled net $1,918.40 after standard Stripe fee deduction of $57.60 (2.9% + $0.30)."
+SCEN-FEE-032,FEE_DIFFERENCE,P2_MEDIUM,1320,$13.20,FEE_EXPLAINED,Customer gross payment of $444.66 was settled net $431.46 after standard Stripe fee deduction of $13.20 (2.9% + $0.30).
+SCEN-FEE-033,FEE_DIFFERENCE,P2_MEDIUM,3727,$37.27,FEE_EXPLAINED,"Customer gross payment of $1,274.84 was settled net $1,237.57 after standard Stripe fee deduction of $37.27 (2.9% + $0.30)."
+SCEN-FEE-034,FEE_DIFFERENCE,P2_MEDIUM,1475,$14.75,FEE_EXPLAINED,Customer gross payment of $498.33 was settled net $483.58 after standard Stripe fee deduction of $14.75 (2.9% + $0.30).
+SCEN-FEE-035,FEE_DIFFERENCE,P2_MEDIUM,1798,$17.98,FEE_EXPLAINED,Customer gross payment of $609.53 was settled net $591.55 after standard Stripe fee deduction of $17.98 (2.9% + $0.30).
+SCEN-FEE-036,FEE_DIFFERENCE,P2_MEDIUM,4488,$44.88,FEE_EXPLAINED,"Customer gross payment of $1,537.38 was settled net $1,492.50 after standard Stripe fee deduction of $44.88 (2.9% + $0.30)."
+SCEN-FEE-037,FEE_DIFFERENCE,P2_MEDIUM,5809,$58.09,FEE_EXPLAINED,"Customer gross payment of $1,992.77 was settled net $1,934.68 after standard Stripe fee deduction of $58.09 (2.9% + $0.30)."
+SCEN-FEE-038,FEE_DIFFERENCE,P2_MEDIUM,5890,$58.90,FEE_EXPLAINED,"Customer gross payment of $2,020.81 was settled net $1,961.91 after standard Stripe fee deduction of $58.90 (2.9% + $0.30)."
+SCEN-FEE-039,FEE_DIFFERENCE,P2_MEDIUM,3447,$34.47,FEE_EXPLAINED,"Customer gross payment of $1,178.42 was settled net $1,143.95 after standard Stripe fee deduction of $34.47 (2.9% + $0.30)."
+SCEN-FEE-040,FEE_DIFFERENCE,P2_MEDIUM,1348,$13.48,FEE_EXPLAINED,Customer gross payment of $454.35 was settled net $440.87 after standard Stripe fee deduction of $13.48 (2.9% + $0.30).
+SCEN-BUNDLE-041,ADJUSTMENT,P2_MEDIUM,3358,$33.58,BATCH_RECONCILED,"Consolidated wire deposit of $1,309.66 aggregates 2 transactions totaling $1,343.24 gross minus $33.58 total fees."
+SCEN-BUNDLE-042,ADJUSTMENT,P2_MEDIUM,4991,$49.91,BATCH_RECONCILED,"Consolidated wire deposit of $1,946.29 aggregates 4 transactions totaling $1,996.20 gross minus $49.91 total fees."
+SCEN-BUNDLE-043,ADJUSTMENT,P2_MEDIUM,2949,$29.49,BATCH_RECONCILED,"Consolidated wire deposit of $1,149.79 aggregates 2 transactions totaling $1,179.28 gross minus $29.49 total fees."
+SCEN-BUNDLE-044,ADJUSTMENT,P2_MEDIUM,2322,$23.22,BATCH_RECONCILED,Consolidated wire deposit of $905.76 aggregates 2 transactions totaling $928.98 gross minus $23.22 total fees.
+SCEN-BUNDLE-045,ADJUSTMENT,P2_MEDIUM,6104,$61.04,BATCH_RECONCILED,"Consolidated wire deposit of $2,380.55 aggregates 4 transactions totaling $2,441.59 gross minus $61.04 total fees."
+SCEN-FX-046,TIMING_DIFFERENCE,P2_MEDIUM,0,$0.00,FX_RESOLVED,"EUR 1,200.00 invoice from 'AWS Cloud Dublin' converted to USD $1,302.00 at FX rate 1.0850, matched to canonical 'AMAZON WEB SERVICES'."
+SCEN-FX-047,TIMING_DIFFERENCE,P2_MEDIUM,0,$0.00,FX_RESOLVED,"GBP 850.00 invoice converted at 1.2800 to USD $1,088.00, vendor alias 'DATADOG US' matched to 'DATADOG'."
+SCEN-ALIAS-048,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,Vendor alias 'MSFT AZURE' and bank descriptor 'MICROSOFT CORP' normalized and resolved to 'MICROSOFT AZURE'.
+SCEN-ALIAS-049,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,Vendor alias 'GOOGLE IRELAND' and descriptor 'GOOG CLOUD' mapped to canonical 'GOOGLE CLOUD PLATFORM'.
+SCEN-ALIAS-050,EXACT_MATCH,P4_NORMAL,0,$0.00,MATCHED,Vendor alias 'SNOWFLAKE COMPUTING' and statement 'SNOWFLAKE INC' resolved to canonical 'SNOWFLAKE'.
+SCEN-ANOM-051,DUPLICATE,P1_HIGH,175000,"$1,750.00",DUPLICATE_QUARANTINED,"Bank posted duplicate disbursement BNK-0052 of $1,750.00 for invoice INV-2026-0021."
+SCEN-ANOM-052,DUPLICATE,P1_HIGH,98000,$980.00,DUPLICATE_QUARANTINED,ERP contains duplicate ledger entry GL-00062 for single bank disbursement of $980.00.
+SCEN-ANOM-053,MISSING_SETTLEMENT,P1_HIGH,140765,"$1,407.65",SETTLEMENT_MISSING,"Gateway captured $1,450.00 on 2026-08-06 but payout never credited to operating bank account."
+SCEN-ANOM-054,MISSING_SETTLEMENT,P1_HIGH,210000,"$2,100.00",UNPAID_INVOICE,"AP Invoice INV-2026-0023 for $2,100.00 booked in ERP but pending bank wire settlement."
+SCEN-ANOM-055,UNEXPLAINED_MISMATCH,P0_CRITICAL,12450,$124.50,UNEXPLAINED_VARIANCE,"Critical unexplained variance of $124.50 between bank deposit ($2,875.50) and ERP/Gateway ($3,000.00)."
+SCEN-ANOM-056,UNEXPLAINED_MISMATCH,P0_CRITICAL,1500000,"$15,000.00",UNBOOKED_DEPOSIT,"Unidentified bank wire of $15,000.00 received with no matching ERP journal entry or customer billing record."
+SCEN-ANOM-057,REFUND,P2_MEDIUM,0,$0.00,REFUND_MATCHED,"Processed customer refund of $150.00 matching gateway return, bank deduction, and ERP credit memo."
+SCEN-ANOM-058,REFUND,P2_MEDIUM,0,$0.00,REFUND_MATCHED,"Partial refund adjustment of $75.00 reconciled between gateway, bank debit, and ERP credit memo."
+SCEN-ANOM-059,TAX_DIFFERENCE,P1_HIGH,8250,$82.50,TAX_EXPLAINED,Discrepancy of $82.50 explained by 8.25% state sales tax withheld by marketplace facilitator.
+SCEN-ANOM-060,TIMING_DIFFERENCE,P2_MEDIUM,0,$0.00,TIMING_IN_FLIGHT,Transaction initiated 2026-08-31 posted in ERP August close; bank deposit received 2026-09-02 (T+2 cross-period settlement).

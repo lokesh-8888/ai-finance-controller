@@ -1176,3 +1176,8 @@ if __name__ == "__main__":
     print(f"  - ERP Ledger Entries:   {len(ds.erp_entries)}")
     print(f"  - AP Invoices:          {len(ds.ap_invoices)}")
     print(f"  - Ground Truth Matrix:  {len(ds.ground_truth)} scenarios")
+
+
+# Alias for backward and forward compatibility
+SyntheticDataGenerator = SyntheticFinanceDataset
+

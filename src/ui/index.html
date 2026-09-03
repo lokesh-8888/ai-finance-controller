@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Finance Controller — Autonomous Reconciliation & Treasury Operations</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#ecfeff',
+              500: '#06b6d4',
+              600: '#0891b2',
+              900: '#164e63',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    code, .font-mono {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    /* Custom scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-cyan-500/30 selection:text-cyan-200">
+
+  <!-- Top Navigation Bar -->
+  <header class="sticky top-0 z-30 border-b border-slate-800/80 bg-slate-950/80 backdrop-blur-md px-6 py-3.5 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="h-9 w-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+        <i data-lucide="shield-check" class="h-5 w-5 text-white"></i>
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-base font-bold tracking-tight text-white">AI Finance Controller</span>
+          <span class="inline-flex items-center px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+            <span class="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse mr-1.5"></span>
+            LIVE SYSTEM
+          </span>
+        </div>
+        <p class="text-xs text-slate-400 font-mono">SOX-404 Audited &bull; Zero-Float Integer Cents &bull; SHA-256 Chained</p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <button onclick="openCopilot()" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700/80 text-xs font-medium text-slate-200 hover:bg-slate-800 hover:border-cyan-500/40 transition">
+        <i data-lucide="sparkles" class="h-4 w-4 text-cyan-400"></i>
+        <span>Ask Copilot</span>
+        <span class="px-1.5 py-0.5 rounded bg-slate-800 text-[10px] text-slate-400 font-mono">⌘K</span>
+      </button>
+      <button onclick="triggerRunReconciliation()" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-xs font-semibold text-white shadow-md shadow-cyan-600/20 transition">
+        <i data-lucide="refresh-cw" class="h-3.5 w-3.5" id="recon-spinner"></i>
+        <span>Run Reconciliation</span>
+      </button>
+      <button onclick="exportAuditMemo()" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-200 transition">
+        <i data-lucide="download" class="h-3.5 w-3.5"></i>
+        <span>Audit Memo</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="flex-1 max-w-[1600px] w-full mx-auto p-6 space-y-6">
+
+    <!-- Executive KPI Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+      <!-- KPI 1 -->
+      <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 shadow-sm relative overflow-hidden group hover:border-slate-700 transition">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-medium text-slate-400">Reconciled Volume</span>
+          <i data-lucide="banknote" class="h-4 w-4 text-cyan-400"></i>
+        </div>
+        <div class="mt-2 flex items-baseline gap-2">
+          <span class="text-2xl font-bold text-white font-mono" id="kpi-volume">$653,420.00</span>
+        </div>
+        <div class="mt-1 flex items-center text-xs text-emerald-400 font-medium">
+          <i data-lucide="arrow-up-right" class="h-3.5 w-3.5 mr-0.5"></i>
+          <span>100% Complete Ledger Parity</span>
+        </div>
+      </div>
+
+      <!-- KPI 2 -->
+      <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 shadow-sm relative overflow-hidden group hover:border-slate-700 transition">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-medium text-slate-400">Deterministic Match</span>
+          <i data-lucide="check-check" class="h-4 w-4 text-emerald-400"></i>
+        </div>
+        <div class="mt-2 flex items-baseline gap-2">
+          <span class="text-2xl font-bold text-white font-mono" id="kpi-deterministic">80.0%</span>
+          <span class="text-xs text-slate-400 font-mono">(48 / 60)</span>
+        </div>
+        <div class="mt-1 text-xs text-slate-400">
+          Stage 1 Exact &amp; Stage 2 Batches
+        </div>
+      </div>
+
+      <!-- KPI 3 -->
+      <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 shadow-sm relative overflow-hidden group hover:border-slate-700 transition">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-medium text-slate-400">AI Recovery Lift</span>
+          <i data-lucide="cpu" class="h-4 w-4 text-indigo-400"></i>
+        </div>
+        <div class="mt-2 flex items-baseline gap-2">
+          <span class="text-2xl font-bold text-white font-mono" id="kpi-recovery">+20.0%</span>
+          <span class="text-xs text-emerald-400 font-semibold">&rarr; 100% Final</span>
+        </div>
+        <div class="mt-1 text-xs text-slate-400 font-mono">
+          Macro F1: 1.0000 &bull; 0% Fraud FP
+        </div>
+      </div>
+
+      <!-- KPI 4 -->
+      <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 shadow-sm relative overflow-hidden group hover:border-slate-700 transition">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-medium text-slate-400">P0 Fraud Quarantined</span>
+          <i data-lucide="alert-triangle" class="h-4 w-4 text-rose-400"></i>
+        </div>
+        <div class="mt-2 flex items-baseline gap-2">
+          <span class="text-2xl font-bold text-rose-400 font-mono" id="kpi-p0">$15,124.50</span>
+          <span class="text-xs text-slate-400 font-mono">(2 items)</span>
+        </div>
+        <div class="mt-1 text-xs text-rose-300 font-medium">
+          Unbooked Wire &amp; Deposit Shortage
+        </div>
+      </div>
+
+      <!-- KPI 5 -->
+      <div class="p-4 rounded-xl bg-slate-900/80 border border-slate-800 shadow-sm relative overflow-hidden group hover:border-slate-700 transition">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-medium text-slate-400">Adjusted Net Cash</span>
+          <i data-lucide="compass" class="h-4 w-4 text-emerald-400"></i>
+        </div>
+        <div class="mt-2 flex items-baseline gap-2">
+          <span class="text-2xl font-bold text-emerald-400 font-mono" id="kpi-cash">$248,754.50</span>
+        </div>
+        <div class="mt-1 text-xs text-emerald-400 font-medium">
+          Runway: Infinite (Cash Positive)
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Section: Cash Trajectory & Waterfall Bridge -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Chart 1: 30-Day Forward Trajectory -->
+      <div class="p-5 rounded-xl bg-slate-900/80 border border-slate-800 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h2 class="text-sm font-semibold text-white flex items-center gap-2">
+              <i data-lucide="trending-up" class="h-4 w-4 text-cyan-400"></i>
+              30-Day Forward Cash Trajectory
+            </h2>
+            <p class="text-xs text-slate-400">Daily roll-forward cash projections with $50k safety threshold buffer</p>
+          </div>
+          <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+            T+2 Gateway Lag Modeled
+          </span>
+        </div>
+        <div class="h-64">
+          <canvas id="trajectoryChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Chart 2: Liquidity Waterfall Bridge -->
+      <div class="p-5 rounded-xl bg-slate-900/80 border border-slate-800 shadow-sm">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h2 class="text-sm font-semibold text-white flex items-center gap-2">
+              <i data-lucide="bar-chart-3" class="h-4 w-4 text-indigo-400"></i>
+              Liquidity Waterfall Bridge
+            </h2>
+            <p class="text-xs text-slate-400">Opening Settled Cash &rarr; Inflows &rarr; Outflows &rarr; Closing Net Cash</p>
+          </div>
+          <span class="px-2 py-0.5 rounded text-[11px] font-mono bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+            Balanced Conservation
+          </span>
+        </div>
+        <div class="h-64">
+          <canvas id="waterfallChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4-Way Transaction Stream Explorer -->
+    <div class="rounded-xl bg-slate-900/80 border border-slate-800 shadow-sm overflow-hidden">
+      <!-- Filter Bar -->
+      <div class="p-4 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-2">
+          <button onclick="setFilter('ALL')" id="tab-ALL" class="filter-tab px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-white transition">
+            All Records (60)
+          </button>
+          <button onclick="setFilter('MATCHED')" id="tab-MATCHED" class="filter-tab px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition">
+            Matched (48)
+          </button>
+          <button onclick="setFilter('AI_INVESTIGATED')" id="tab-AI_INVESTIGATED" class="filter-tab px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition">
+            AI Resolved (10)
+          </button>
+          <button onclick="setFilter('EXCEPTIONS')" id="tab-EXCEPTIONS" class="filter-tab px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition">
+            P0/P1 Exceptions (10)
+          </button>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <div class="relative">
+            <i data-lucide="search" class="absolute left-3 top-2.5 h-3.5 w-3.5 text-slate-500"></i>
+            <input type="text" id="searchInput" oninput="handleSearch()" placeholder="Search ID, counterparty, memo..." class="w-64 pl-8 pr-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500/50 transition">
+          </div>
+          <select id="priorityFilter" onchange="handleSearch()" class="px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-xs text-slate-300 focus:outline-none focus:border-cyan-500/50">
+            <option value="">All Priorities</option>
+            <option value="P0_CRITICAL">P0 Critical</option>
+            <option value="P1_HIGH">P1 High</option>
+            <option value="P2_MEDIUM">P2 Medium</option>
+            <option value="P4_NORMAL">P4 Normal</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Records Table -->
+      <div class="overflow-x-auto max-h-[500px]">
+        <table class="w-full text-left text-xs text-slate-300">
+          <thead class="sticky top-0 bg-slate-950/95 border-b border-slate-800 text-[11px] font-semibold text-slate-400 uppercase tracking-wider font-mono">
+            <tr>
+              <th class="px-4 py-3">Record ID</th>
+              <th class="px-4 py-3">Scenario Type</th>
+              <th class="px-4 py-3">Status</th>
+              <th class="px-4 py-3">Risk Tier</th>
+              <th class="px-4 py-3 text-right">Variance / Cents</th>
+              <th class="px-4 py-3">Forensic Explanation</th>
+              <th class="px-4 py-3 text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody id="streamTableBody" class="divide-y divide-slate-800/60 font-mono">
+            <!-- Dynamic Rows -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Slide-Out Forensic Transaction Inspection Drawer -->
+  <div id="drawerBackdrop" onclick="closeDrawer()" class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-40 hidden transition-opacity"></div>
+  <aside id="inspectorDrawer" class="fixed top-0 right-0 h-full w-full max-w-xl bg-slate-900 border-l border-slate-800 shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col">
+    <!-- Drawer Header -->
+    <div class="p-5 border-b border-slate-800 flex items-center justify-between">
+      <div class="flex items-center gap-2.5">
+        <div class="h-8 w-8 rounded-lg bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center">
+          <i data-lucide="microscope" class="h-4 w-4 text-cyan-400"></i>
+        </div>
+        <div>
+          <h2 class="text-sm font-bold text-white">Forensic Transaction Inspector</h2>
+          <p class="text-[11px] text-slate-400 font-mono" id="drawerRecordId">REC-XXXX</p>
+        </div>
+      </div>
+      <button onclick="closeDrawer()" class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition">
+        <i data-lucide="x" class="h-5 w-5"></i>
+      </button>
+    </div>
+
+    <!-- Drawer Content -->
+    <div class="flex-1 overflow-y-auto p-5 space-y-5 text-xs">
+      <!-- Target Summary Box -->
+      <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2 font-mono">
+        <div class="flex justify-between items-center text-slate-400">
+          <span>Scenario Classification</span>
+          <span id="drawerScenarioType" class="text-white font-semibold">EXACT_MATCH</span>
+        </div>
+        <div class="flex justify-between items-center text-slate-400">
+          <span>Operational Risk Tier</span>
+          <span id="drawerRiskPriority" class="px-2 py-0.5 rounded text-[10px] font-bold">P4_NORMAL</span>
+        </div>
+        <div class="flex justify-between items-center text-slate-400">
+          <span>Discrepancy / Variance</span>
+          <span id="drawerVariance" class="text-white font-bold text-sm">$0.00</span>
+        </div>
+        <div class="flex justify-between items-center text-slate-400">
+          <span>AI Confidence Score</span>
+          <div class="flex items-center gap-2">
+            <div class="w-24 h-2 rounded-full bg-slate-800 overflow-hidden">
+              <div id="drawerConfidenceBar" class="h-full bg-emerald-400 rounded-full" style="width: 100%"></div>
+            </div>
+            <span id="drawerConfidenceVal" class="text-emerald-400 font-bold">1.00</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Matched Sources Section -->
+      <div>
+        <h3 class="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-mono">Multi-Source Audit References</h3>
+        <div id="drawerSourcesList" class="space-y-1.5 font-mono">
+          <!-- Dynamic sources -->
+        </div>
+      </div>
+
+      <!-- AI Chain-of-Thought Findings -->
+      <div>
+        <h3 class="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-mono">Forensic Chain-of-Thought Explanation</h3>
+        <div class="p-3.5 rounded-xl bg-slate-950/80 border border-slate-800/80 text-slate-300 text-xs leading-relaxed" id="drawerExplanation">
+          Explanation text...
+        </div>
+      </div>
+
+      <!-- Rule Evaluation Log -->
+      <div>
+        <h3 class="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-mono">Multi-Pass Rule Log</h3>
+        <div id="drawerRuleTrace" class="p-3 rounded-lg bg-slate-950 border border-slate-800/60 font-mono text-[11px] text-slate-400 space-y-1">
+          <!-- Trace steps -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Drawer Footer / 1-Click Action Triggers -->
+    <div class="p-4 border-t border-slate-800 bg-slate-950/60 flex items-center gap-2">
+      <button onclick="openRemediationModal('APPROVE')" class="flex-1 py-2 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs transition flex items-center justify-center gap-1.5">
+        <i data-lucide="check" class="h-3.5 w-3.5"></i>
+        Approve
+      </button>
+      <button onclick="openRemediationModal('POST_GL')" class="flex-1 py-2 px-3 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-semibold text-xs transition flex items-center justify-center gap-1.5">
+        <i data-lucide="file-plus" class="h-3.5 w-3.5"></i>
+        Post GL
+      </button>
+      <button onclick="openRemediationModal('DISPUTE')" class="flex-1 py-2 px-3 rounded-lg bg-amber-600 hover:bg-amber-500 text-white font-semibold text-xs transition flex items-center justify-center gap-1.5">
+        <i data-lucide="flag" class="h-3.5 w-3.5"></i>
+        Dispute
+      </button>
+      <button onclick="openRemediationModal('WRITE_OFF')" class="flex-1 py-2 px-3 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-semibold text-xs transition flex items-center justify-center gap-1.5">
+        <i data-lucide="trash-2" class="h-3.5 w-3.5"></i>
+        Write-Off
+      </button>
+    </div>
+  </aside>
+
+  <!-- 1-Click Human Remediation Modal -->
+  <div id="remediationModal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <h3 class="text-sm font-bold text-white flex items-center gap-2" id="modalTitle">
+          Remediation Action
+        </h3>
+        <button onclick="closeRemediationModal()" class="text-slate-400 hover:text-white">
+          <i data-lucide="x" class="h-4 w-4"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block text-slate-400 font-medium mb-1">Target Exception ID</label>
+          <input type="text" id="modalExceptionId" readonly class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-slate-300 font-mono">
+        </div>
+
+        <div id="modalDynamicFields">
+          <!-- Dynamic inputs based on action -->
+        </div>
+
+        <div>
+          <label class="block text-slate-400 font-medium mb-1" id="modalRationaleLabel">Controller Rationale</label>
+          <textarea id="modalRationale" rows="3" placeholder="Enter financial business justification..." class="w-full px-3 py-2 rounded-lg bg-slate-950 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500"></textarea>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-800">
+        <button onclick="closeRemediationModal()" class="px-3.5 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">Cancel</button>
+        <button onclick="submitRemediation()" id="modalSubmitBtn" class="px-4 py-1.5 rounded-lg text-xs font-semibold bg-cyan-600 hover:bg-cyan-500 text-white transition">Confirm &amp; Commit</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Embedded Grounded Copilot Drawer -->
+  <div id="copilotDrawer" class="fixed bottom-4 right-4 w-96 max-h-[550px] bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl z-40 hidden flex flex-col overflow-hidden">
+    <div class="p-3.5 bg-slate-950 border-b border-slate-800 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <i data-lucide="bot" class="h-4 w-4 text-cyan-400"></i>
+        <span class="text-xs font-bold text-white">Grounded Financial Copilot</span>
+      </div>
+      <button onclick="closeCopilot()" class="text-slate-400 hover:text-white">
+        <i data-lucide="x" class="h-4 w-4"></i>
+      </button>
+    </div>
+
+    <!-- Messages Container -->
+    <div id="copilotMessages" class="flex-1 overflow-y-auto p-4 space-y-3 text-xs">
+      <div class="p-3 rounded-xl bg-slate-950 border border-slate-800/80 text-slate-300">
+        👋 I am your <strong>Grounded Financial Copilot</strong>. I answer queries strictly from live verified ledger records.
+        <div class="mt-2.5 flex flex-wrap gap-1.5">
+          <button onclick="askCopilotPrompt(this.innerText)" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-[10px] text-cyan-300 transition">What is our overall reconciliation match rate?</button>
+          <button onclick="askCopilotPrompt(this.innerText)" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-[10px] text-rose-300 transition">List all P0 critical exceptions and unbooked wires</button>
+          <button onclick="askCopilotPrompt(this.innerText)" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-[10px] text-emerald-300 transition">What is our projected cash runway and 30-day cash position?</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input Box -->
+    <div class="p-3 border-t border-slate-800 bg-slate-950">
+      <form onsubmit="sendCopilotMessage(event)" class="flex gap-2">
+        <input type="text" id="copilotInput" placeholder="Ask about match rates, P0 fraud, runway..." class="flex-1 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500">
+        <button type="submit" class="p-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white transition">
+          <i data-lucide="send" class="h-4 w-4"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Application Logic Scripts -->
+  <script>
+    let allRecords = [];
+    let currentFilter = 'ALL';
+    let selectedRecord = null;
+    let currentModalAction = null;
+    let trajectoryChartInstance = null;
+    let waterfallChartInstance = null;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      lucide.createIcons();
+      await loadKPIs();
+      await loadCharts();
+      await loadRecords();
+    });
+
+    async function loadKPIs() {
+      try {
+        const res = await fetch('/api/v1/reconcile/kpis');
+        if (!res.ok) return;
+        const data = await res.json();
+        document.getElementById('kpi-volume').innerText = data.total_volume_display;
+        document.getElementById('kpi-deterministic').innerText = data.deterministic_match_rate_pct.toFixed(1) + '%';
+        document.getElementById('kpi-recovery').innerText = '+' + data.ai_recovery_rate_pct.toFixed(1) + '%';
+        document.getElementById('kpi-p0').innerText = data.p0_exposure_display;
+        document.getElementById('kpi-cash').innerText = data.adjusted_cash_display;
+      } catch (err) {
+        console.error('KPI fetch error:', err);
+      }
+    }
+
+    async function loadCharts() {
+      try {
+        // 1. Forward Trajectory Chart
+        const trajRes = await fetch('/api/v1/forecast/trajectory');
+        if (trajRes.ok) {
+          const traj = await trajRes.json();
+          renderTrajectoryChart(traj);
+        }
+
+        // 2. Waterfall Bridge Chart
+        const wfRes = await fetch('/api/v1/forecast/waterfall');
+        if (wfRes.ok) {
+          const wf = await wfRes.json();
+          renderWaterfallChart(wf);
+        }
+      } catch (err) {
+        console.error('Charts load error:', err);
+      }
+    }
+
+    function renderTrajectoryChart(data) {
+      const ctx = document.getElementById('trajectoryChart').getContext('2d');
+      if (trajectoryChartInstance) trajectoryChartInstance.destroy();
+
+      const balances = data.closing_balances_cents.map(c => c / 100);
+      const labels = data.dates.map(d => d.slice(5)); // MM-DD
+
+      trajectoryChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: 'Projected Cash ($)',
+              data: balances,
+              borderColor: '#06b6d4',
+              backgroundColor: 'rgba(6, 182, 212, 0.1)',
+              fill: true,
+              tension: 0.3,
+              borderWidth: 2,
+              pointRadius: 2,
+            },
+            {
+              label: 'Safety Buffer ($50k)',
+              data: Array(labels.length).fill(50000),
+              borderColor: '#f43f5e',
+              borderDash: [5, 5],
+              borderWidth: 1.5,
+              fill: false,
+              pointRadius: 0,
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { labels: { color: '#94a3b8', font: { size: 10 } } }
+          },
+          scales: {
+            x: { ticks: { color: '#64748b', font: { size: 10 } }, grid: { color: '#1e293b' } },
+            y: { ticks: { color: '#64748b', font: { size: 10 }, callback: v => '$' + v.toLocaleString() }, grid: { color: '#1e293b' } }
+          }
+        }
+      });
+    }
+
+    function renderWaterfallChart(bridge) {
+      const ctx = document.getElementById('waterfallChart').getContext('2d');
+      if (waterfallChartInstance) waterfallChartInstance.destroy();
+
+      const labels = bridge.items.map(i => i.label);
+      const amounts = bridge.items.map(i => i.amount_cents / 100);
+      const colors = bridge.items.map(i => {
+        if (i.category === 'OPENING' || i.category === 'CLOSING') return '#6366f1';
+        return i.amount_cents >= 0 ? '#10b981' : '#f43f5e';
+      });
+
+      waterfallChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            data: amounts,
+            backgroundColor: colors,
+            borderRadius: 4,
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false }
+          },
+          scales: {
+            x: { ticks: { color: '#64748b', font: { size: 9 }, maxRotation: 20 }, grid: { color: '#1e293b' } },
+            y: { ticks: { color: '#64748b', font: { size: 10 }, callback: v => '$' + v.toLocaleString() }, grid: { color: '#1e293b' } }
+          }
+        }
+      });
+    }
+
+    async function loadRecords() {
+      try {
+        const res = await fetch(`/api/v1/reconcile/records?status=${currentFilter}`);
+        if (!res.ok) return;
+        allRecords = await res.json();
+        renderTable(allRecords);
+      } catch (err) {
+        console.error('Records load error:', err);
+      }
+    }
+
+    function renderTable(records) {
+      const tbody = document.getElementById('streamTableBody');
+      tbody.innerHTML = '';
+
+      if (records.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" class="px-4 py-8 text-center text-slate-500">No transactions matching filter criteria.</td></tr>`;
+        return;
+      }
+
+      records.forEach(rec => {
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-slate-900/90 cursor-pointer transition";
+        tr.onclick = () => openDrawer(rec.id);
+
+        let priorityBadge = '';
+        if (rec.risk_priority === 'P0_CRITICAL') {
+          priorityBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/10 text-rose-400 border border-rose-500/30">P0 CRITICAL</span>`;
+        } else if (rec.risk_priority === 'P1_HIGH') {
+          priorityBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/10 text-amber-400 border border-amber-500/30">P1 HIGH</span>`;
+        } else if (rec.risk_priority === 'P2_MEDIUM') {
+          priorityBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-500/10 text-cyan-400 border border-cyan-500/30">P2 MEDIUM</span>`;
+        } else {
+          priorityBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-400">P4 NORMAL</span>`;
+        }
+
+        let statusPill = '';
+        if (rec.status === 'MATCHED') {
+          statusPill = `<span class="text-emerald-400 font-semibold flex items-center gap-1"><span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>Matched</span>`;
+        } else if (rec.status === 'AI_INVESTIGATED') {
+          statusPill = `<span class="text-indigo-400 font-semibold flex items-center gap-1"><span class="h-1.5 w-1.5 rounded-full bg-indigo-400"></span>AI Resolved</span>`;
+        } else {
+          statusPill = `<span class="text-rose-400 font-semibold flex items-center gap-1"><span class="h-1.5 w-1.5 rounded-full bg-rose-400"></span>Exception</span>`;
+        }
+
+        tr.innerHTML = `
+          <td class="px-4 py-3 font-semibold text-white">${rec.id}</td>
+          <td class="px-4 py-3 text-slate-300 font-semibold">${rec.scenario_type}</td>
+          <td class="px-4 py-3">${statusPill}</td>
+          <td class="px-4 py-3">${priorityBadge}</td>
+          <td class="px-4 py-3 text-right font-bold ${rec.variance_cents > 0 ? 'text-rose-400' : 'text-slate-300'}">${rec.variance_display}</td>
+          <td class="px-4 py-3 text-slate-400 max-w-xs truncate font-sans text-xs">${rec.explanation}</td>
+          <td class="px-4 py-3 text-center">
+            <button onclick="event.stopPropagation(); openDrawer('${rec.id}')" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-[11px] text-cyan-300 transition">
+              Inspect
+            </button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+      lucide.createIcons();
+    }
+
+    function setFilter(filter) {
+      currentFilter = filter;
+      document.querySelectorAll('.filter-tab').forEach(b => {
+        b.className = 'filter-tab px-3 py-1.5 rounded-lg text-xs font-semibold text-slate-400 hover:text-white transition';
+      });
+      document.getElementById(`tab-${filter}`).className = 'filter-tab px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-white transition';
+      loadRecords();
+    }
+
+    function handleSearch() {
+      const query = document.getElementById('searchInput').value.toUpperCase();
+      const priority = document.getElementById('priorityFilter').value;
+
+      const filtered = allRecords.filter(r => {
+        const matchesQuery = !query || `${r.id} ${r.scenario_id} ${r.scenario_type} ${r.explanation}`.toUpperCase().includes(query);
+        const matchesPriority = !priority || r.risk_priority === priority;
+        return matchesQuery && matchesPriority;
+      });
+      renderTable(filtered);
+    }
+
+    async function openDrawer(recordId) {
+      try {
+        const res = await fetch(`/api/v1/reconcile/records/${recordId}`);
+        if (!res.ok) return;
+        selectedRecord = await res.json();
+
+        document.getElementById('drawerRecordId').innerText = selectedRecord.record_id;
+        document.getElementById('drawerScenarioType').innerText = selectedRecord.scenario_type;
+        document.getElementById('drawerVariance').innerText = selectedRecord.variance_display;
+        document.getElementById('drawerExplanation').innerText = selectedRecord.explanation;
+
+        const pBadge = document.getElementById('drawerRiskPriority');
+        pBadge.innerText = selectedRecord.risk_priority;
+        pBadge.className = selectedRecord.risk_priority === 'P0_CRITICAL' 
+          ? 'px-2 py-0.5 rounded text-[10px] font-bold bg-rose-500/20 text-rose-300 border border-rose-500/30'
+          : 'px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-300';
+
+        document.getElementById('drawerConfidenceVal').innerText = selectedRecord.confidence_score.toFixed(2);
+        document.getElementById('drawerConfidenceBar').style.width = (selectedRecord.confidence_score * 100) + '%';
+
+        // Sources list
+        const sList = document.getElementById('drawerSourcesList');
+        sList.innerHTML = '';
+        selectedRecord.sources.forEach(s => {
+          const item = document.createElement('div');
+          item.className = "flex justify-between items-center p-2 rounded bg-slate-950/60 border border-slate-800 text-[11px]";
+          item.innerHTML = `<span class="text-slate-400">${s.source}:</span> <span class="text-cyan-400 font-bold">${s.id}</span>`;
+          sList.appendChild(item);
+        });
+
+        // Trace list
+        const tList = document.getElementById('drawerRuleTrace');
+        tList.innerHTML = '';
+        selectedRecord.rule_trace.forEach(t => {
+          const step = document.createElement('div');
+          step.innerHTML = `&bull; ${t}`;
+          tList.appendChild(step);
+        });
+
+        document.getElementById('drawerBackdrop').classList.remove('hidden');
+        document.getElementById('inspectorDrawer').classList.remove('translate-x-full');
+      } catch (err) {
+        console.error('Drawer error:', err);
+      }
+    }
+
+    function closeDrawer() {
+      document.getElementById('drawerBackdrop').classList.add('hidden');
+      document.getElementById('inspectorDrawer').classList.add('translate-x-full');
+    }
+
+    function openRemediationModal(action) {
+      currentModalAction = action;
+      document.getElementById('modalExceptionId').value = selectedRecord ? selectedRecord.record_id : 'EX-001';
+      const dynamicFields = document.getElementById('modalDynamicFields');
+      dynamicFields.innerHTML = '';
+
+      const title = document.getElementById('modalTitle');
+      const submitBtn = document.getElementById('modalSubmitBtn');
+
+      if (action === 'APPROVE') {
+        title.innerHTML = `<i data-lucide="check" class="h-4 w-4 text-emerald-400"></i> Approve Variance`;
+        submitBtn.className = "px-4 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 hover:bg-emerald-500 text-white transition";
+      } else if (action === 'POST_GL') {
+        title.innerHTML = `<i data-lucide="file-plus" class="h-4 w-4 text-cyan-400"></i> Post Compensating GL Entry`;
+        submitBtn.className = "px-4 py-1.5 rounded-lg text-xs font-semibold bg-cyan-600 hover:bg-cyan-500 text-white transition";
+        dynamicFields.innerHTML = `
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-slate-400 font-medium mb-1">Debit GL Account</label>
+              <input type="text" id="glDebit" value="6010-Processing Fees" class="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-white font-mono">
+            </div>
+            <div>
+              <label class="block text-slate-400 font-medium mb-1">Credit GL Account</label>
+              <input type="text" id="glCredit" value="1010-Operating Cash" class="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-white font-mono">
+            </div>
+          </div>
+          <div>
+            <label class="block text-slate-400 font-medium mb-1">Amount (Cents)</label>
+            <input type="number" id="glAmount" value="${selectedRecord ? Math.abs(selectedRecord.variance_cents) : 10000}" class="w-full px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-white font-mono">
+          </div>
+        `;
+      } else if (action === 'DISPUTE') {
+        title.innerHTML = `<i data-lucide="flag" class="h-4 w-4 text-amber-400"></i> File Dispute Ticket`;
+        submitBtn.className = "px-4 py-1.5 rounded-lg text-xs font-semibold bg-amber-600 hover:bg-amber-500 text-white transition";
+      } else if (action === 'WRITE_OFF') {
+        title.innerHTML = `<i data-lucide="trash-2" class="h-4 w-4 text-rose-400"></i> Write-Off Uncollectible to Bad Debt`;
+        submitBtn.className = "px-4 py-1.5 rounded-lg text-xs font-semibold bg-rose-600 hover:bg-rose-500 text-white transition";
+      }
+
+      document.getElementById('remediationModal').classList.remove('hidden');
+      lucide.createIcons();
+    }
+
+    function closeRemediationModal() {
+      document.getElementById('remediationModal').classList.add('hidden');
+    }
+
+    async function submitRemediation() {
+      const excId = document.getElementById('modalExceptionId').value;
+      const rationale = document.getElementById('modalRationale').value || "Controller approved remediation";
+      let endpoint = '';
+      let payload = {};
+
+      if (currentModalAction === 'APPROVE') {
+        endpoint = '/api/v1/workbench/approve-variance';
+        payload = { exception_id: excId, reason: rationale };
+      } else if (currentModalAction === 'POST_GL') {
+        endpoint = '/api/v1/workbench/post-gl-entry';
+        const debit = document.getElementById('glDebit').value;
+        const credit = document.getElementById('glCredit').value;
+        const amt = parseInt(document.getElementById('glAmount').value, 10);
+        payload = { exception_id: excId, debit_account: debit, credit_account: credit, amount_cents: amt, memo: rationale };
+      } else if (currentModalAction === 'DISPUTE') {
+        endpoint = '/api/v1/workbench/file-dispute';
+        payload = { exception_id: excId, dispute_reason: rationale };
+      } else if (currentModalAction === 'WRITE_OFF') {
+        endpoint = '/api/v1/workbench/write-off';
+        payload = { exception_id: excId, justification: rationale };
+      }
+
+      try {
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (res.ok) {
+          const result = await res.json();
+          alert(`Success: ${result.message}`);
+          closeRemediationModal();
+          closeDrawer();
+          await loadKPIs();
+          await loadRecords();
+        } else {
+          const err = await res.json();
+          alert(`Error: ${err.detail || 'Remediation failed'}`);
+        }
+      } catch (err) {
+        alert(`Network error: ${err.message}`);
+      }
+    }
+
+    async function triggerRunReconciliation() {
+      const spinner = document.getElementById('recon-spinner');
+      spinner.classList.add('animate-spin');
+      try {
+        await fetch('/api/v1/reconcile/run', { method: 'POST' });
+        await loadKPIs();
+        await loadCharts();
+        await loadRecords();
+      } finally {
+        spinner.classList.remove('animate-spin');
+      }
+    }
+
+    async function exportAuditMemo() {
+      try {
+        const res = await fetch('/api/v1/reports/export', { method: 'POST' });
+        const data = await res.json();
+        alert(`Audit Memo generated and saved to data/reports/:\n${Object.values(data.exported_files).join('\n')}`);
+      } catch (err) {
+        alert('Export error: ' + err.message);
+      }
+    }
+
+    function openCopilot() {
+      document.getElementById('copilotDrawer').classList.remove('hidden');
+      document.getElementById('copilotInput').focus();
+    }
+
+    function closeCopilot() {
+      document.getElementById('copilotDrawer').classList.add('hidden');
+    }
+
+    function askCopilotPrompt(promptText) {
+      document.getElementById('copilotInput').value = promptText;
+      document.getElementById('copilotInput').form.dispatchEvent(new Event('submit'));
+    }
+
+    async function sendCopilotMessage(e) {
+      e.preventDefault();
+      const input = document.getElementById('copilotInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const container = document.getElementById('copilotMessages');
+
+      // User Message
+      const userMsg = document.createElement('div');
+      userMsg.className = "p-2.5 rounded-lg bg-cyan-950/60 border border-cyan-800/60 text-cyan-200 self-end ml-6 text-right";
+      userMsg.innerText = text;
+      container.appendChild(userMsg);
+      input.value = '';
+
+      // Assistant Message Placeholder
+      const botMsg = document.createElement('div');
+      botMsg.className = "p-2.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-300 mr-6";
+      botMsg.innerHTML = `<span class="animate-pulse text-cyan-400">&bull; &bull; &bull; Investigating database state...</span>`;
+      container.appendChild(botMsg);
+      container.scrollTop = container.scrollHeight;
+
+      try {
+        const res = await fetch('/api/v1/copilot/query', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query: text })
+        });
+        const data = await res.json();
+        botMsg.innerHTML = `
+          <div>${data.answer.replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</div>
+          <div class="mt-2 pt-2 border-t border-slate-800/80 text-[10px] text-slate-500 font-mono">
+            Sources: ${data.citations.join(', ')}
+          </div>
+        `;
+      } catch (err) {
+        botMsg.innerHTML = `<span class="text-rose-400">Error connecting to copilot: ${err.message}</span>`;
+      }
+      container.scrollTop = container.scrollHeight;
+    }
+  </script>
+</body>
+</html>
