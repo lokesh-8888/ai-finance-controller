@@ -82,100 +82,177 @@
       background: rgba(255, 255, 255, 0.25);
     }
 
-    /* Active Nav Tab */
-    .top-nav-btn.active {
-      background: rgba(255, 255, 255, 0.1);
+    /* Active Sidebar Nav Tab (matching user reference) */
+    .sidebar-nav-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.625rem 0.875rem;
+      border-radius: 0.75rem;
+      color: #94a3b8;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      transition: all 0.15s ease;
+      border: 1px solid transparent;
+      width: 100%;
+      text-align: left;
+    }
+    .sidebar-nav-btn:hover {
       color: #ffffff;
-      border-color: rgba(255, 255, 255, 0.2);
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+    .sidebar-nav-btn.active {
+      background-color: #131d33;
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.12);
+      box-shadow: 0 4px 14px -2px rgba(0, 0, 0, 0.5);
+    }
+    .sidebar-nav-btn.active i {
+      color: #38bdf8;
+    }
+
+    /* Active Multi-Dimension Toggle Pill */
+    .recon-toggle-btn.active {
+      background-color: rgba(255, 255, 255, 0.14) !important;
+      color: #ffffff !important;
+      border-color: rgba(255, 255, 255, 0.28) !important;
+      box-shadow: 0 2px 8px -1px rgba(0, 0, 0, 0.4);
     }
   </style>
 </head>
 
-<body class="min-h-screen bg-grid-pattern flex flex-col antialiased selection:bg-emerald-500/30 selection:text-emerald-200">
+<body class="min-h-screen bg-[#090d16] text-[#f1f5f9] flex antialiased selection:bg-emerald-500/30 selection:text-emerald-200 overflow-x-hidden font-sans">
 
   <!-- ========================================================= -->
-  <!-- 1. TOP EXECUTIVE NAVBAR (Original Brand & 5 Workspaces)   -->
+  <!-- 1. LEFT EXECUTIVE SIDEBAR (Matching User Reference Image)  -->
   <!-- ========================================================= -->
-  <header class="sticky top-0 z-30 border-b border-white/[0.08] bg-[#090d16]/90 backdrop-blur-xl shrink-0">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+  <aside id="app-sidebar" class="w-64 shrink-0 min-h-screen bg-[#0d1424] border-r border-white/[0.08] flex flex-col justify-between sticky top-0 h-screen z-40 select-none">
+    
+    <!-- Top Brand & Navigation Section -->
+    <div class="p-5 space-y-6">
       
-      <!-- Brand & Purpose -->
-      <div class="flex items-center gap-3.5 shrink-0">
-        <div class="relative flex items-center justify-center w-11 h-11 rounded-2xl bg-gradient-to-tr from-emerald-600 via-teal-500 to-cyan-400 p-[1.5px] shadow-lg shadow-emerald-900/40">
-          <div class="w-full h-full bg-[#0d1424] rounded-[14px] flex items-center justify-center">
-            <i data-lucide="shield-check" class="w-6 h-6 text-emerald-400"></i>
+      <!-- Brand & Purpose (Preserves AI Finance Controller for tests) -->
+      <div class="flex items-start gap-3">
+        <div class="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-500 to-cyan-400 p-[1.5px] shadow-lg shadow-blue-900/40 shrink-0">
+          <div class="w-full h-full bg-[#0d1424] rounded-[10px] flex items-center justify-center">
+            <i data-lucide="shield-check" class="w-5 h-5 text-blue-400"></i>
           </div>
         </div>
-        <div>
-          <div class="flex items-center gap-2.5">
-            <h1 class="text-base font-bold text-white tracking-tight leading-tight flex items-center gap-2">
-              <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent font-extrabold">VeraLedger AI</span>
-              <span class="text-xs font-semibold text-slate-400 font-mono">| AI Finance Controller</span>
-            </h1>
-            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-              Live Engine
-            </span>
+        <div class="min-w-0">
+          <div class="flex items-center gap-1.5">
+            <h1 class="text-sm font-bold text-white tracking-tight leading-tight truncate">VeraLedger AI</h1>
           </div>
-          <p class="text-xs text-slate-400 font-medium">Autonomous Multi-Source Reconciliation & Forward Cash Ops</p>
+          <p class="text-[11px] text-slate-400 leading-snug mt-0.5 font-medium">AI Finance Controller for Payment Reconciliation</p>
         </div>
       </div>
 
-      <!-- Navigation Tabs (5 Modular Workspaces) -->
-      <nav class="hidden md:flex items-center gap-1.5 p-1 rounded-xl bg-slate-900/80 border border-white/10 text-xs">
-        <button onclick="switchTab('dashboard')" id="nav-dashboard" class="top-nav-btn active flex items-center gap-2 px-3.5 py-2 rounded-lg text-slate-300 hover:text-white border border-transparent transition-all font-medium">
-          <i data-lucide="layout-dashboard" class="w-3.5 h-3.5 text-cyan-400"></i>
-          <span>Dashboard & Analytics</span>
+      <!-- Vertical Navigation Menu (Exact User Reference Icons & Labels) -->
+      <nav class="space-y-1.5">
+        
+        <!-- Overview -->
+        <button onclick="switchTab('dashboard')" id="nav-dashboard" class="sidebar-nav-btn active">
+          <i data-lucide="layout-grid" class="w-4 h-4 text-slate-400"></i>
+          <span>Overview</span>
         </button>
 
-        <button onclick="switchTab('transactions')" id="nav-transactions" class="top-nav-btn flex items-center gap-2 px-3.5 py-2 rounded-lg text-slate-300 hover:text-white border border-transparent transition-all font-medium">
-          <i data-lucide="list-filter" class="w-3.5 h-3.5 text-blue-400"></i>
-          <span>Transaction Stream</span>
+        <!-- Transactions -->
+        <button onclick="switchTab('transactions')" id="nav-transactions" class="sidebar-nav-btn">
+          <i data-lucide="menu" class="w-4 h-4 text-slate-400"></i>
+          <span>Transactions</span>
         </button>
 
-        <button onclick="switchTab('investigator')" id="nav-investigator" class="top-nav-btn flex items-center gap-2 px-3.5 py-2 rounded-lg text-slate-300 hover:text-white border border-transparent transition-all font-medium">
-          <i data-lucide="search" class="w-3.5 h-3.5 text-purple-400"></i>
-          <span>AI Investigator</span>
+        <!-- Exceptions -->
+        <button onclick="switchToExceptions()" id="nav-exceptions" class="sidebar-nav-btn">
+          <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-400"></i>
+          <span>Exceptions</span>
+          <span id="nav-exceptions-badge" class="ml-auto px-1.5 py-0.2 rounded-full bg-rose-500/20 text-rose-300 font-mono text-[10px]">2</span>
         </button>
 
-        <button onclick="switchTab('approvals')" id="nav-approvals" class="top-nav-btn flex items-center gap-2 px-3.5 py-2 rounded-lg text-slate-300 hover:text-white border border-transparent transition-all font-medium">
-          <i data-lucide="check-square" class="w-3.5 h-3.5 text-amber-400"></i>
+        <!-- AI Investigation -->
+        <button onclick="switchTab('investigator')" id="nav-investigator" class="sidebar-nav-btn">
+          <i data-lucide="search" class="w-4 h-4 text-purple-400"></i>
+          <span>AI Investigation</span>
+        </button>
+
+        <!-- Approvals -->
+        <button onclick="switchTab('approvals')" id="nav-approvals" class="sidebar-nav-btn">
+          <i data-lucide="check-square" class="w-4 h-4 text-amber-400"></i>
           <span>Approvals</span>
-          <span id="nav-approvals-count" class="px-1.5 py-0.2 rounded-full bg-amber-500/20 text-amber-300 font-mono text-[10px]">1</span>
+          <span id="nav-approvals-count" class="ml-auto px-1.5 py-0.2 rounded-full bg-amber-500/20 text-amber-300 font-mono text-[10px]">1</span>
         </button>
 
-        <button onclick="switchTab('audit-trail')" id="nav-audit-trail" class="top-nav-btn flex items-center gap-2 px-3.5 py-2 rounded-lg text-slate-300 hover:text-white border border-transparent transition-all font-medium">
-          <i data-lucide="file-check" class="w-3.5 h-3.5 text-emerald-400"></i>
-          <span>Audit Trail</span>
+        <!-- Audit Log -->
+        <button onclick="switchTab('audit-trail')" id="nav-audit-trail" class="sidebar-nav-btn">
+          <i data-lucide="file-text" class="w-4 h-4 text-emerald-400"></i>
+          <span>Audit Log</span>
         </button>
       </nav>
 
-      <!-- Action Buttons -->
-      <div class="flex items-center gap-2.5 shrink-0">
-        <!-- Copilot Assistant Button -->
-        <button onclick="toggleCopilotModal()" class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 text-xs font-semibold border border-cyan-500/30 transition-all shadow-sm">
+    </div>
+
+    <!-- Bottom Sidebar Controls & System Status -->
+    <div class="p-4 border-t border-white/[0.08] space-y-3">
+      
+      <!-- Quick Action Buttons -->
+      <div class="space-y-2">
+        <button onclick="toggleCopilotModal()" class="flex items-center justify-center gap-2 w-full px-3 py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 text-xs font-semibold border border-cyan-500/25 transition-all shadow-sm">
           <i data-lucide="bot" class="w-4 h-4 text-cyan-400"></i>
-          <span>Copilot</span>
+          <span>AI Copilot</span>
         </button>
 
-        <!-- Run Reconciliation Trigger -->
-        <button onclick="triggerReconciliation()" id="btn-run-recon" class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-lg shadow-emerald-900/30 transition-all">
+        <button onclick="triggerReconciliation()" id="btn-run-recon" class="flex items-center justify-center gap-2 w-full px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-lg shadow-emerald-900/40 transition-all">
           <i data-lucide="refresh-cw" id="icon-recon" class="w-3.5 h-3.5"></i>
-          <span class="hidden sm:inline">Run Reconcile</span>
-        </button>
-
-        <!-- Download Audit Report -->
-        <button onclick="downloadAuditMemo()" title="Export Executive Audit Memo" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-white/10 transition-all">
-          <i data-lucide="download" class="w-4 h-4"></i>
+          <span>Run Reconcile</span>
         </button>
       </div>
 
+      <!-- Live Engine Status Badge -->
+      <div class="p-2.5 rounded-xl bg-slate-900/80 border border-white/5 space-y-1 text-[11px]">
+        <div class="flex items-center justify-between text-slate-400">
+          <span class="flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>Live Engine</span>
+          </span>
+          <span class="text-emerald-400 font-mono font-bold">100% Chain</span>
+        </div>
+        <div class="text-[10px] text-slate-500 font-mono truncate">
+          SHA-256 Chained • Zero Hallucination
+        </div>
+      </div>
+
     </div>
-  </header>
+  </aside>
 
   <!-- ========================================================= -->
   <!-- 2. MAIN APPLICATION CONTENT VIEW AREA                     -->
   <!-- ========================================================= -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-1 space-y-8">
+  <div class="flex-1 min-w-0 flex flex-col min-h-screen">
+    
+    <!-- Top Header Bar Across Main Content -->
+    <header class="sticky top-0 z-30 border-b border-white/[0.08] bg-[#090d16]/90 backdrop-blur-xl shrink-0 h-16 flex items-center justify-between px-6 sm:px-8">
+      <div class="flex items-center gap-3">
+        <h2 id="top-breadcrumb-title" class="text-sm font-bold text-white tracking-tight">Overview & Analytics</h2>
+        <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+          Deterministic Mode
+        </span>
+      </div>
+
+      <!-- Action Controls -->
+      <div class="flex items-center gap-3 text-xs">
+        <button onclick="downloadAuditMemo()" title="Export Executive Audit Memo" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-white/10 transition-all font-medium">
+          <i data-lucide="download" class="w-3.5 h-3.5"></i>
+          <span>Export Audit Memo</span>
+        </button>
+        <span class="text-slate-600">|</span>
+        <div class="flex items-center gap-2 font-mono text-slate-400 text-xs">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span>SOX-404 Controls</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Workspaces -->
+    <main class="p-6 sm:p-8 w-full flex-1 max-w-[1600px] space-y-8">
     
     <!-- ======================================================= -->
     <!-- TAB 1: DASHBOARD & ANALYTICS                            -->
@@ -298,56 +375,153 @@
     <!-- ======================================================= -->
     <section id="tab-transactions" class="space-y-5 hidden">
       
-      <!-- Stream Header & Controls -->
+      <!-- Stream Header & Search -->
       <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h2 class="text-xl font-bold text-white tracking-tight">4-Way Transaction Stream</h2>
-          <p class="text-xs text-slate-400 mt-0.5">Real-time audit log across Bank Feeds, Gateway Payouts, ERP Ledgers, and AP Invoices</p>
+          <p class="text-xs text-slate-400 mt-0.5">Real-time multi-source ledger across Bank Feeds, Gateway Payouts, ERP Ledgers, and AP Invoices</p>
         </div>
 
-        <!-- Filter Pills & Search Bar -->
-        <div class="flex flex-wrap items-center gap-3">
-          <!-- Search Input -->
-          <div class="relative w-full sm:w-64">
-            <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
-            <input 
-              type="text" 
-              id="recon-search" 
-              oninput="handleSearch(this.value)" 
-              placeholder="Search ID, vendor, or memo..." 
-              class="w-full bg-slate-900 border border-white/10 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500/50"
-            >
-          </div>
+        <!-- Global Search Input -->
+        <div class="relative w-full sm:w-72">
+          <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+          <input 
+            type="text" 
+            id="recon-search" 
+            oninput="handleSearch(this.value)" 
+            placeholder="Search ID, vendor, memo, or type..." 
+            class="w-full bg-slate-900/90 border border-white/10 rounded-xl pl-8 pr-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500/50 shadow-inner font-mono"
+          >
+        </div>
+      </div>
 
-          <!-- Status Filter Pills -->
-          <div class="flex items-center gap-1.5 p-1 rounded-xl bg-slate-900/80 border border-white/10 text-xs">
-            <button onclick="filterRecords('ALL')" id="filter-pill-ALL" class="filter-pill px-3 py-1 rounded-lg font-medium text-white bg-slate-800 transition-all">
+      <!-- Interactive Multi-Dimension Toggle Bar (Status, Priority, Variance) -->
+      <div class="glass-card p-4 space-y-3.5">
+        
+        <!-- Toggle Row 1: Status Filters -->
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 w-20 shrink-0 flex items-center gap-1.5">
+            <i data-lucide="check-circle" class="w-3.5 h-3.5 text-cyan-400"></i>
+            Status:
+          </span>
+          <div class="flex flex-wrap items-center gap-1.5 text-xs">
+            <button onclick="setStatusToggle('ALL')" id="filter-pill-ALL" class="recon-toggle-btn active px-3 py-1.5 rounded-lg font-medium text-white bg-white/10 border border-white/20 transition-all">
               All (<span id="count-ALL">60</span>)
             </button>
-            <button onclick="filterRecords('MATCHED')" id="filter-pill-MATCHED" class="filter-pill px-3 py-1 rounded-lg font-medium text-slate-400 hover:text-white transition-all">
+            <button onclick="setStatusToggle('MATCHED')" id="filter-pill-MATCHED" class="recon-toggle-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white bg-slate-900/60 border border-white/5 transition-all">
               Auto-Matched (<span id="count-MATCHED">48</span>)
             </button>
-            <button onclick="filterRecords('AI_RESOLVED')" id="filter-pill-AI_RESOLVED" class="filter-pill px-3 py-1 rounded-lg font-medium text-slate-400 hover:text-white transition-all">
+            <button onclick="setStatusToggle('AI_RESOLVED')" id="filter-pill-AI_RESOLVED" class="recon-toggle-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white bg-slate-900/60 border border-white/5 transition-all">
               AI Resolved (<span id="count-AI_RESOLVED">10</span>)
             </button>
-            <button onclick="filterRecords('EXCEPTIONS')" id="filter-pill-EXCEPTIONS" class="filter-pill px-3 py-1 rounded-lg font-medium text-slate-400 hover:text-white transition-all">
+            <button onclick="setStatusToggle('EXCEPTIONS')" id="filter-pill-EXCEPTIONS" class="recon-toggle-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white bg-slate-900/60 border border-white/5 transition-all">
               Needs Review (<span id="count-EXCEPTIONS">2</span>)
             </button>
           </div>
         </div>
+
+        <!-- Toggle Row 2: Priority Filters -->
+        <div class="flex flex-wrap items-center gap-2 pt-2.5 border-t border-white/[0.06]">
+          <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 w-20 shrink-0 flex items-center gap-1.5">
+            <i data-lucide="alert-circle" class="w-3.5 h-3.5 text-amber-400"></i>
+            Priority:
+          </span>
+          <div class="flex flex-wrap items-center gap-1.5 text-xs">
+            <button onclick="setPriorityToggle('ALL')" id="toggle-prio-ALL" class="recon-toggle-btn active px-3 py-1.5 rounded-lg font-medium text-white bg-white/10 border border-white/20 transition-all">
+              All Priorities
+            </button>
+            <button onclick="setPriorityToggle('P0')" id="toggle-prio-P0" class="recon-toggle-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-rose-300 bg-slate-900/60 border border-white/5 transition-all flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+              <span>P0 Critical</span>
+            </button>
+            <button onclick="setPriorityToggle('P1')" id="toggle-prio-P1" class="recon-toggle-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-amber-300 bg-slate-900/60 border border-white/5 transition-all flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+              <span>P1 High</span>
+            </button>
+            <button onclick="setPriorityToggle('P2')" id="toggle-prio-P2" class="recon-toggle-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-blue-300 bg-slate-900/60 border border-white/5 transition-all flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+              <span>P2 Medium</span>
+            </button>
+            <button onclick="setPriorityToggle('P3')" id="toggle-prio-P3" class="recon-toggle-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-slate-300 bg-slate-900/60 border border-white/5 transition-all flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-slate-500"></span>
+              <span>P3 Low</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Toggle Row 3: Variance Filters & Quick Reset -->
+        <div class="flex flex-wrap items-center justify-between gap-2 pt-2.5 border-t border-white/[0.06]">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 w-20 shrink-0 flex items-center gap-1.5">
+              <i data-lucide="scale" class="w-3.5 h-3.5 text-emerald-400"></i>
+              Variance:
+            </span>
+            <div class="flex flex-wrap items-center gap-1.5 text-xs">
+              <button onclick="setVarianceToggle('ALL')" id="toggle-var-ALL" class="recon-toggle-btn active px-3 py-1.5 rounded-lg font-medium text-white bg-white/10 border border-white/20 transition-all">
+                All Variances
+              </button>
+              <button onclick="setVarianceToggle('ZERO')" id="toggle-var-ZERO" class="recon-toggle-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-emerald-300 bg-slate-900/60 border border-white/5 transition-all flex items-center gap-1.5">
+                <i data-lucide="check" class="w-3 h-3 text-emerald-400"></i>
+                <span>Zero Variance ($0.00)</span>
+              </button>
+              <button onclick="setVarianceToggle('NONZERO')" id="toggle-var-NONZERO" class="recon-toggle-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-rose-300 bg-slate-900/60 border border-white/5 transition-all flex items-center gap-1.5">
+                <i data-lucide="activity" class="w-3 h-3 text-rose-400"></i>
+                <span>Has Variance (≠ $0.00)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Reset Filter Button -->
+          <button onclick="resetAllStreamFilters()" class="text-xs font-semibold text-slate-400 hover:text-white flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-white/5 transition-all">
+            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-slate-400"></i>
+            <span>Reset Filters</span>
+          </button>
+        </div>
+
       </div>
 
-      <!-- Transaction Table Card -->
+      <!-- Transaction Table Card with Clickable Header Toggles -->
       <div class="glass-card overflow-hidden">
         <div class="overflow-x-auto">
           <table class="w-full text-left text-xs border-collapse">
             <thead>
               <tr class="border-b border-white/10 text-[11px] font-semibold text-slate-400 uppercase tracking-wider bg-slate-900/50">
-                <th class="py-3 px-4">Record ID</th>
+                <th class="py-3 px-4 font-mono cursor-pointer hover:text-white transition-colors select-none group" onclick="toggleSort('id')">
+                  <div class="flex items-center gap-1.5">
+                    <span>Record ID</span>
+                    <i data-lucide="arrow-up-down" class="w-3 h-3 text-slate-500 group-hover:text-cyan-400"></i>
+                    <span id="sort-ind-id" class="text-[10px] text-cyan-400 font-mono font-bold"></span>
+                  </div>
+                </th>
                 <th class="py-3 px-4">Category</th>
-                <th class="py-3 px-4">Status</th>
-                <th class="py-3 px-4">Priority</th>
-                <th class="py-3 px-4 text-right">Variance</th>
+                
+                <!-- Status Column Header Toggle -->
+                <th class="py-3 px-4 cursor-pointer hover:text-white transition-colors select-none group" onclick="toggleSort('status')">
+                  <div class="flex items-center gap-1.5">
+                    <span>Status</span>
+                    <i data-lucide="arrow-up-down" class="w-3 h-3 text-slate-500 group-hover:text-cyan-400"></i>
+                    <span id="sort-ind-status" class="text-[10px] text-cyan-400 font-mono font-bold"></span>
+                  </div>
+                </th>
+
+                <!-- Priority Column Header Toggle -->
+                <th class="py-3 px-4 cursor-pointer hover:text-white transition-colors select-none group" onclick="toggleSort('priority')">
+                  <div class="flex items-center gap-1.5">
+                    <span>Priority</span>
+                    <i data-lucide="arrow-up-down" class="w-3 h-3 text-slate-500 group-hover:text-amber-400"></i>
+                    <span id="sort-ind-priority" class="text-[10px] text-amber-400 font-mono font-bold"></span>
+                  </div>
+                </th>
+
+                <!-- Variance Column Header Toggle -->
+                <th class="py-3 px-4 text-right cursor-pointer hover:text-white transition-colors select-none group" onclick="toggleSort('variance')">
+                  <div class="flex items-center justify-end gap-1.5">
+                    <span>Variance</span>
+                    <i data-lucide="arrow-up-down" class="w-3 h-3 text-slate-500 group-hover:text-rose-400"></i>
+                    <span id="sort-ind-variance" class="text-[10px] text-rose-400 font-mono font-bold"></span>
+                  </div>
+                </th>
+
                 <th class="py-3 px-4">Reconciliation Insight</th>
                 <th class="py-3 px-4 text-center">Action</th>
               </tr>
@@ -669,6 +843,7 @@
     </section>
 
   </main>
+  </div>
 
   <!-- ========================================================= -->
   <!-- 3. SLIDE-OUT FORENSIC INSPECTION DRAWER                   -->
@@ -844,7 +1019,7 @@
       { id: "BNK-0058", amount: "$82.50", risk: "P2_MEDIUM", status: "Approved", decidedBy: "FINANCE_CONTROLLER", decidedAt: "23 Aug 2026, 07:08 am" }
     ];
 
-    // --- Tab Navigation ---
+    // --- Tab Navigation & Breadcrumbs ---
     function switchTab(tabId) {
       ['dashboard', 'transactions', 'investigator', 'approvals', 'audit-trail'].forEach(id => {
         const el = document.getElementById(`tab-${id}`);
@@ -852,14 +1027,38 @@
         const nav = document.getElementById(`nav-${id}`);
         if (nav) nav.classList.remove('active');
       });
+      const navEx = document.getElementById('nav-exceptions');
+      if (navEx) navEx.classList.remove('active');
 
       const selected = document.getElementById(`tab-${tabId}`);
       if (selected) selected.classList.remove('hidden');
       const navBtn = document.getElementById(`nav-${tabId}`);
       if (navBtn) navBtn.classList.add('active');
 
+      // Update top breadcrumb title
+      const titles = {
+        'dashboard': 'Overview & Analytics',
+        'transactions': '4-Way Transaction Stream',
+        'investigator': 'Autonomous AI Investigator',
+        'approvals': 'Human-in-the-Loop Approvals Queue',
+        'audit-trail': 'Cryptographic SHA-256 Audit Trail'
+      };
+      const breadcrumb = document.getElementById('top-breadcrumb-title');
+      if (breadcrumb) breadcrumb.textContent = titles[tabId] || 'Overview';
+
       if (tabId === 'audit-trail') loadAuditTrail();
       lucide.createIcons();
+    }
+
+    function switchToExceptions() {
+      switchTab('transactions');
+      setStatusToggle('EXCEPTIONS');
+      const navEx = document.getElementById('nav-exceptions');
+      const navTx = document.getElementById('nav-transactions');
+      if (navTx) navTx.classList.remove('active');
+      if (navEx) navEx.classList.add('active');
+      const breadcrumb = document.getElementById('top-breadcrumb-title');
+      if (breadcrumb) breadcrumb.textContent = 'Exceptions Queue';
     }
 
     // --- Initialize Dashboard ---
@@ -991,48 +1190,176 @@
       lucide.createIcons();
     }
 
-    // --- Search & Filter Logic ---
-    function filterRecords(status) {
-      activeFilter = status;
+    // --- Multi-Dimension Filter & Sort Logic (Status, Priority, Variance) ---
+    let activeStatusFilter = 'ALL';
+    let activePriorityFilter = 'ALL';
+    let activeVarianceFilter = 'ALL';
+    let currentSortKey = null; // 'id', 'status', 'priority', 'variance'
+    let currentSortDir = 'asc'; // 'asc' or 'desc'
 
-      document.querySelectorAll('.filter-pill').forEach(btn => {
-        btn.classList.remove('bg-slate-800', 'text-white');
-        btn.classList.add('text-slate-400');
-      });
-      const activeBtn = document.getElementById(`filter-pill-${status}`);
-      if (activeBtn) {
-        activeBtn.classList.remove('text-slate-400');
-        activeBtn.classList.add('bg-slate-800', 'text-white');
-      }
-
+    function setStatusToggle(status) {
+      activeStatusFilter = status;
+      updateToggleUI();
       applyFilters();
     }
 
+    function setPriorityToggle(prio) {
+      activePriorityFilter = prio;
+      updateToggleUI();
+      applyFilters();
+    }
+
+    function setVarianceToggle(varType) {
+      activeVarianceFilter = varType;
+      updateToggleUI();
+      applyFilters();
+    }
+
+    function resetAllStreamFilters() {
+      activeStatusFilter = 'ALL';
+      activePriorityFilter = 'ALL';
+      activeVarianceFilter = 'ALL';
+      currentSortKey = null;
+      currentSortDir = 'asc';
+      currentSearchTerm = '';
+      const searchInput = document.getElementById('recon-search');
+      if (searchInput) searchInput.value = '';
+      updateToggleUI();
+      updateSortIndicators();
+      applyFilters();
+    }
+
+    function updateToggleUI() {
+      // Status buttons
+      ['ALL', 'MATCHED', 'AI_RESOLVED', 'EXCEPTIONS'].forEach(s => {
+        const btn = document.getElementById(`filter-pill-${s}`);
+        if (btn) {
+          if (s === activeStatusFilter) {
+            btn.className = "recon-toggle-btn active px-3 py-1.5 rounded-lg font-medium text-white bg-white/10 border border-white/20 transition-all";
+          } else {
+            btn.className = "recon-toggle-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white bg-slate-900/60 border border-white/5 transition-all";
+          }
+        }
+      });
+
+      // Priority buttons
+      ['ALL', 'P0', 'P1', 'P2', 'P3'].forEach(p => {
+        const btn = document.getElementById(`toggle-prio-${p}`);
+        if (btn) {
+          if (p === activePriorityFilter) {
+            btn.className = "recon-toggle-btn active px-3 py-1.5 rounded-lg font-medium text-white bg-white/10 border border-white/20 transition-all flex items-center gap-1.5";
+          } else {
+            btn.className = "recon-toggle-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white bg-slate-900/60 border border-white/5 transition-all flex items-center gap-1.5";
+          }
+        }
+      });
+
+      // Variance buttons
+      ['ALL', 'ZERO', 'NONZERO'].forEach(v => {
+        const btn = document.getElementById(`toggle-var-${v}`);
+        if (btn) {
+          if (v === activeVarianceFilter) {
+            btn.className = "recon-toggle-btn active px-3 py-1.5 rounded-lg font-medium text-white bg-white/10 border border-white/20 transition-all flex items-center gap-1.5";
+          } else {
+            btn.className = "recon-toggle-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white bg-slate-900/60 border border-white/5 transition-all flex items-center gap-1.5";
+          }
+        }
+      });
+    }
+
+    function toggleSort(col) {
+      if (currentSortKey === col) {
+        currentSortDir = currentSortDir === 'asc' ? 'desc' : 'asc';
+      } else {
+        currentSortKey = col;
+        currentSortDir = 'asc';
+      }
+      updateSortIndicators();
+      applyFilters();
+    }
+
+    function updateSortIndicators() {
+      ['id', 'status', 'priority', 'variance'].forEach(col => {
+        const ind = document.getElementById(`sort-ind-${col}`);
+        if (ind) {
+          if (currentSortKey === col) {
+            ind.textContent = currentSortDir === 'asc' ? ' ▲' : ' ▼';
+          } else {
+            ind.textContent = '';
+          }
+        }
+      });
+    }
+
+    // Preserve filterRecords for backwards compatibility
+    function filterRecords(status) {
+      setStatusToggle(status);
+    }
+
     function handleSearch(val) {
-      currentSearchTerm = (val || '').toLowerCase();
+      currentSearchTerm = (val || '').toLowerCase().trim();
       applyFilters();
     }
 
     function applyFilters() {
-      let filtered = allRecords;
+      let filtered = [...allRecords];
 
-      if (activeFilter === 'MATCHED') {
+      // 1. Status Filter
+      if (activeStatusFilter === 'MATCHED') {
         filtered = filtered.filter(r => r.is_auto_matched || r.status === 'MATCHED');
-      } else if (activeFilter === 'AI_RESOLVED') {
+      } else if (activeStatusFilter === 'AI_RESOLVED') {
         filtered = filtered.filter(r => r.is_ai_resolved || r.status === 'AI_RESOLVED' || r.status === 'AI_INVESTIGATED');
-      } else if (activeFilter === 'EXCEPTIONS') {
+      } else if (activeStatusFilter === 'EXCEPTIONS') {
         filtered = filtered.filter(r => 
           (r.status === 'EXCEPTIONS' || r.status === 'EXCEPTION' || r.needs_review || (r.risk_priority && r.risk_priority.includes('P0')))
           && r.remediation_status !== 'RESOLVED' && r.remediation_status !== 'WRITTEN_OFF'
         );
       }
 
+      // 2. Priority Filter
+      if (activePriorityFilter !== 'ALL') {
+        filtered = filtered.filter(r => r.risk_priority && r.risk_priority.includes(activePriorityFilter));
+      }
+
+      // 3. Variance Filter
+      if (activeVarianceFilter === 'ZERO') {
+        filtered = filtered.filter(r => !r.variance_cents || r.variance_cents === 0);
+      } else if (activeVarianceFilter === 'NONZERO') {
+        filtered = filtered.filter(r => r.variance_cents && r.variance_cents !== 0);
+      }
+
+      // 4. Search Filter
       if (currentSearchTerm) {
         filtered = filtered.filter(r => 
-          r.id.toLowerCase().includes(currentSearchTerm) ||
-          r.scenario_type.toLowerCase().includes(currentSearchTerm) ||
-          r.explanation.toLowerCase().includes(currentSearchTerm)
+          (r.id && r.id.toLowerCase().includes(currentSearchTerm)) ||
+          (r.scenario_type && r.scenario_type.toLowerCase().includes(currentSearchTerm)) ||
+          (r.explanation && r.explanation.toLowerCase().includes(currentSearchTerm))
         );
+      }
+
+      // 5. Sorting
+      if (currentSortKey) {
+        filtered.sort((a, b) => {
+          let valA, valB;
+          if (currentSortKey === 'priority') {
+            const prioWeight = { 'P0_CRITICAL': 4, 'P1_HIGH': 3, 'P2_MEDIUM': 2, 'P3_LOW': 1 };
+            valA = prioWeight[a.risk_priority] || 0;
+            valB = prioWeight[b.risk_priority] || 0;
+          } else if (currentSortKey === 'variance') {
+            valA = Math.abs(a.variance_cents || 0);
+            valB = Math.abs(b.variance_cents || 0);
+          } else if (currentSortKey === 'status') {
+            valA = (a.status || '') + (a.remediation_status || '');
+            valB = (b.status || '') + (b.remediation_status || '');
+          } else {
+            valA = a[currentSortKey] || '';
+            valB = b[currentSortKey] || '';
+          }
+
+          if (valA < valB) return currentSortDir === 'asc' ? -1 : 1;
+          if (valA > valB) return currentSortDir === 'asc' ? 1 : -1;
+          return 0;
+        });
       }
 
       renderReconTable(filtered);
@@ -1055,6 +1382,8 @@
       if (elAi) elAi.innerText = aiResolvedCount;
       const elExc = document.getElementById('count-EXCEPTIONS');
       if (elExc) elExc.innerText = exceptionsCount;
+      const navExcBadge = document.getElementById('nav-exceptions-badge');
+      if (navExcBadge) navExcBadge.innerText = exceptionsCount;
     }
 
     // --- Forensic AI Investigator Tab ---
@@ -1532,29 +1861,73 @@
         const res = await fetch('/api/v1/forecast/trajectory');
         const data = await res.json();
 
+        const dates = data.dates || data.labels || [];
+        const shortLabels = dates.map(d => {
+          const parts = d.split('-');
+          return parts.length === 3 ? `${parts[1]}/${parts[2]}` : d;
+        });
+        const balances = (data.closing_balances_cents ? data.closing_balances_cents.map(c => c / 100) : (data.balances || []));
+
+        if (trajectoryChart) {
+          trajectoryChart.destroy();
+        }
+
+        const gradient = ctx.getContext('2d').createLinearGradient(0, 0, 0, 240);
+        gradient.addColorStop(0, 'rgba(56, 189, 248, 0.32)');
+        gradient.addColorStop(1, 'rgba(56, 189, 248, 0.0)');
+
         trajectoryChart = new Chart(ctx, {
           type: 'line',
           data: {
-            labels: data.labels,
+            labels: shortLabels,
             datasets: [
               {
-                label: 'Projected Cash ($)',
-                data: data.balances,
+                label: 'Projected Cash',
+                data: balances,
                 borderColor: '#38bdf8',
-                backgroundColor: 'rgba(56, 189, 248, 0.1)',
+                backgroundColor: gradient,
                 fill: true,
-                borderWidth: 2,
-                tension: 0.2
+                borderWidth: 2.5,
+                pointRadius: 2,
+                pointHoverRadius: 6,
+                pointBackgroundColor: '#38bdf8',
+                tension: 0.25
               }
             ]
           },
           options: {
             responsive: true,
             maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
+            interaction: {
+              intersect: false,
+              mode: 'index'
+            },
+            plugins: { 
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    const val = context.parsed.y || 0;
+                    return ` Projected Cash: $${val.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+                  }
+                }
+              }
+            },
             scales: {
-              x: { grid: { color: 'rgba(255, 255, 255, 0.04)' }, ticks: { color: '#64748b', font: { size: 9 } } },
-              y: { grid: { color: 'rgba(255, 255, 255, 0.04)' }, ticks: { color: '#64748b', font: { size: 9 } } }
+              x: { 
+                grid: { color: 'rgba(255, 255, 255, 0.04)' }, 
+                ticks: { color: '#64748b', font: { size: 9 }, maxTicksLimit: 10 } 
+              },
+              y: { 
+                grid: { color: 'rgba(255, 255, 255, 0.04)' }, 
+                ticks: { 
+                  color: '#64748b', 
+                  font: { size: 9 },
+                  callback: function(val) {
+                    return '$' + (val / 1000).toFixed(0) + 'k';
+                  }
+                } 
+              }
             }
           }
         });
@@ -1569,25 +1942,57 @@
       try {
         const res = await fetch('/api/v1/forecast/waterfall');
         const data = await res.json();
-        const steps = data.steps || [];
+        const items = data.items || [];
+        
+        const labels = items.map(s => s.label || s.step_name);
+        const values = items.map(s => (s.amount_cents !== undefined ? s.amount_cents : (s.delta_cents || 0)) / 100);
+        const bgColors = items.map(s => {
+          if (s.category === 'OPENING' || s.category === 'CLOSING') return '#38bdf8';
+          const amt = s.amount_cents !== undefined ? s.amount_cents : (s.delta_cents || 0);
+          return amt >= 0 ? '#10b981' : '#f43f5e';
+        });
+
+        if (waterfallChart) {
+          waterfallChart.destroy();
+        }
 
         waterfallChart = new Chart(ctx, {
           type: 'bar',
           data: {
-            labels: steps.map(s => s.step_name),
+            labels: labels,
             datasets: [{
-              data: steps.map(s => s.delta_cents / 100),
-              backgroundColor: steps.map(s => s.delta_cents >= 0 ? '#10b981' : '#f43f5e'),
-              borderRadius: 4
+              data: values,
+              backgroundColor: bgColors,
+              borderRadius: 6
             }]
           },
           options: {
             responsive: true,
             maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
+            plugins: { 
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: function(context) {
+                    const val = context.parsed.y || 0;
+                    const sign = val >= 0 ? '+' : '';
+                    return ` Amount: ${sign}$${val.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+                  }
+                }
+              }
+            },
             scales: {
-              x: { grid: { display: false }, ticks: { color: '#64748b', font: { size: 9 } } },
-              y: { grid: { color: 'rgba(255, 255, 255, 0.04)' }, ticks: { color: '#64748b', font: { size: 9 } } }
+              x: { grid: { display: false }, ticks: { color: '#64748b', font: { size: 9 }, maxRotation: 20 } },
+              y: { 
+                grid: { color: 'rgba(255, 255, 255, 0.04)' }, 
+                ticks: { 
+                  color: '#64748b', 
+                  font: { size: 9 },
+                  callback: function(val) {
+                    return '$' + (val / 1000).toFixed(0) + 'k';
+                  }
+                } 
+              }
             }
           }
         });
