@@ -219,3 +219,43 @@ class TestMonthEndAuditReportGenerator:
         csv_text = files["csv"].read_text(encoding="utf-8")
         assert "scenario_id,scenario_type,risk_priority" in csv_text
         assert "SCEN-ANOM-056" in csv_text
+
+    def test_audit_trail_api_endpoints_and_actor_filtering(self, client):
+        # 1. Test counts endpoint
+        res_counts = client.get("/api/v1/workbench/audit-trail/stats/counts")
+        assert res_counts.status_code == 200
+        counts = res_counts.json()
+        assert "all" in counts
+        assert "human" in counts
+        assert "ai" in counts
+        assert "system" in counts
+        assert counts["ai"] >= 1
+
+        # 2. Test filtering by actor
+        res_ai = client.get("/api/v1/workbench/audit-trail?actor=ai")
+        assert res_ai.status_code == 200
+        ai_data = res_ai.json()
+        assert len(ai_data) > 0
+        assert all("AI" in r["actor"] for r in ai_data)
+
+        res_human = client.get("/api/v1/workbench/audit-trail?actor=human")
+        assert res_human.status_code == 200
+        human_data = res_human.json()
+        assert len(human_data) > 0
+
+        # 3. Test log-event endpoint
+        res_log = client.post(
+            "/api/v1/workbench/log-event",
+            json={
+                "event_type": "AI_TEST_LOG",
+                "actor": "AI_INVESTIGATOR",
+                "record_id": "TEST-REC-999",
+                "rationale": "Automated verification test",
+                "after_state": {"verified": True},
+            },
+        )
+        assert res_log.status_code == 200
+        log_data = res_log.json()
+        assert log_data["actor"] == "AI_INVESTIGATOR"
+        assert log_data["hash_signature"] is not None
+

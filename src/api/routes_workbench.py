@@ -17,6 +17,7 @@ workbench = RemediationWorkbench(db_manager)
 class ApproveVarianceRequest(BaseModel):
     exception_id: str
     reason: str
+    actor: str = "HUMAN_CONTROLLER"
 
 
 class PostGLEntryRequest(BaseModel):
@@ -25,16 +26,28 @@ class PostGLEntryRequest(BaseModel):
     credit_account: str
     amount_cents: int = Field(..., gt=0)
     memo: str
+    actor: str = "HUMAN_CONTROLLER"
 
 
 class FileDisputeRequest(BaseModel):
     exception_id: str
     dispute_reason: str
+    actor: str = "HUMAN_CONTROLLER"
 
 
 class WriteOffRequest(BaseModel):
     exception_id: str
     justification: str
+    actor: str = "HUMAN_CONTROLLER"
+
+
+class LogAuditEventRequest(BaseModel):
+    event_type: str
+    actor: str = "AI_INVESTIGATOR"
+    record_id: str
+    rationale: str
+    after_state: Dict[str, Any] = Field(default_factory=dict)
+    before_state: Dict[str, Any] = Field(default_factory=dict)
 
 
 @router.post("/approve-variance", response_model=RemediationResult)
@@ -43,7 +56,7 @@ def approve_variance(req: ApproveVarianceRequest):
     try:
         # Auto-register if not yet in SQLite
         _ensure_exception_registered(req.exception_id)
-        return workbench.approve_variance(exception_id=req.exception_id, reason=req.reason)
+        return workbench.approve_variance(exception_id=req.exception_id, reason=req.reason, actor=req.actor)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
@@ -59,6 +72,7 @@ def post_gl_entry(req: PostGLEntryRequest):
             credit_account=req.credit_account,
             amount_cents=req.amount_cents,
             memo=req.memo,
+            actor=req.actor,
         )
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
@@ -69,7 +83,7 @@ def file_dispute(req: FileDisputeRequest):
     """Mark exception DISPUTED, lock from auto-matching, and create dispute ticket."""
     try:
         _ensure_exception_registered(req.exception_id)
-        return workbench.file_dispute(exception_id=req.exception_id, dispute_reason=req.dispute_reason)
+        return workbench.file_dispute(exception_id=req.exception_id, dispute_reason=req.dispute_reason, actor=req.actor)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
@@ -79,16 +93,44 @@ def write_off(req: WriteOffRequest):
     """Write off uncollectible to bad debt expense and mark WRITTEN_OFF."""
     try:
         _ensure_exception_registered(req.exception_id)
-        return workbench.write_off_uncollectible(exception_id=req.exception_id, justification=req.justification)
+        return workbench.write_off_uncollectible(exception_id=req.exception_id, justification=req.justification, actor=req.actor)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
 
-@router.get("/audit-trail")
-def list_all_audit_trail() -> List[Dict[str, Any]]:
-    """Retrieve all recent immutable cryptographic audit trail events."""
+@router.post("/log-event")
+def log_custom_audit_event(req: LogAuditEventRequest) -> Dict[str, Any]:
+    """Log an immutable cryptographic audit event with SHA-256 chain verification."""
+    try:
+        with db_manager.get_connection() as conn:
+            rec = AuditTrailService.log_event(
+                conn=conn,
+                event_type=req.event_type,
+                actor=req.actor,
+                record_id=req.record_id,
+                before_state=req.before_state,
+                after_state=req.after_state,
+                rationale=req.rationale,
+            )
+            return rec.model_dump()
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+@router.get("/audit-trail/stats/counts")
+def get_audit_trail_counts() -> Dict[str, int]:
+    """Retrieve counts of audit events grouped by actor category (all, human, ai, system)."""
     with db_manager.get_connection() as conn:
-        records = AuditTrailService.get_all_records(conn, limit=100)
+        AuditTrailService.seed_ai_audit_events_if_needed(conn)
+        return AuditTrailService.get_actor_counts(conn)
+
+
+@router.get("/audit-trail")
+def list_all_audit_trail(actor: str = None, limit: int = 100) -> List[Dict[str, Any]]:
+    """Retrieve all recent immutable cryptographic audit trail events, optionally filtered by actor."""
+    with db_manager.get_connection() as conn:
+        AuditTrailService.seed_ai_audit_events_if_needed(conn)
+        records = AuditTrailService.get_all_records(conn, limit=limit, actor_category=actor)
         return [r.model_dump() for r in records]
 
 

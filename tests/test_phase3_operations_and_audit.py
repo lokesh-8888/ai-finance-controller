@@ -329,3 +329,44 @@ class TestSQLiteAuditTrailAndTamperDetection:
 
             valid, err = AuditTrailService.verify_chain_integrity(conn)
             assert valid is True, f"Integrity check failed: {err}"
+
+    def test_audit_trail_actor_category_filtering_and_counts(self, tmp_path):
+        """Verify actor categorization (ALL, HUMAN, AI, SYSTEM) and count distribution."""
+        db_file = tmp_path / "test_actors.db"
+        db = DatabaseManager(db_file)
+
+        with db.get_connection() as conn:
+            # 1. Log events for different actors
+            AuditTrailService.log_event(conn, "EV_1", "HUMAN_CONTROLLER", "REC-1", {}, "Human approved variance")
+            AuditTrailService.log_event(conn, "EV_2", "AI_INVESTIGATOR", "REC-2", {}, "AI diagnostic analysis")
+            AuditTrailService.log_event(conn, "EV_3", "AI_COPILOT_AGENT", "REC-3", {}, "AI suggestion")
+            AuditTrailService.log_event(conn, "EV_4", "SYSTEM", "REC-4", {}, "System exception registered")
+            AuditTrailService.log_event(conn, "EV_5", "FINANCE_ANALYST", "REC-5", {}, "Human review")
+
+            # 2. Verify counts
+            counts = AuditTrailService.get_actor_counts(conn)
+            assert counts["all"] == 5
+            assert counts["human"] == 2
+            assert counts["ai"] == 2
+            assert counts["system"] == 1
+
+            # 3. Verify filtered queries
+            human_recs = AuditTrailService.get_all_records(conn, actor_category="HUMAN")
+            assert len(human_recs) == 2
+            assert all("HUMAN" in r.actor or "ANALYST" in r.actor for r in human_recs)
+
+            ai_recs = AuditTrailService.get_all_records(conn, actor_category="AI")
+            assert len(ai_recs) == 2
+            assert all("AI" in r.actor for r in ai_recs)
+
+            system_recs = AuditTrailService.get_all_records(conn, actor_category="SYSTEM")
+            assert len(system_recs) == 1
+            assert system_recs[0].actor == "SYSTEM"
+
+            all_recs = AuditTrailService.get_all_records(conn, actor_category="ALL")
+            assert len(all_recs) == 5
+
+            # 4. Chain integrity remains valid
+            valid, err = AuditTrailService.verify_chain_integrity(conn)
+            assert valid is True, f"Chain integrity failed: {err}"
+
