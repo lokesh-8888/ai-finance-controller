@@ -807,74 +807,116 @@
         </div>
       </div>
 
-      <!-- Actor Filtering Bar (Standout segmented control) -->
-      <div class="p-3.5 rounded-2xl bg-slate-900/90 border border-white/10 backdrop-blur-xl flex flex-col md:flex-row md:items-center justify-between gap-3 shadow-xl">
-        <div class="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0">
-          <span class="text-xs font-semibold uppercase tracking-wider text-slate-400 px-2 shrink-0 flex items-center gap-1.5">
-            <i data-lucide="filter" class="w-3.5 h-3.5 text-slate-400"></i>
-            Filter Actor:
-          </span>
+      <!-- Unified Compact Audit Filter Toolbar -->
+      <div class="glass-card p-2.5 sm:p-3 flex flex-wrap items-center justify-between gap-2.5 relative z-30 overflow-visible">
+        <div class="flex flex-wrap items-center gap-2">
+          
+          <!-- Global Search Input -->
+          <div class="relative w-56 sm:w-64">
+            <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+            <input 
+              type="text" 
+              id="audit-search-input" 
+              oninput="filterAuditInMemory(this.value)" 
+              placeholder="Search record, rationale, or hash..." 
+              class="w-full bg-slate-900/90 border border-white/10 hover:border-white/20 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500/50 shadow-inner font-mono transition-all"
+            >
+          </div>
 
-          <!-- Pill: All -->
-          <button 
-            id="audit-filter-all" 
-            onclick="loadAuditTrail('ALL')" 
-            class="px-4 py-2 rounded-xl text-xs font-semibold bg-white/10 text-white border border-white/20 shadow-md flex items-center gap-2 transition-all ring-1 ring-white/20 shrink-0"
-          >
-            <i data-lucide="globe" class="w-3.5 h-3.5 text-slate-300"></i>
-            <span>All Actors</span>
-            <span id="audit-count-all" class="px-2 py-0.5 rounded-full bg-white/10 text-white font-mono text-[10px]">--</span>
-          </button>
+          <!-- Actor Dropdown ("All Actors ⌄") -->
+          <div class="relative z-30" id="dropdown-audit-actor-container">
+            <button 
+              type="button"
+              onclick="toggleAuditDropdown(event)" 
+              id="btn-dropdown-audit-actor" 
+              class="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800/90 border border-white/10 hover:border-white/20 text-xs font-medium text-slate-200 shadow-sm transition-all select-none"
+            >
+              <span id="label-dropdown-audit-actor">All Actors</span>
+              <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400 transition-transform duration-200" id="icon-dropdown-audit-actor"></i>
+            </button>
+            <div 
+              id="menu-dropdown-audit-actor" 
+              class="hidden absolute left-0 top-full mt-1.5 w-56 rounded-xl bg-slate-900 border border-white/20 shadow-2xl backdrop-blur-xl p-1.5 z-50 space-y-0.5"
+            >
+              <!-- Option: All Actors -->
+              <button 
+                onclick="setAuditActorFilter('ALL')" 
+                id="audit-filter-all" 
+                class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs text-left hover:bg-white/10 text-white transition-colors"
+              >
+                <div class="flex items-center gap-2">
+                  <i data-lucide="globe" class="w-3.5 h-3.5 text-slate-300"></i>
+                  <span class="font-medium">All Actors</span>
+                </div>
+                <span id="audit-count-all" class="text-[10px] px-1.5 py-0.5 rounded bg-white/10 text-slate-300 font-mono">--</span>
+              </button>
 
-          <!-- Pill: Human Controller -->
-          <button 
-            id="audit-filter-human" 
-            onclick="loadAuditTrail('HUMAN')" 
-            class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900/60 text-slate-400 hover:text-slate-200 hover:bg-slate-800 border border-white/5 flex items-center gap-2 transition-all shrink-0"
-          >
-            <i data-lucide="user-check" class="w-3.5 h-3.5 text-emerald-400"></i>
-            <span>Human Controller</span>
-            <span id="audit-count-human" class="px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 font-mono text-[10px] border border-emerald-500/20">--</span>
-          </button>
+              <!-- Option: Human Controller -->
+              <button 
+                onclick="setAuditActorFilter('HUMAN')" 
+                id="audit-filter-human" 
+                class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs text-left hover:bg-white/10 text-slate-300 transition-colors"
+              >
+                <div class="flex items-center gap-2">
+                  <i data-lucide="user-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                  <span>Human Controller</span>
+                </div>
+                <span id="audit-count-human" class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/15 text-emerald-400 font-mono border border-emerald-500/20">--</span>
+              </button>
 
-          <!-- Pill: AI Investigator -->
-          <button 
-            id="audit-filter-ai" 
-            onclick="loadAuditTrail('AI')" 
-            class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900/60 text-slate-400 hover:text-slate-200 hover:bg-slate-800 border border-white/5 flex items-center gap-2 transition-all shrink-0"
-          >
-            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-indigo-400"></i>
-            <span>AI Investigator</span>
-            <span id="audit-count-ai" class="px-2 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 font-mono text-[10px] border border-indigo-500/30">--</span>
-          </button>
+              <!-- Option: AI Investigator -->
+              <button 
+                onclick="setAuditActorFilter('AI')" 
+                id="audit-filter-ai" 
+                class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs text-left hover:bg-white/10 text-slate-300 transition-colors"
+              >
+                <div class="flex items-center gap-2">
+                  <i data-lucide="sparkles" class="w-3.5 h-3.5 text-indigo-400"></i>
+                  <span>AI Investigator</span>
+                </div>
+                <span id="audit-count-ai" class="text-[10px] px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 font-mono border border-indigo-500/30">--</span>
+              </button>
 
-          <!-- Pill: System Core -->
+              <!-- Option: System Core -->
+              <button 
+                onclick="setAuditActorFilter('SYSTEM')" 
+                id="audit-filter-system" 
+                class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs text-left hover:bg-white/10 text-slate-300 transition-colors"
+              >
+                <div class="flex items-center gap-2">
+                  <i data-lucide="cpu" class="w-3.5 h-3.5 text-cyan-400"></i>
+                  <span>System Core</span>
+                </div>
+                <span id="audit-count-system" class="text-[10px] px-1.5 py-0.5 rounded bg-cyan-500/15 text-cyan-300 font-mono border border-cyan-500/20">--</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Reset Filter Button -->
           <button 
-            id="audit-filter-system" 
-            onclick="loadAuditTrail('SYSTEM')" 
-            class="px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900/60 text-slate-400 hover:text-slate-200 hover:bg-slate-800 border border-white/5 flex items-center gap-2 transition-all shrink-0"
+            onclick="resetAuditFilters()" 
+            id="btn-reset-audit-filters" 
+            class="hidden items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all select-none"
           >
-            <i data-lucide="cpu" class="w-3.5 h-3.5 text-cyan-400"></i>
-            <span>System Core</span>
-            <span id="audit-count-system" class="px-2 py-0.5 rounded-full bg-cyan-500/15 text-cyan-300 font-mono text-[10px] border border-cyan-500/20">--</span>
+            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-slate-400"></i>
+            <span>Reset</span>
           </button>
         </div>
 
-        <!-- Quick Search in Filter Bar -->
-        <div class="relative shrink-0">
-          <input 
-            type="text" 
-            id="audit-search-input" 
-            oninput="filterAuditInMemory(this.value)" 
-            placeholder="Search record, rationale, or hash..." 
-            class="w-full md:w-64 px-3 py-1.5 pl-8 rounded-xl bg-slate-800/80 border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-all font-mono"
-          />
-          <i data-lucide="search" class="w-3.5 h-3.5 text-slate-500 absolute left-2.5 top-2.5"></i>
+        <!-- Right side: Count badge -->
+        <div class="flex items-center gap-3 text-xs text-slate-400 shrink-0">
+          <span class="text-slate-300 font-mono text-xs">
+            Showing <strong id="audit-showing-count-top" class="text-white font-mono">--</strong> entries
+          </span>
+          <span class="text-emerald-400 font-medium hidden sm:flex items-center gap-1">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+            <span class="text-[11px]">100% Chained</span>
+          </span>
         </div>
       </div>
 
       <!-- Audit Trail Table Card -->
-      <div class="glass-card overflow-hidden">
+      <div class="glass-card overflow-hidden relative z-10">
         <div class="p-3 border-b border-white/10 flex items-center justify-between text-xs text-slate-400">
           <div class="flex items-center gap-2">
             <i data-lucide="lock" class="w-3.5 h-3.5 text-emerald-400"></i>
@@ -1291,6 +1333,9 @@
           !e.target.closest('#dropdown-priority-container') &&
           !e.target.closest('#dropdown-variance-container')) {
         closeAllFilterDropdowns();
+      }
+      if (!e.target.closest('#dropdown-audit-actor-container')) {
+        if (typeof closeAuditDropdown === 'function') closeAuditDropdown();
       }
     });
 
@@ -1784,6 +1829,41 @@
     let currentAuditFilter = 'ALL';
     let cachedAuditRecords = [];
 
+    function toggleAuditDropdown(event) {
+      if (event) event.stopPropagation();
+      closeAllFilterDropdowns();
+      const menu = document.getElementById('menu-dropdown-audit-actor');
+      const icon = document.getElementById('icon-dropdown-audit-actor');
+      if (menu) {
+        const isClosed = menu.classList.contains('hidden');
+        menu.classList.toggle('hidden', !isClosed);
+        if (icon) icon.style.transform = isClosed ? 'rotate(180deg)' : 'rotate(0deg)';
+      }
+    }
+
+    function closeAuditDropdown() {
+      const menu = document.getElementById('menu-dropdown-audit-actor');
+      const icon = document.getElementById('icon-dropdown-audit-actor');
+      if (menu) menu.classList.add('hidden');
+      if (icon) icon.style.transform = 'rotate(0deg)';
+    }
+
+    function setAuditActorFilter(actor) {
+      currentAuditFilter = actor;
+      closeAuditDropdown();
+      updateAuditFilterPills();
+      loadAuditTrail(actor);
+    }
+
+    function resetAuditFilters() {
+      currentAuditFilter = 'ALL';
+      const searchInput = document.getElementById('audit-search-input');
+      if (searchInput) searchInput.value = '';
+      closeAuditDropdown();
+      updateAuditFilterPills();
+      loadAuditTrail('ALL');
+    }
+
     async function loadAuditTrail(actorFilter) {
       if (actorFilter !== undefined) {
         currentAuditFilter = actorFilter;
@@ -1824,31 +1904,53 @@
     }
 
     function updateAuditFilterPills() {
+      const label = document.getElementById('label-dropdown-audit-actor');
+      const btn = document.getElementById('btn-dropdown-audit-actor');
+      const actorMap = {
+        'ALL': 'All Actors',
+        'HUMAN': 'Human Controller',
+        'AI': 'AI Investigator',
+        'SYSTEM': 'System Core'
+      };
+      if (label) label.innerText = actorMap[currentAuditFilter] || 'All Actors';
+
+      if (btn) {
+        if (currentAuditFilter === 'ALL') {
+          btn.className = "flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800/90 border border-white/10 hover:border-white/20 text-xs font-medium text-slate-200 shadow-sm transition-all select-none";
+        } else if (currentAuditFilter === 'HUMAN') {
+          btn.className = "flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-emerald-950/50 hover:bg-emerald-900/50 border border-emerald-500/40 text-xs font-semibold text-emerald-300 ring-1 ring-emerald-500/20 shadow-sm transition-all select-none";
+        } else if (currentAuditFilter === 'AI') {
+          btn.className = "flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-indigo-950/50 hover:bg-indigo-900/50 border border-indigo-500/40 text-xs font-semibold text-indigo-300 ring-1 ring-indigo-500/20 shadow-sm transition-all select-none";
+        } else if (currentAuditFilter === 'SYSTEM') {
+          btn.className = "flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-cyan-950/50 hover:bg-cyan-900/50 border border-cyan-500/40 text-xs font-semibold text-cyan-300 ring-1 ring-cyan-500/20 shadow-sm transition-all select-none";
+        }
+      }
+
       ['ALL', 'HUMAN', 'AI', 'SYSTEM'].forEach(cat => {
-        const btn = document.getElementById(`audit-filter-${cat.toLowerCase()}`);
-        if (!btn) return;
-        if (cat === currentAuditFilter) {
-          btn.className = getActiveAuditPillClass(cat);
-        } else {
-          btn.className = getInactiveAuditPillClass();
+        const opt = document.getElementById(`audit-filter-${cat.toLowerCase()}`);
+        if (opt) {
+          if (cat === currentAuditFilter) {
+            opt.classList.add('bg-white/10', 'text-white', 'font-semibold');
+          } else {
+            opt.classList.remove('bg-white/10', 'text-white', 'font-semibold');
+          }
         }
       });
-    }
 
-    function getActiveAuditPillClass(cat) {
-      if (cat === 'ALL') {
-        return 'px-4 py-2 rounded-xl text-xs font-semibold bg-white/10 text-white border border-white/20 shadow-md flex items-center gap-2 transition-all ring-1 ring-white/20 shrink-0';
-      } else if (cat === 'HUMAN') {
-        return 'px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 shadow-md shadow-emerald-950/40 flex items-center gap-2 transition-all ring-1 ring-emerald-500/30 shrink-0';
-      } else if (cat === 'AI') {
-        return 'px-4 py-2 rounded-xl text-xs font-semibold bg-indigo-500/25 text-indigo-200 border border-indigo-500/40 shadow-md shadow-indigo-950/40 flex items-center gap-2 transition-all ring-1 ring-indigo-500/40 shrink-0';
-      } else if (cat === 'SYSTEM') {
-        return 'px-4 py-2 rounded-xl text-xs font-semibold bg-cyan-500/20 text-cyan-200 border border-cyan-500/40 shadow-md shadow-cyan-950/40 flex items-center gap-2 transition-all ring-1 ring-cyan-500/30 shrink-0';
+      const resetBtn = document.getElementById('btn-reset-audit-filters');
+      const searchInput = document.getElementById('audit-search-input');
+      const hasSearch = searchInput && searchInput.value.trim().length > 0;
+      if (resetBtn) {
+        if (currentAuditFilter !== 'ALL' || hasSearch) {
+          resetBtn.classList.remove('hidden');
+          resetBtn.classList.add('flex');
+        } else {
+          resetBtn.classList.add('hidden');
+          resetBtn.classList.remove('flex');
+        }
       }
-    }
 
-    function getInactiveAuditPillClass() {
-      return 'px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900/60 text-slate-400 hover:text-slate-200 hover:bg-slate-800 border border-white/5 flex items-center gap-2 transition-all shrink-0';
+      lucide.createIcons();
     }
 
     function renderAuditTable(records) {
@@ -1856,6 +1958,8 @@
       if (!tbody) return;
       tbody.innerHTML = '';
       
+      const countTop = document.getElementById('audit-showing-count-top');
+      if (countTop) countTop.textContent = records ? records.length : 0;
       const countLabel = document.getElementById('audit-showing-count');
       if (countLabel) countLabel.textContent = records ? records.length : 0;
 
@@ -1916,6 +2020,16 @@
     function filterAuditInMemory(query) {
       if (!cachedAuditRecords) return;
       const q = (query || '').toLowerCase().trim();
+      const resetBtn = document.getElementById('btn-reset-audit-filters');
+      if (resetBtn) {
+        if (currentAuditFilter !== 'ALL' || q.length > 0) {
+          resetBtn.classList.remove('hidden');
+          resetBtn.classList.add('flex');
+        } else {
+          resetBtn.classList.add('hidden');
+          resetBtn.classList.remove('flex');
+        }
+      }
       if (!q) {
         renderAuditTable(cachedAuditRecords);
         return;
