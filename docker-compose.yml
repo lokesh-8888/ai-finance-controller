@@ -5,7 +5,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./data:/app/data
+      - ./src:/app/src
     environment:
       - HOST=0.0.0.0
       - PORT=8000

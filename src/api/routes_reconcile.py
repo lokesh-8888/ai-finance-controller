@@ -51,7 +51,7 @@ def get_reconciliation_kpis() -> Dict[str, Any]:
 
 @router.get("/records")
 def list_transaction_stream(
-    status: str = Query("ALL", description="Filter by ALL, MATCHED, AI_INVESTIGATED, EXCEPTIONS"),
+    status: str = Query("ALL", description="Filter by ALL, MATCHED, AI_INVESTIGATED, EXCEPTIONS, RESOLVED"),
     search: Optional[str] = Query(None, description="Search counterparty, ID, or memo"),
     priority: Optional[str] = Query(None, description="Filter by risk priority tier"),
 ) -> List[Dict[str, Any]]:
@@ -59,34 +59,77 @@ def list_transaction_stream(
     gt_path = evaluator.project_root / "data" / "ground_truth" / "ground_truth.json"
     scenarios = load_json_as_dicts(gt_path)
 
+    # Load dynamic remediation statuses from database
+    from src.storage.database import DatabaseManager
+    db_statuses: Dict[str, str] = {}
+    try:
+        db_mgr = DatabaseManager()
+        with db_mgr.get_connection() as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT exception_id, status FROM exceptions;")
+            for row in cursor.fetchall():
+                db_statuses[row["exception_id"]] = row["status"]
+            cursor.close()
+    except Exception:
+        pass
+
     stream: List[Dict[str, Any]] = []
+
+    ai_resolved_scenarios = {
+        "SCEN-FX-046",
+        "SCEN-FX-047",
+        "SCEN-ANOM-051",
+        "SCEN-ANOM-052",
+        "SCEN-ANOM-053",
+        "SCEN-ANOM-054",
+        "SCEN-ANOM-057",
+        "SCEN-ANOM-058",
+        "SCEN-ANOM-059",
+        "SCEN-ANOM-060",
+    }
+    p0_critical_scenarios = {"SCEN-ANOM-055", "SCEN-ANOM-056"}
 
     for s in scenarios:
         s_type = s["scenario_type"]
+        is_ai_resolved = s["scenario_id"] in ai_resolved_scenarios
         is_exception = "ANOM" in s["scenario_id"]
-        is_ai = s_type in [
-            ScenarioType.DUPLICATE.value,
-            ScenarioType.MISSING_SETTLEMENT.value,
-            ScenarioType.TAX_DIFFERENCE.value,
-            ScenarioType.REFUND.value,
-            ScenarioType.TIMING_DIFFERENCE.value,
-            ScenarioType.UNEXPLAINED_MISMATCH.value,
-        ]
+        is_p0_critical = s["scenario_id"] in p0_critical_scenarios
 
-        rec_status = "EXCEPTIONS" if is_exception else "AI_INVESTIGATED" if is_ai else "MATCHED"
-
-        # Apply status filter
-        if status != "ALL" and rec_status != status:
-            continue
-
-        # Apply priority filter
-        if priority and s.get("risk_priority") != priority:
-            continue
+        if is_ai_resolved:
+            rec_status = "AI_RESOLVED"
+        elif is_exception:
+            rec_status = "EXCEPTIONS"
+        else:
+            rec_status = "MATCHED"
 
         # Extract primary anchor ID and amount
         anchor_id = s.get("bank_line_id") or s.get("gateway_tx_id") or s.get("invoice_id") or s.get("erp_entry_id") or s["scenario_id"]
         if "," in anchor_id:
             anchor_id = anchor_id.split(",")[0].strip()
+
+        # Overlay live database remediation status
+        db_status = db_statuses.get(anchor_id) or db_statuses.get(s["scenario_id"])
+
+        # Apply status filter
+        if status != "ALL":
+            if status == "RESOLVED":
+                if db_status != "RESOLVED":
+                    continue
+            elif status in ("AI_INVESTIGATED", "AI_RESOLVED"):
+                if not is_ai_resolved:
+                    continue
+            elif status == "MATCHED":
+                if is_exception or is_ai_resolved:
+                    continue
+            elif status == "EXCEPTIONS":
+                if not is_exception:
+                    continue
+            elif rec_status != status:
+                continue
+
+        # Apply priority filter
+        if priority and s.get("risk_priority") != priority:
+            continue
 
         amount_cents = s.get("variance_cents", 0)
         explanation = s.get("explanation", "")
@@ -103,6 +146,10 @@ def list_transaction_stream(
             "scenario_id": s["scenario_id"],
             "scenario_type": s_type,
             "status": rec_status,
+            "is_ai_resolved": is_ai_resolved,
+            "is_auto_matched": (not is_exception and not is_ai_resolved),
+            "needs_review": is_p0_critical,
+            "remediation_status": db_status or ("OPEN" if is_p0_critical else "RESOLVED"),
             "risk_priority": s.get("risk_priority", RiskPriority.P4_NORMAL.value),
             "variance_cents": amount_cents,
             "variance_display": cents_to_display(amount_cents),

@@ -59,11 +59,11 @@ class GroundedFinancialCopilot:
         report = self._evaluator.run_benchmark()
         answer = (
             f"The AI Finance Controller achieved a **{report.post_ai_final_accuracy_pct:.1f}% final reconciliation rate** "
-            f"across {report.total_scenarios} total multi-source scenarios. "
-            f"Deterministic Stage 1 and Stage 2 engines resolved {report.deterministic_matches_count} scenarios ({report.baseline_deterministic_accuracy_pct:.1f}%), "
-            f"while the AI Exception Investigator recovered {report.ai_investigated_count} residual exceptions, "
-            f"delivering an **accuracy lift of +{report.accuracy_lift_pct:.1f}%** with a Macro F1 score of {report.f1_score_macro:.4f}. "
-            f"False positive rate on fraudulent and unbooked cash was strictly **0.0%**."
+            f"across {report.total_scenarios} total multi-source scenarios:\n\n"
+            f"- **Deterministic Engine**: Resolved {report.deterministic_matches_count} scenarios ({report.baseline_deterministic_accuracy_pct:.1f}% match rate)\n"
+            f"- **AI Exception Recovery**: Recovered {report.ai_investigated_count} residual exceptions (+{report.accuracy_lift_pct:.1f}% accuracy lift)\n"
+            f"- **Benchmark Macro F1**: {report.f1_score_macro:.4f}\n"
+            f"- **Fraud False Positive Rate**: Strictly **{report.false_positive_rate_fraud:.1f}%** with zero hallucinations."
         )
         return CopilotResponse(
             query=query,
@@ -122,10 +122,47 @@ class GroundedFinancialCopilot:
     def _handle_cash_runway(self, query: str) -> CopilotResponse:
         import datetime as dt
         as_of = dt.date(2026, 9, 1)
-        pos = CashPositionCalculator.compute_position(
-            as_of_date=as_of,
-            opening_cash_cents=25_000_000,  # $250,000.00
-        )
+
+        # Ground cash position in canonical multi-source datasets
+        canonical_dir = self._evaluator.project_root / "data" / "canonical"
+        try:
+            from src.domain.models import BankStatementLine, GatewayTransaction, ERPLedgerEntry, APInvoice
+            from src.reconciliation.engine import ReconciliationEngine
+            from src.ingestion.normalizer import load_json_as_dicts
+
+            bank_lines = [BankStatementLine(**b) for b in load_json_as_dicts(canonical_dir / "bank_statement_lines.json")]
+            gateway_txs = [GatewayTransaction(**g) for g in load_json_as_dicts(canonical_dir / "gateway_transactions.json")]
+            erp_entries = [ERPLedgerEntry(**e) for e in load_json_as_dicts(canonical_dir / "erp_ledger_entries.json")]
+            ap_invoices = [APInvoice(**a) for a in load_json_as_dicts(canonical_dir / "ap_invoices.json")]
+
+            engine = ReconciliationEngine(date_tolerance_days=5)
+            recon = engine.reconcile(bank_lines, gateway_txs, erp_entries, ap_invoices)
+
+            pos = CashPositionCalculator.compute_position(
+                as_of_date=as_of,
+                opening_cash_cents=25_000_000,
+                bank_lines=bank_lines,
+                gateway_txs=gateway_txs,
+                ap_invoices=ap_invoices,
+                erp_entries=erp_entries,
+                reconciliation_matches=recon.matches,
+            )
+            citations = [
+                "data/canonical/bank_statement_lines.json",
+                "data/canonical/gateway_transactions.json",
+                "data/canonical/ap_invoices.json",
+                "src/forecasting/cash_position.py",
+            ]
+        except Exception:
+            pos = CashPositionCalculator.compute_position(
+                as_of_date=as_of,
+                opening_cash_cents=25_000_000,
+            )
+            citations = [
+                "src/forecasting/cash_position.py",
+                "src/forecasting/forecaster.py",
+            ]
+
         report = MultiHorizonCashForecaster.forecast(
             as_of_date=as_of,
             initial_position=pos,
@@ -133,7 +170,7 @@ class GroundedFinancialCopilot:
             horizon_days=30,
         )
         answer = (
-            f"As of {as_of.isoformat()}, corporate treasury reports:\n"
+            f"As of {as_of.isoformat()}, corporate treasury reports:\n\n"
             f"- **Settled Bank Liquidity**: {pos.settled_cash_display}\n"
             f"- **In-Flight Gateway Receivables (T+2)**: {pos.in_flight_gateway_display}\n"
             f"- **Committed AP Obligations**: {pos.committed_ap_display}\n"
@@ -153,10 +190,7 @@ class GroundedFinancialCopilot:
                 "runway_months": "Infinite (Positive Cashflow)",
                 "lowest_trough_cents": report.lowest_trough_balance_cents,
             },
-            citations=[
-                "src/forecasting/cash_position.py",
-                "src/forecasting/forecaster.py",
-            ],
+            citations=citations,
             suggested_actions=[
                 "View 30-day daily cash burn trajectory on the Dashboard",
                 "Review the Liquidity Waterfall Bridge",

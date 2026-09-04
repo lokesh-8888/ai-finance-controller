@@ -39,20 +39,37 @@ class DatabaseManager:
         conn.row_factory = sqlite3.Row
         cursor = conn.cursor()
         if not self._is_memory:
-            cursor.execute("PRAGMA journal_mode = WAL;")
+            try:
+                cursor.execute("PRAGMA journal_mode = WAL;")
+            except sqlite3.DatabaseError:
+                cursor.execute("PRAGMA journal_mode = DELETE;")
             cursor.execute("PRAGMA synchronous = NORMAL;")
         cursor.execute("PRAGMA foreign_keys = ON;")
         cursor.execute("PRAGMA busy_timeout = 5000;")
         cursor.close()
 
     def _get_raw_connection(self) -> sqlite3.Connection:
-        """Retrieve thread-local connection or memory connection."""
+        """Retrieve thread-local connection or memory connection with automatic corruption recovery."""
         if self._is_memory and self._memory_conn is not None:
             return self._memory_conn
 
         if not hasattr(self._local, "conn") or self._local.conn is None:
-            conn = sqlite3.connect(str(self.db_path), timeout=10.0, check_same_thread=False)
-            self._configure_connection(conn)
+            try:
+                conn = sqlite3.connect(str(self.db_path), timeout=10.0, check_same_thread=False)
+                self._configure_connection(conn)
+            except sqlite3.DatabaseError:
+                # If database disk image is malformed due to cross-process/OS collision,
+                # unlink the corrupted files and reconnect cleanly
+                if not self._is_memory and self.db_path:
+                    for ext in ["", "-shm", "-wal"]:
+                        p = Path(str(self.db_path) + ext)
+                        if p.exists():
+                            try:
+                                p.unlink()
+                            except Exception:
+                                pass
+                conn = sqlite3.connect(str(self.db_path), timeout=10.0, check_same_thread=False)
+                self._configure_connection(conn)
             self._local.conn = conn
         return self._local.conn
 

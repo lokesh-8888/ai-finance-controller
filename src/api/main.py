@@ -40,7 +40,14 @@ UI_INDEX_PATH = Path(__file__).resolve().parent.parent / "ui" / "index.html"
 def serve_dashboard():
     """Serve the responsive Fintech Operations Dashboard UI."""
     if UI_INDEX_PATH.exists():
-        return FileResponse(UI_INDEX_PATH)
+        return FileResponse(
+            UI_INDEX_PATH,
+            headers={
+                "Cache-Control": "no-cache, no-store, must-revalidate",
+                "Pragma": "no-cache",
+                "Expires": "0",
+            },
+        )
     return {"message": "AI Finance Controller API is running. UI index.html not found."}
 
 
