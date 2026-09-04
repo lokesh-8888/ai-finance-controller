@@ -142,6 +142,30 @@ class AuditTrailService:
         return True, None
 
     @classmethod
+    def get_all_records(cls, conn: sqlite3.Connection, limit: int = 100) -> List[AuditLogRecord]:
+        """Retrieve recent immutable audit trail entries across all financial actions."""
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM audit_logs ORDER BY id DESC LIMIT ?;", (limit,))
+        rows = cursor.fetchall()
+        cursor.close()
+
+        return [
+            AuditLogRecord(
+                id=r["id"],
+                timestamp=r["timestamp"],
+                event_type=r["event_type"],
+                actor=r["actor"],
+                record_id=r["record_id"],
+                before_state=r["before_state"],
+                after_state=r["after_state"],
+                rationale=r["rationale"],
+                hash_signature=r["hash_signature"],
+                prev_hash=r["prev_hash"],
+            )
+            for r in rows
+        ]
+
+    @classmethod
     def get_history_for_record(cls, conn: sqlite3.Connection, record_id: str) -> List[AuditLogRecord]:
         """Retrieve the immutable audit trail for a specific financial record ID."""
         cursor = conn.cursor()

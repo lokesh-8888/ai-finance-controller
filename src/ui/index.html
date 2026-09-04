@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Finance Controller — Autonomous Financial Reconciliation & Cash Intelligence</title>
+  <title>AI Finance Controller — Autonomous Multi-Source Reconciliation & Forward Cash Ops</title>
   
   <!-- Modern Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,22 +62,11 @@
     }
     
     .glass-card:hover {
-      border-color: rgba(255, 255, 255, 0.16);
+      border-color: rgba(255, 255, 255, 0.14);
       box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
     }
     
-    /* Status Glows */
-    .glow-emerald {
-      box-shadow: 0 0 20px -5px rgba(16, 185, 129, 0.3);
-    }
-    .glow-cyan {
-      box-shadow: 0 0 20px -5px rgba(6, 182, 212, 0.3);
-    }
-    .glow-rose {
-      box-shadow: 0 0 20px -5px rgba(244, 63, 94, 0.3);
-    }
-
-    /* Custom Scrollbar */
+    /* Custom Sleek Scrollbar */
     ::-webkit-scrollbar {
       width: 6px;
       height: 6px;
@@ -93,24 +82,25 @@
       background: rgba(255, 255, 255, 0.25);
     }
 
-    /* Smooth Slide Drawer */
-    .drawer-open {
-      transform: translateX(0%) !important;
-    }
-    .drawer-closed {
-      transform: translateX(100%) !important;
+    /* Active Nav Tab */
+    .top-nav-btn.active {
+      background: rgba(255, 255, 255, 0.1);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.2);
     }
   </style>
 </head>
 
 <body class="min-h-screen bg-grid-pattern flex flex-col antialiased selection:bg-emerald-500/30 selection:text-emerald-200">
 
-  <!-- TOP EXECUTIVE NAVBAR -->
-  <header class="sticky top-0 z-30 border-b border-white/[0.08] bg-[#090d16]/85 backdrop-blur-xl">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+  <!-- ========================================================= -->
+  <!-- 1. TOP EXECUTIVE NAVBAR (Original Brand & 5 Workspaces)   -->
+  <!-- ========================================================= -->
+  <header class="sticky top-0 z-30 border-b border-white/[0.08] bg-[#090d16]/90 backdrop-blur-xl shrink-0">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
       
       <!-- Brand & Purpose -->
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-3.5 shrink-0">
         <div class="relative flex items-center justify-center w-11 h-11 rounded-2xl bg-gradient-to-tr from-emerald-600 via-teal-500 to-cyan-400 p-[1.5px] shadow-lg shadow-emerald-900/40">
           <div class="w-full h-full bg-[#0d1424] rounded-[14px] flex items-center justify-center">
             <i data-lucide="shield-check" class="w-6 h-6 text-emerald-400"></i>
@@ -118,266 +108,485 @@
         </div>
         <div>
           <div class="flex items-center gap-2.5">
-            <h1 class="text-lg sm:text-xl font-bold tracking-tight text-white flex items-center gap-2">
-              AI Finance Controller
-            </h1>
-            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-              Live Reconciliation
+            <h1 class="text-base font-bold text-white tracking-tight leading-tight">AI Finance Controller</h1>
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+              Live Engine
             </span>
           </div>
-          <p class="text-xs text-slate-400 font-medium tracking-normal mt-0.5">
-            Autonomous Multi-Source Reconciliation & Cash Intelligence
-          </p>
+          <p class="text-xs text-slate-400 font-medium">Autonomous Multi-Source Reconciliation & Forward Cash Ops</p>
         </div>
       </div>
 
-      <!-- Header Quick Actions -->
-      <div class="flex items-center gap-3">
-        <!-- Copilot Button -->
-        <button onclick="toggleCopilotModal()" class="px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-200 bg-slate-800/80 hover:bg-slate-700/80 border border-white/10 transition-all flex items-center gap-2 shadow-sm hover:text-white">
-          <i data-lucide="sparkles" class="w-4 h-4 text-cyan-400"></i>
-          <span class="hidden sm:inline">Ask</span> Copilot
+      <!-- Navigation Tabs (5 Modular Workspaces) -->
+      <nav class="hidden md:flex items-center gap-1.5 p-1 rounded-xl bg-slate-900/80 border border-white/10 text-xs">
+        <button onclick="switchTab('dashboard')" id="nav-dashboard" class="top-nav-btn active flex items-center gap-2 px-3.5 py-2 rounded-lg text-slate-300 hover:text-white border border-transparent transition-all font-medium">
+          <i data-lucide="layout-dashboard" class="w-3.5 h-3.5 text-cyan-400"></i>
+          <span>Dashboard & Analytics</span>
         </button>
 
-        <!-- Audit Report Export -->
-        <button onclick="downloadAuditMemo()" class="px-3.5 py-2 rounded-xl text-xs font-semibold text-slate-200 bg-slate-800/80 hover:bg-slate-700/80 border border-white/10 transition-all flex items-center gap-2 shadow-sm hover:text-white">
-          <i data-lucide="file-text" class="w-4 h-4 text-slate-400"></i>
-          <span class="hidden sm:inline">Audit</span> Report
+        <button onclick="switchTab('transactions')" id="nav-transactions" class="top-nav-btn flex items-center gap-2 px-3.5 py-2 rounded-lg text-slate-300 hover:text-white border border-transparent transition-all font-medium">
+          <i data-lucide="list-filter" class="w-3.5 h-3.5 text-blue-400"></i>
+          <span>Transaction Stream</span>
         </button>
 
-        <!-- Run Reconciliation Action -->
-        <button id="btn-run-recon" onclick="triggerReconciliation()" class="px-4 py-2 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-emerald-600 to-teal-500 hover:from-emerald-500 hover:to-teal-400 transition-all flex items-center gap-2 shadow-lg shadow-emerald-900/30 hover:shadow-emerald-700/40">
-          <i data-lucide="refresh-cw" id="icon-recon" class="w-4 h-4"></i>
-          <span>Reconcile Feeds</span>
+        <button onclick="switchTab('investigator')" id="nav-investigator" class="top-nav-btn flex items-center gap-2 px-3.5 py-2 rounded-lg text-slate-300 hover:text-white border border-transparent transition-all font-medium">
+          <i data-lucide="search" class="w-3.5 h-3.5 text-purple-400"></i>
+          <span>AI Investigator</span>
+        </button>
+
+        <button onclick="switchTab('approvals')" id="nav-approvals" class="top-nav-btn flex items-center gap-2 px-3.5 py-2 rounded-lg text-slate-300 hover:text-white border border-transparent transition-all font-medium">
+          <i data-lucide="check-square" class="w-3.5 h-3.5 text-amber-400"></i>
+          <span>Approvals</span>
+          <span id="nav-approvals-count" class="px-1.5 py-0.2 rounded-full bg-amber-500/20 text-amber-300 font-mono text-[10px]">1</span>
+        </button>
+
+        <button onclick="switchTab('audit-trail')" id="nav-audit-trail" class="top-nav-btn flex items-center gap-2 px-3.5 py-2 rounded-lg text-slate-300 hover:text-white border border-transparent transition-all font-medium">
+          <i data-lucide="file-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+          <span>Audit Trail</span>
+        </button>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2.5 shrink-0">
+        <!-- Copilot Assistant Button -->
+        <button onclick="toggleCopilotModal()" class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 text-xs font-semibold border border-cyan-500/30 transition-all shadow-sm">
+          <i data-lucide="bot" class="w-4 h-4 text-cyan-400"></i>
+          <span>Copilot</span>
+        </button>
+
+        <!-- Run Reconciliation Trigger -->
+        <button onclick="triggerReconciliation()" id="btn-run-recon" class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-lg shadow-emerald-900/30 transition-all">
+          <i data-lucide="refresh-cw" id="icon-recon" class="w-3.5 h-3.5"></i>
+          <span class="hidden sm:inline">Run Reconcile</span>
+        </button>
+
+        <!-- Download Audit Report -->
+        <button onclick="downloadAuditMemo()" title="Export Executive Audit Memo" class="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-white/10 transition-all">
+          <i data-lucide="download" class="w-4 h-4"></i>
         </button>
       </div>
+
     </div>
   </header>
 
-  <!-- MAIN DASHBOARD CONTENT -->
-  <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+  <!-- ========================================================= -->
+  <!-- 2. MAIN APPLICATION CONTENT VIEW AREA                     -->
+  <!-- ========================================================= -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full flex-1 space-y-8">
+    
+    <!-- ======================================================= -->
+    <!-- TAB 1: DASHBOARD & ANALYTICS                            -->
+    <!-- ======================================================= -->
+    <section id="tab-dashboard" class="space-y-6">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div>
+          <h2 class="text-xl font-bold text-white tracking-tight">Executive Treasury & Reconciliation Overview</h2>
+          <p class="text-xs text-slate-400 mt-0.5">Real-time settlement status, analytical distributions, and forward liquidity posture</p>
+        </div>
+        <div class="flex items-center gap-2 text-xs font-mono text-slate-400">
+          <span class="inline-flex items-center gap-1 text-emerald-400"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i> Dual-Engine Invariant</span>
+        </div>
+      </div>
 
-    <!-- 1. STREAMLINED EXECUTIVE KPI ROW -->
-    <section>
+      <!-- Executive KPI Cards Grid (5 Cards) -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         
-        <!-- Metric 1: Reconciled Volume -->
-        <div class="glass-card p-5 relative overflow-hidden group">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-medium text-slate-400 uppercase tracking-wider">Reconciled Volume</span>
-            <div class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400">
-              <i data-lucide="layers" class="w-4 h-4"></i>
-            </div>
-          </div>
-          <div class="text-2xl font-bold font-mono text-white mt-3" id="kpi-volume">$143,988.23</div>
-          <div class="flex items-center gap-1.5 mt-2 text-[12px] text-emerald-400 font-medium">
-            <i data-lucide="trending-up" class="w-3.5 h-3.5"></i>
-            <span>100% of transactions verified</span>
-          </div>
+        <!-- Total Reconciled Volume -->
+        <div class="glass-card p-5 space-y-2">
+          <span class="text-xs font-medium text-slate-400 uppercase tracking-wider block">Total Volume</span>
+          <div class="text-2xl font-bold font-mono text-white tracking-tight" id="kpi-volume">$143,988.23</div>
+          <div class="text-[11px] text-slate-400">Multi-source settlement feeds</div>
         </div>
 
-        <!-- Metric 2: Auto-Match Rate -->
-        <div class="glass-card p-5 relative overflow-hidden group">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-medium text-slate-400 uppercase tracking-wider">Auto-Match Rate</span>
-            <div class="w-8 h-8 rounded-lg bg-cyan-500/10 flex items-center justify-center text-cyan-400">
-              <i data-lucide="check-circle-2" class="w-4 h-4"></i>
-            </div>
-          </div>
-          <div class="text-2xl font-bold font-mono text-white mt-3" id="kpi-match-rate">80.0%</div>
-          <div class="flex items-center gap-1.5 mt-2 text-[12px] text-slate-300">
-            <span>48 of 60 records matched instantly</span>
-          </div>
+        <!-- Baseline Deterministic Match Rate -->
+        <div class="glass-card p-5 space-y-2">
+          <span class="text-xs font-medium text-slate-400 uppercase tracking-wider block">Auto-Match Rate</span>
+          <div class="text-2xl font-bold font-mono text-emerald-400 tracking-tight" id="kpi-match-rate">80.0%</div>
+          <div class="text-[11px] text-slate-400">Stage 1 & 2 deterministic engine</div>
         </div>
 
-        <!-- Metric 3: AI Resolution Lift -->
-        <div class="glass-card p-5 relative overflow-hidden group">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-medium text-slate-400 uppercase tracking-wider">AI Exception Lift</span>
-            <div class="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400">
-              <i data-lucide="sparkles" class="w-4 h-4"></i>
-            </div>
-          </div>
-          <div class="text-2xl font-bold font-mono text-emerald-400 mt-3" id="kpi-ai-lift">+20.0%</div>
-          <div class="flex items-center gap-1.5 mt-2 text-[12px] text-slate-300">
-            <span>10 items resolved (fees, tax, FX)</span>
-          </div>
+        <!-- AI Recovery Lift -->
+        <div class="glass-card p-5 space-y-2">
+          <span class="text-xs font-medium text-slate-400 uppercase tracking-wider block">AI Recovery Lift</span>
+          <div class="text-2xl font-bold font-mono text-indigo-400 tracking-tight" id="kpi-ai-lift">+20.0%</div>
+          <div class="text-[11px] text-slate-400">Stage 3 forensic agent recovery</div>
         </div>
 
-        <!-- Metric 4: Needs Review -->
-        <div class="glass-card p-5 relative overflow-hidden group border-rose-500/20 bg-rose-500/[0.04]">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-semibold text-rose-300 uppercase tracking-wider">Attention Required</span>
-            <div class="w-8 h-8 rounded-lg bg-rose-500/10 flex items-center justify-center text-rose-400">
-              <i data-lucide="alert-circle" class="w-4 h-4"></i>
-            </div>
-          </div>
-          <div class="text-2xl font-bold font-mono text-rose-300 mt-3" id="kpi-exceptions">2 Items</div>
-          <div class="flex items-center gap-1.5 mt-2 text-[12px] text-rose-400 font-medium" id="kpi-exceptions-sub">
-            <span>$15,124.50 unbooked & discrepancy</span>
-          </div>
+        <!-- Quarantined Fraud & Exceptions -->
+        <div class="glass-card p-5 space-y-2">
+          <span class="text-xs font-medium text-slate-400 uppercase tracking-wider block">Exceptions</span>
+          <div class="text-2xl font-bold font-mono text-rose-400 tracking-tight" id="kpi-exceptions">2 Items</div>
+          <div class="text-[11px] text-rose-300 font-medium" id="kpi-exceptions-sub">$15,124.50 attention required</div>
         </div>
 
-        <!-- Metric 5: Available Cash -->
-        <div class="glass-card p-5 relative overflow-hidden group">
-          <div class="flex items-center justify-between">
-            <span class="text-xs font-medium text-slate-400 uppercase tracking-wider">Available Cash</span>
-            <div class="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400">
-              <i data-lucide="wallet" class="w-4 h-4"></i>
-            </div>
-          </div>
-          <div class="text-2xl font-bold font-mono text-emerald-400 mt-3" id="kpi-net-cash">$248,754.50</div>
-          <div class="flex items-center gap-1.5 mt-2 text-[12px] text-emerald-400/90 font-medium">
-            <i data-lucide="check" class="w-3.5 h-3.5"></i>
-            <span>Positive 30-day runway</span>
-          </div>
+        <!-- Net Adjusted Cash -->
+        <div class="glass-card p-5 space-y-2">
+          <span class="text-xs font-medium text-slate-400 uppercase tracking-wider block">Adjusted Cash</span>
+          <div class="text-2xl font-bold font-mono text-cyan-400 tracking-tight" id="kpi-net-cash">$248,754.50</div>
+          <div class="text-[11px] text-emerald-400 font-medium">Infinite cash runway (Positive)</div>
         </div>
 
       </div>
-    </section>
 
-    <!-- 2. DUAL FINANCIAL VISUALIZATIONS (IMMEDIATELY VISIBLE ON LOAD) -->
-    <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-      
-      <!-- Chart 1: 30-Day Forward Cash Projection -->
-      <div class="glass-card p-6 flex flex-col justify-between">
-        <div class="flex items-start justify-between mb-4">
-          <div>
-            <div class="flex items-center gap-2">
-              <h2 class="text-sm font-bold text-white tracking-wide">30-Day Forward Cash Forecast</h2>
-              <span class="px-2 py-0.5 text-[10px] font-semibold bg-cyan-500/10 text-cyan-300 border border-cyan-500/20 rounded-full">
-                Rolling Forecast
-              </span>
-            </div>
-            <p class="text-xs text-slate-400 mt-1">
-              Projected daily cash balance against our $50,000 safety threshold
-            </p>
-          </div>
-          <div class="flex items-center gap-3 text-[11px] text-slate-300">
-            <div class="flex items-center gap-1.5">
-              <span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span>
-              <span>Cash ($)</span>
-            </div>
-            <div class="flex items-center gap-1.5">
-              <span class="w-3 border-t-2 border-dashed border-rose-400"></span>
-              <span>Reserve ($50k)</span>
-            </div>
-          </div>
-        </div>
+      <!-- Visual Analytics Grid (3 Charts) -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
         
-        <div class="h-64 relative w-full">
-          <canvas id="cashTrajectoryChart"></canvas>
+        <!-- Chart 1: Payment Outcome Distribution -->
+        <div class="glass-card p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-sm font-bold text-white">Payment Outcome Status</h3>
+              <p class="text-[11px] text-slate-400">Reconciliation distribution</p>
+            </div>
+            <span class="px-2 py-0.5 rounded bg-slate-800 text-[10px] text-slate-300 font-mono">60 Records</span>
+          </div>
+          <div class="h-56 relative flex items-center justify-center">
+            <canvas id="chart-status-donut"></canvas>
+          </div>
+          <div class="flex flex-wrap items-center justify-center gap-3 text-[11px] text-slate-400 pt-1">
+            <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Matched (80%)</span>
+            <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-indigo-500"></span> AI Resolved (16.7%)</span>
+            <span class="inline-flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span> Quarantined (3.3%)</span>
+          </div>
+        </div>
+
+        <!-- Chart 2: Discrepancy Taxonomy Bar Chart -->
+        <div class="glass-card p-5 space-y-4">
+          <div>
+            <h3 class="text-sm font-bold text-white">Exception Root Causes</h3>
+            <p class="text-[11px] text-slate-400">Frequency breakdown by financial variance type</p>
+          </div>
+          <div class="h-64">
+            <canvas id="chart-categories-bar"></canvas>
+          </div>
+        </div>
+
+        <!-- Chart 3: 30-Day Forward Cash Trajectory & Waterfall -->
+        <div class="glass-card p-5 space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-sm font-bold text-white" id="trend-card-title">30-Day Cash Trajectory</h3>
+              <p class="text-[11px] text-slate-400" id="trend-card-subtitle">Continuous forward liquidity forecast</p>
+            </div>
+            <button onclick="toggleTrendTrajectory()" class="text-[11px] px-2 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium transition-colors border border-white/5">
+              Toggle Waterfall
+            </button>
+          </div>
+          <div class="h-64">
+            <!-- Trajectory Chart (data-component / identifier preserved for tests) -->
+            <div id="trajectoryChart" class="h-full w-full">
+              <canvas id="chart-cash-forecast"></canvas>
+            </div>
+            <!-- Waterfall Bridge Chart -->
+            <div id="waterfallContainer" class="h-full w-full hidden">
+              <canvas id="chart-waterfall"></canvas>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- TAB 2: TRANSACTION STREAM                               -->
+    <!-- ======================================================= -->
+    <section id="tab-transactions" class="space-y-5 hidden">
+      
+      <!-- Stream Header & Controls -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <h2 class="text-xl font-bold text-white tracking-tight">4-Way Transaction Stream</h2>
+          <p class="text-xs text-slate-400 mt-0.5">Real-time audit log across Bank Feeds, Gateway Payouts, ERP Ledgers, and AP Invoices</p>
+        </div>
+
+        <!-- Filter Pills & Search Bar -->
+        <div class="flex flex-wrap items-center gap-3">
+          <!-- Search Input -->
+          <div class="relative w-full sm:w-64">
+            <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+            <input 
+              type="text" 
+              id="recon-search" 
+              oninput="handleSearch(this.value)" 
+              placeholder="Search ID, vendor, or memo..." 
+              class="w-full bg-slate-900 border border-white/10 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500/50"
+            >
+          </div>
+
+          <!-- Status Filter Pills -->
+          <div class="flex items-center gap-1.5 p-1 rounded-xl bg-slate-900/80 border border-white/10 text-xs">
+            <button onclick="filterRecords('ALL')" id="filter-pill-ALL" class="filter-pill px-3 py-1 rounded-lg font-medium text-white bg-slate-800 transition-all">
+              All (<span id="count-ALL">60</span>)
+            </button>
+            <button onclick="filterRecords('MATCHED')" id="filter-pill-MATCHED" class="filter-pill px-3 py-1 rounded-lg font-medium text-slate-400 hover:text-white transition-all">
+              Auto-Matched (<span id="count-MATCHED">48</span>)
+            </button>
+            <button onclick="filterRecords('AI_RESOLVED')" id="filter-pill-AI_RESOLVED" class="filter-pill px-3 py-1 rounded-lg font-medium text-slate-400 hover:text-white transition-all">
+              AI Resolved (<span id="count-AI_RESOLVED">10</span>)
+            </button>
+            <button onclick="filterRecords('EXCEPTIONS')" id="filter-pill-EXCEPTIONS" class="filter-pill px-3 py-1 rounded-lg font-medium text-slate-400 hover:text-white transition-all">
+              Needs Review (<span id="count-EXCEPTIONS">2</span>)
+            </button>
+          </div>
         </div>
       </div>
 
-      <!-- Chart 2: Cash Flow Waterfall Breakdown -->
-      <div class="glass-card p-6 flex flex-col justify-between">
-        <div class="flex items-start justify-between mb-4">
-          <div>
-            <div class="flex items-center gap-2">
-              <h2 class="text-sm font-bold text-white tracking-wide">Monthly Cash Flow Waterfall</h2>
-              <span class="px-2 py-0.5 text-[10px] font-semibold bg-emerald-500/10 text-emerald-300 border border-emerald-500/20 rounded-full">
-                Reconciled
-              </span>
-            </div>
-            <p class="text-xs text-slate-400 mt-1">
-              Opening balance connected to collections, disbursements, and closing cash
-            </p>
-          </div>
-          <div class="text-[11px] text-slate-400 font-mono">
-            Net Change: <span class="text-emerald-400 font-bold">+$48,754.50</span>
-          </div>
+      <!-- Transaction Table Card -->
+      <div class="glass-card overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="border-b border-white/10 text-[11px] font-semibold text-slate-400 uppercase tracking-wider bg-slate-900/50">
+                <th class="py-3 px-4">Record ID</th>
+                <th class="py-3 px-4">Category</th>
+                <th class="py-3 px-4">Status</th>
+                <th class="py-3 px-4">Priority</th>
+                <th class="py-3 px-4 text-right">Variance</th>
+                <th class="py-3 px-4">Reconciliation Insight</th>
+                <th class="py-3 px-4 text-center">Action</th>
+              </tr>
+            </thead>
+            <tbody id="recon-table-body" class="divide-y divide-white/[0.04] text-slate-200">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
         </div>
 
-        <div class="h-64 relative w-full">
-          <canvas id="waterfallChart"></canvas>
+        <div class="p-4 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
+          <span id="table-record-count">Showing 60 of 60 transactions</span>
+          <span class="text-emerald-400 font-medium flex items-center gap-1.5">
+            <i data-lucide="shield-check" class="w-4 h-4"></i> 100% Audit Verified
+          </span>
         </div>
       </div>
 
     </section>
 
-    <!-- 3. INTERACTIVE TRANSACTION WORKBENCH & EXCEPTION REVIEW -->
-    <section class="glass-card p-6 space-y-6">
+    <!-- ======================================================= -->
+    <!-- TAB 3: AI EXCEPTION INVESTIGATOR                        -->
+    <!-- ======================================================= -->
+    <section id="tab-investigator" class="space-y-6 hidden">
       
-      <!-- Table Header & Controls -->
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/[0.08]">
+      <div>
+        <h2 class="text-xl font-bold text-white tracking-tight">AI Exception Forensic Investigator</h2>
+        <p class="text-xs text-slate-400 mt-0.5">Automated root cause diagnostics, multi-source evidence synthesis, and ambiguity gating</p>
+      </div>
+
+      <!-- Master-Detail Forensic Split Layout -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        
+        <!-- Left Pane: Exception Queue (4 cols) -->
+        <div class="lg:col-span-4 glass-card p-3 max-h-[640px] overflow-y-auto space-y-2.5" id="investigation-list">
+          <!-- Dynamically populated exception cards -->
+        </div>
+
+        <!-- Right Pane: Diagnostic Workspace (8 cols) -->
+        <div class="lg:col-span-8 space-y-5">
+          
+          <!-- Selected Exception Diagnostic Card -->
+          <div class="glass-card p-6 space-y-5" id="investigation-detail-card">
+            
+            <div class="flex items-start justify-between pb-4 border-b border-white/10">
+              <div>
+                <div class="flex items-center gap-2.5">
+                  <h3 class="text-base font-bold text-white font-mono" id="inv-selected-id">BNK-0055</h3>
+                  <span id="inv-selected-priority" class="px-2.5 py-0.5 rounded text-[10px] font-bold font-mono bg-rose-500/20 text-rose-300 border border-rose-500/30">P0 CRITICAL</span>
+                  <span id="inv-selected-category" class="px-2.5 py-0.5 rounded text-[10px] font-semibold bg-slate-800 text-slate-300 border border-white/5">Unbooked Inward Wire</span>
+                </div>
+                <p class="text-xs text-slate-400 mt-1">Transaction Link: <span id="inv-selected-txn" class="text-cyan-400 font-mono cursor-pointer hover:underline" onclick="openDrawer(currentInvestigationRecord?.id)">BNK-0055</span></p>
+              </div>
+              <div class="text-right">
+                <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Financial Exposure</span>
+                <span class="text-xl font-bold font-mono text-rose-400" id="inv-selected-diff">$15,000.00</span>
+              </div>
+            </div>
+
+            <!-- Root Cause Synopsis -->
+            <div class="space-y-2">
+              <label class="text-xs font-semibold text-slate-300 uppercase tracking-wider block">Forensic Synthesis & Explanation</label>
+              <div class="p-4 rounded-xl bg-slate-900/80 border border-white/10 text-xs text-slate-300 leading-relaxed" id="inv-selected-explanation">
+                Inward wire of $15,000.00 received with no matching ERP sales invoice, customer order, or billing token. Potential unbooked cash or unidentified deposit requiring forensic escalation.
+              </div>
+            </div>
+
+            <!-- Action Button & Run Analysis -->
+            <div id="inv-action-box" class="pt-2">
+              <button onclick="runAiInvestigation()" id="btn-run-investigate" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition-all flex items-center gap-2 shadow-lg shadow-indigo-900/30">
+                <i data-lucide="sparkles" class="w-4 h-4"></i>
+                <span>Run Forensic AI Diagnosis</span>
+              </button>
+            </div>
+
+            <!-- Forensic Results Container (Revealed upon investigation) -->
+            <div id="inv-results-container" class="hidden p-4 rounded-xl bg-indigo-950/40 border border-indigo-500/30 space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-bold text-indigo-300 flex items-center gap-1.5">
+                  <i data-lucide="check-circle" class="w-4 h-4 text-indigo-400"></i> AI Diagnosis Complete & Verified
+                </span>
+                <span class="text-[11px] px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 font-bold font-mono border border-indigo-500/30" id="inv-confidence-badge">Confidence 94% • Ambiguity Gated</span>
+              </div>
+              <p class="text-xs text-slate-200 leading-relaxed" id="inv-recommendation-text">
+                Recommendation: Quarantine item under ESCALATE_FRAUD. File bank treasury inquiry ticket to trace originating counterparty before posting cash clearance.
+              </p>
+              <div class="flex items-center gap-3 pt-2 border-t border-white/10">
+                <button onclick="sendToApprovals()" class="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold shadow-sm transition-all flex items-center gap-1.5">
+                  <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
+                  <span>Send to Approvals Queue</span>
+                </button>
+                <button onclick="quickApproveFromInvestigation()" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-sm transition-all flex items-center gap-1.5">
+                  <i data-lucide="check" class="w-3.5 h-3.5"></i>
+                  <span>1-Click Resolve Variance</span>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Controller Guardrails Card -->
+          <div class="glass-card p-6 space-y-4">
+            <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
+              <i data-lucide="shield-alert" class="w-4 h-4 text-emerald-400"></i>
+              <span>Controller Safety & Integrity Guardrails</span>
+            </h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-y-3 gap-x-6 text-xs text-slate-300 font-medium">
+              <div class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>Human controller approval required for GL postings</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>Cryptographic SHA-256 audit chaining on all mutations</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>Strict ambiguity gating (Gap &lt; 8% &rarr; Human Review)</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>Zero direct money movement without multi-sig approval</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>Integer-cents math guarantees zero floating-point drift</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
+                <span>Deterministic Stage 1 & 2 fallback engine available</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- TAB 4: APPROVALS & WORKBENCH                            -->
+    <!-- ======================================================= -->
+    <section id="tab-approvals" class="space-y-6 hidden">
+      
+      <div>
+        <h2 class="text-xl font-bold text-white tracking-tight">Controller Approvals & Remediation Workbench</h2>
+        <p class="text-xs text-slate-400 mt-0.5">Human-in-the-loop review queue for recommended journal adjustments, disputes, and variance approvals</p>
+      </div>
+
+      <!-- Section: PENDING -->
+      <div class="space-y-3">
+        <div class="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
+          <span>PENDING CONTROLLER ACTIONS</span>
+          <span id="approvals-pending-badge" class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 text-[10px] font-mono border border-amber-500/30">1</span>
+        </div>
+
+        <div id="approvals-pending-container" class="space-y-3">
+          <!-- Dynamically populated Pending Approval Cards -->
+        </div>
+      </div>
+
+      <!-- Section: DECIDED -->
+      <div class="space-y-3 pt-4">
+        <div class="flex items-center gap-2 text-xs font-bold text-slate-300 uppercase tracking-wider">
+          <span>HISTORICAL DECISIONS & REMEDIATION LOG</span>
+          <span id="approvals-decided-badge" class="px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 text-[10px] font-mono border border-white/5">4</span>
+        </div>
+
+        <div class="glass-card overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="border-b border-white/10 text-[11px] font-semibold text-slate-400 uppercase tracking-wider bg-slate-900/50">
+                  <th class="py-3 px-4">Record ID</th>
+                  <th class="py-3 px-4 text-right">Exposure</th>
+                  <th class="py-3 px-4">Risk Tier</th>
+                  <th class="py-3 px-4 text-center">Status</th>
+                  <th class="py-3 px-4">Decided by</th>
+                  <th class="py-3 px-4">Timestamp</th>
+                </tr>
+              </thead>
+              <tbody id="approvals-decided-body" class="divide-y divide-white/[0.04] text-slate-200">
+                <!-- Dynamically populated Decided Records -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- TAB 5: CRYPTOGRAPHIC AUDIT TRAIL                        -->
+    <!-- ======================================================= -->
+    <section id="tab-audit-trail" class="space-y-6 hidden">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div>
-          <h2 class="text-base font-bold text-white tracking-tight flex items-center gap-2">
-            Reconciliation Activity & Exceptions
-          </h2>
-          <p class="text-xs text-slate-400 mt-0.5">
-            Real-time feed matching Bank Statements, Payment Gateways, ERP Ledgers, and AP Invoices.
-          </p>
+          <h2 class="text-xl font-bold text-white tracking-tight">Cryptographic SHA-256 Audit Trail</h2>
+          <p class="text-xs text-slate-400 mt-0.5">Tamper-evident, hash-chained ledger verifying all reconciliation mutations and journal entries</p>
         </div>
-
-        <!-- Search Bar -->
-        <div class="relative w-full sm:w-72">
-          <i data-lucide="search" class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
-          <input 
-            type="text" 
-            id="recon-search" 
-            oninput="handleSearch()" 
-            placeholder="Search reference, vendor, note..." 
-            class="w-full bg-slate-900/90 border border-white/10 rounded-xl pl-9 pr-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-emerald-500/50 focus:ring-1 focus:ring-emerald-500/50 transition-all font-mono"
-          >
-        </div>
-      </div>
-
-      <!-- Quick Filter Pills -->
-      <div class="flex flex-wrap items-center gap-2" id="status-filter-pills">
-        <button onclick="filterRecords('ALL')" id="pill-ALL" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500 text-slate-950 transition-all shadow-sm">
-          All Records (60)
-        </button>
-        <button onclick="filterRecords('MATCHED')" id="pill-MATCHED" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white bg-slate-800/60 hover:bg-slate-800 border border-white/5 transition-all">
-          Auto-Matched (48)
-        </button>
-        <button onclick="filterRecords('AI_INVESTIGATED')" id="pill-AI_INVESTIGATED" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white bg-slate-800/60 hover:bg-slate-800 border border-white/5 transition-all">
-          AI Resolved (10)
-        </button>
-        <button onclick="filterRecords('EXCEPTIONS')" id="pill-EXCEPTIONS" class="px-3.5 py-1.5 rounded-lg text-xs font-semibold text-rose-300 hover:text-rose-200 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/20 transition-all flex items-center gap-1.5">
-          <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
-          Needs Review (2)
-        </button>
-      </div>
-
-      <!-- Records Table -->
-      <div class="overflow-x-auto rounded-xl border border-white/[0.06]">
-        <table class="w-full text-left text-xs border-collapse">
-          <thead>
-            <tr class="bg-slate-900/90 text-slate-400 border-b border-white/[0.08] font-medium uppercase tracking-wider text-[11px]">
-              <th class="py-3 px-4 font-mono">Reference</th>
-              <th class="py-3 px-4">Category</th>
-              <th class="py-3 px-4">Status</th>
-              <th class="py-3 px-4">Priority</th>
-              <th class="py-3 px-4 text-right">Variance</th>
-              <th class="py-3 px-4">Reconciliation Insight</th>
-              <th class="py-3 px-4 text-center">Action</th>
-            </tr>
-          </thead>
-          <tbody id="recon-table-body" class="divide-y divide-white/[0.04] text-slate-200 font-sans">
-            <!-- Dynamically populated -->
-          </tbody>
-        </table>
-      </div>
-
-      <!-- Table Pagination / Status Footer -->
-      <div class="flex items-center justify-between text-xs text-slate-400 pt-2">
-        <span id="table-record-count">Showing 60 of 60 transactions</span>
-        <span class="text-emerald-400 font-medium flex items-center gap-1">
-          <i data-lucide="shield-check" class="w-3.5 h-3.5"></i> 100% Audit Verified
+        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+          <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
+          <span>100% Chain Integrity Verified</span>
         </span>
+      </div>
+
+      <!-- Audit Trail Table Card -->
+      <div class="glass-card overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse font-mono">
+            <thead>
+              <tr class="border-b border-white/10 text-[11px] font-semibold text-slate-400 uppercase tracking-wider bg-slate-900/50 font-sans">
+                <th class="py-3 px-4">Log ID</th>
+                <th class="py-3 px-4">Timestamp (UTC)</th>
+                <th class="py-3 px-4">Event Type</th>
+                <th class="py-3 px-4">Actor</th>
+                <th class="py-3 px-4">Record ID</th>
+                <th class="py-3 px-4 font-sans">Rationale & Action</th>
+                <th class="py-3 px-4">SHA-256 Signature</th>
+              </tr>
+            </thead>
+            <tbody id="audit-log-body" class="divide-y divide-white/[0.04] text-slate-300 text-[11px]">
+              <!-- Dynamically populated Audit Trail -->
+            </tbody>
+          </table>
+        </div>
       </div>
 
     </section>
 
   </main>
 
-  <!-- 4. SLIDE-OUT FORENSIC REVIEW DRAWER (data-component="inspectorDrawer" for tests) -->
+  <!-- ========================================================= -->
+  <!-- 3. SLIDE-OUT FORENSIC INSPECTION DRAWER                   -->
+  <!-- (data-component="inspectorDrawer" preserved for tests)   -->
+  <!-- ========================================================= -->
   <div 
     id="inspection-drawer" 
     data-component="inspectorDrawer" 
-    class="fixed inset-y-0 right-0 w-full sm:w-[500px] bg-[#0d1424] border-l border-white/10 shadow-2xl p-6 transform translate-x-full transition-transform duration-300 z-50 overflow-y-auto space-y-6 flex flex-col justify-between"
+    class="fixed inset-y-0 right-0 w-full sm:w-[520px] bg-[#0d1424] border-l border-white/10 shadow-2xl p-6 transform translate-x-full transition-transform duration-300 z-50 overflow-y-auto space-y-6 flex flex-col justify-between"
   >
     <div class="space-y-6">
       
@@ -427,7 +636,9 @@
   <!-- Drawer Backdrop -->
   <div id="drawer-backdrop" onclick="closeDrawer()" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 hidden transition-opacity"></div>
 
-  <!-- 5. FINANCIAL COPILOT MODAL -->
+  <!-- ========================================================= -->
+  <!-- 4. FINANCIAL COPILOT MODAL                                -->
+  <!-- ========================================================= -->
   <div id="copilot-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black/75 backdrop-blur-md">
     <div class="glass-card max-w-2xl w-full p-6 space-y-4 border border-white/15 bg-[#0e1628] shadow-2xl relative rounded-2xl flex flex-col max-h-[90vh]">
       
@@ -472,7 +683,7 @@
       </div>
 
       <!-- Chat History -->
-      <div id="copilot-chat-history" class="h-[380px] overflow-y-auto space-y-3.5 p-4 rounded-xl bg-slate-950/70 border border-white/10 text-xs scroll-smooth">
+      <div id="copilot-chat-history" class="h-[360px] overflow-y-auto space-y-3.5 p-4 rounded-xl bg-slate-950/70 border border-white/10 text-xs scroll-smooth">
         <div class="p-3.5 rounded-xl bg-slate-900/90 border border-white/10 text-slate-300 space-y-2">
           <div class="flex items-center gap-2 text-cyan-400 font-semibold text-xs">
             <i data-lucide="sparkles" class="w-4 h-4"></i>
@@ -502,39 +713,103 @@
     </div>
   </div>
 
-  <!-- JAVASCRIPT APP LOGIC -->
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="px-4 py-3 rounded-xl bg-slate-900 text-white text-xs font-medium shadow-2xl flex items-center gap-2.5 border border-white/10" id="toast-content">
+      Notification
+    </div>
+  </div>
+
+  <!-- ========================================================= -->
+  <!-- 5. JAVASCRIPT APPLICATION LOGIC                           -->
+  <!-- ========================================================= -->
   <script>
     let allRecords = [];
+    let currentInvestigationRecord = null;
     let activeFilter = 'ALL';
+    let currentSearchTerm = '';
+
+    // Charts
+    let statusDonutChart = null;
+    let categoriesBarChart = null;
     let trajectoryChart = null; // Preserved for test suite assertion
     let waterfallChart = null;
 
-    // Load initial data
+    // Approvals State
+    let pendingApprovals = [
+      {
+        id: "BNK-0055",
+        recordId: "BNK-0055",
+        amount: "$15,000.00",
+        risk: "P0_CRITICAL",
+        text: "Quarantine unidentified inward wire of $15,000.00 under ESCALATE_FRAUD. File bank treasury inquiry ticket.",
+        confidence: "98%",
+        created: "Today, 09:30 am"
+      }
+    ];
+    let decidedApprovals = [
+      { id: "BNK-0052", amount: "$1,750.00", risk: "P1_HIGH", status: "Approved", decidedBy: "FINANCE_CONTROLLER", decidedAt: "23 Aug 2026, 12:17 pm" },
+      { id: "GTW-0040", amount: "$1,450.00", risk: "P1_HIGH", status: "Approved", decidedBy: "FINANCE_CONTROLLER", decidedAt: "23 Aug 2026, 07:22 am" },
+      { id: "BNK-0058", amount: "$82.50", risk: "P2_MEDIUM", status: "Approved", decidedBy: "FINANCE_CONTROLLER", decidedAt: "23 Aug 2026, 07:08 am" }
+    ];
+
+    // --- Tab Navigation ---
+    function switchTab(tabId) {
+      ['dashboard', 'transactions', 'investigator', 'approvals', 'audit-trail'].forEach(id => {
+        const el = document.getElementById(`tab-${id}`);
+        if (el) el.classList.add('hidden');
+        const nav = document.getElementById(`nav-${id}`);
+        if (nav) nav.classList.remove('active');
+      });
+
+      const selected = document.getElementById(`tab-${tabId}`);
+      if (selected) selected.classList.remove('hidden');
+      const navBtn = document.getElementById(`nav-${tabId}`);
+      if (navBtn) navBtn.classList.add('active');
+
+      if (tabId === 'audit-trail') loadAuditTrail();
+      lucide.createIcons();
+    }
+
+    // --- Initialize Dashboard ---
     async function initDashboard() {
       try {
         await loadRecords();
         await loadKPIs();
-        await Promise.all([
-          initCashForecastChart(),
-          initWaterfallChart()
-        ]);
+        initCharts();
+        setupPendingApprovals();
         lucide.createIcons();
       } catch (err) {
-        console.error("Dashboard initialization error:", err);
+        console.error("Initialization error:", err);
       }
     }
 
-    // Load executive KPIs
+    // --- Load Records & Populate Tables ---
+    async function loadRecords() {
+      try {
+        const res = await fetch('/api/v1/reconcile/records?status=ALL');
+        if (!res.ok) return;
+        const data = await res.json();
+        allRecords = Array.isArray(data) ? data : (data.records || []);
+        renderReconTable(allRecords);
+        updateFilterPillCounts();
+        renderInvestigationList(allRecords);
+      } catch (e) {
+        console.error("Failed to load records:", e);
+      }
+    }
+
+    // --- Load Executive KPIs ---
     async function loadKPIs() {
       try {
         const res = await fetch('/api/v1/reconcile/kpis');
         if (!res.ok) return;
         const data = await res.json();
-        
+
         document.getElementById('kpi-volume').innerText = data.total_volume_display || '$143,988.23';
         document.getElementById('kpi-match-rate').innerText = `${data.deterministic_match_rate_pct.toFixed(1)}%`;
         document.getElementById('kpi-ai-lift').innerText = `+${data.ai_recovery_rate_pct.toFixed(1)}%`;
-        
+
         // Compute live unresolved exceptions count & exposure
         const unresolvedList = allRecords.filter(r => 
           (r.status === 'EXCEPTIONS' || r.status === 'EXCEPTION' || (r.risk_priority && (r.risk_priority.includes('P0') || r.risk_priority.includes('P1'))))
@@ -560,20 +835,7 @@
       }
     }
 
-    // Load transaction records
-    async function loadRecords() {
-      try {
-        const res = await fetch('/api/v1/reconcile/records?status=ALL');
-        if (!res.ok) return;
-        const data = await res.json();
-        allRecords = Array.isArray(data) ? data : (data.records || []);
-        renderReconTable(allRecords);
-      } catch (e) {
-        console.error("Failed to load records:", e);
-      }
-    }
-
-    // Render table
+    // --- Render Transaction Stream Table ---
     function renderReconTable(records) {
       const tbody = document.getElementById('recon-table-body');
       if (!tbody) return;
@@ -585,7 +847,6 @@
         const tr = document.createElement('tr');
         tr.className = "hover:bg-white/[0.02] transition-colors";
 
-        // Clean status badge
         const isResolved = r.remediation_status === 'RESOLVED';
         const isDisputed = r.remediation_status === 'DISPUTED';
         const isWrittenOff = r.remediation_status === 'WRITTEN_OFF';
@@ -604,7 +865,6 @@
           statusBadge = `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/20"><i data-lucide="alert-triangle" class="w-3 h-3"></i> Needs Review</span>`;
         }
 
-        // Priority Badge
         let priorityBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium text-slate-400 bg-slate-800/80">${r.risk_priority.replace('_', ' ')}</span>`;
         if (r.risk_priority === 'P0_CRITICAL') {
           priorityBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold text-rose-300 bg-rose-500/20 border border-rose-500/30">P0 CRITICAL</span>`;
@@ -612,7 +872,6 @@
           priorityBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-mono font-semibold text-amber-300 bg-amber-500/20 border border-amber-500/30">P1 HIGH</span>`;
         }
 
-        // Variance styling
         const hasVariance = r.variance_cents && r.variance_cents !== 0;
         const varianceClass = hasVariance ? 'text-rose-400 font-bold' : 'text-slate-400';
 
@@ -638,354 +897,563 @@
         `;
         tbody.appendChild(tr);
       });
-
-      updateFilterPillCounts();
       lucide.createIcons();
     }
 
-    // Filter pills handler
-    function filterRecords(type) {
-      activeFilter = type;
-      const pills = ['ALL', 'MATCHED', 'AI_INVESTIGATED', 'EXCEPTIONS'];
-      pills.forEach(p => {
-        const el = document.getElementById('pill-' + p);
-        if (!el) return;
-        if (p === type) {
-          el.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold bg-emerald-500 text-slate-950 transition-all shadow-sm";
-        } else {
-          el.className = "px-3.5 py-1.5 rounded-lg text-xs font-semibold text-slate-300 hover:text-white bg-slate-800/60 hover:bg-slate-800 border border-white/5 transition-all";
-        }
-      });
+    // --- Search & Filter Logic ---
+    function filterRecords(status) {
+      activeFilter = status;
 
+      document.querySelectorAll('.filter-pill').forEach(btn => {
+        btn.classList.remove('bg-slate-800', 'text-white');
+        btn.classList.add('text-slate-400');
+      });
+      const activeBtn = document.getElementById(`filter-pill-${status}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('text-slate-400');
+        activeBtn.classList.add('bg-slate-800', 'text-white');
+      }
+
+      applyFilters();
+    }
+
+    function handleSearch(val) {
+      currentSearchTerm = (val || '').toLowerCase();
+      applyFilters();
+    }
+
+    function applyFilters() {
       let filtered = allRecords;
-      if (type === 'MATCHED') {
-        filtered = allRecords.filter(r => r.is_auto_matched || (r.status === 'MATCHED' && !r.is_ai_resolved));
-      } else if (type === 'AI_INVESTIGATED' || type === 'AI_RESOLVED') {
-        filtered = allRecords.filter(r => r.is_ai_resolved || r.status === 'AI_RESOLVED' || r.status === 'AI_INVESTIGATED');
-      } else if (type === 'EXCEPTIONS') {
-        filtered = allRecords.filter(r => 
-          (r.needs_review || (r.status === 'EXCEPTIONS' && !r.is_ai_resolved) || r.risk_priority.includes('P0'))
+
+      if (activeFilter === 'MATCHED') {
+        filtered = filtered.filter(r => r.is_auto_matched || r.status === 'MATCHED');
+      } else if (activeFilter === 'AI_RESOLVED') {
+        filtered = filtered.filter(r => r.is_ai_resolved || r.status === 'AI_RESOLVED' || r.status === 'AI_INVESTIGATED');
+      } else if (activeFilter === 'EXCEPTIONS') {
+        filtered = filtered.filter(r => 
+          (r.status === 'EXCEPTIONS' || r.status === 'EXCEPTION' || r.needs_review || (r.risk_priority && r.risk_priority.includes('P0')))
           && r.remediation_status !== 'RESOLVED' && r.remediation_status !== 'WRITTEN_OFF'
         );
       }
-      renderReconTable(filtered);
-    }
 
-    // Search filter
-    function handleSearch() {
-      const q = document.getElementById('recon-search').value.toLowerCase();
-      const filtered = allRecords.filter(r => 
-        r.id.toLowerCase().includes(q) ||
-        r.scenario_type.toLowerCase().includes(q) ||
-        r.explanation.toLowerCase().includes(q)
-      );
-      renderReconTable(filtered);
-    }
-
-    // 30-Day Forward Cash Projection Chart
-    async function initCashForecastChart() {
-      const ctx = document.getElementById('cashTrajectoryChart');
-      if (!ctx || trajectoryChart) return;
-
-      const labels = Array.from({length: 30}, (_, i) => `Day ${i + 1}`);
-      const projected = Array.from({length: 30}, (_, i) => 248754.50 + (i * 2611.85));
-      const safetyBuffer = Array.from({length: 30}, () => 50000);
-
-      trajectoryChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: labels,
-          datasets: [
-            {
-              label: 'Projected Net Cash',
-              data: projected,
-              borderColor: '#06b6d4', // Cyan
-              backgroundColor: 'rgba(6, 182, 212, 0.08)',
-              borderWidth: 2.5,
-              fill: true,
-              tension: 0.35,
-              pointRadius: 2,
-              pointHoverRadius: 5,
-              pointBackgroundColor: '#06b6d4',
-            },
-            {
-              label: 'Safety Threshold ($50k)',
-              data: safetyBuffer,
-              borderColor: '#f43f5e', // Rose
-              borderDash: [5, 5],
-              borderWidth: 1.5,
-              fill: false,
-              pointRadius: 0,
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { display: false },
-            tooltip: {
-              backgroundColor: '#0f172a',
-              titleColor: '#94a3b8',
-              bodyColor: '#ffffff',
-              borderColor: 'rgba(255,255,255,0.1)',
-              borderWidth: 1,
-              padding: 10,
-              displayColors: false,
-              callbacks: {
-                label: (c) => `$${c.raw.toLocaleString(undefined, {minimumFractionDigits: 2})}`
-              }
-            }
-          },
-          scales: {
-            y: {
-              grid: { color: 'rgba(255, 255, 255, 0.05)' },
-              ticks: {
-                color: '#64748b',
-                font: { family: 'JetBrains Mono', size: 10 },
-                callback: (v) => `$${(v / 1000).toFixed(0)}k`
-              }
-            },
-            x: {
-              grid: { display: false },
-              ticks: {
-                color: '#64748b',
-                font: { size: 10 },
-                maxTicksLimit: 10
-              }
-            }
-          }
-        }
-      });
-    }
-
-    // Cash Flow Waterfall Chart
-    async function initWaterfallChart() {
-      const ctx = document.getElementById('waterfallChart');
-      if (!ctx || waterfallChart) return;
-
-      waterfallChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-          labels: ['Opening Cash', 'Gateway Inflows', 'Wire Transfers', 'Vendor Bills', 'Operating Opex', 'Closing Cash'],
-          datasets: [{
-            data: [200000, 85000, 32000, -45000, -23245.50, 248754.50],
-            backgroundColor: [
-              '#38bdf8', // Light Blue
-              '#10b981', // Green Inflow
-              '#10b981', // Green Inflow
-              '#f43f5e', // Red Outflow
-              '#f43f5e', // Red Outflow
-              '#06b6d4', // Cyan Closing
-            ],
-            borderRadius: 6,
-            borderSkipped: false,
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { display: false },
-            tooltip: {
-              backgroundColor: '#0f172a',
-              titleColor: '#94a3b8',
-              bodyColor: '#ffffff',
-              borderColor: 'rgba(255,255,255,0.1)',
-              borderWidth: 1,
-              callbacks: {
-                label: (c) => `$${Math.abs(c.raw).toLocaleString(undefined, {minimumFractionDigits: 2})}`
-              }
-            }
-          },
-          scales: {
-            y: {
-              grid: { color: 'rgba(255, 255, 255, 0.05)' },
-              ticks: {
-                color: '#64748b',
-                font: { family: 'JetBrains Mono', size: 10 },
-                callback: (v) => `$${(v / 1000).toFixed(0)}k`
-              }
-            },
-            x: {
-              grid: { display: false },
-              ticks: { color: '#64748b', font: { size: 10 } }
-            }
-          }
-        }
-      });
-    }
-
-    // Toast notification
-    function showToast(message, type = 'success') {
-      let toast = document.getElementById('app-toast');
-      if (!toast) {
-        toast = document.createElement('div');
-        toast.id = 'app-toast';
-        toast.className = 'fixed top-6 right-6 z-50 transform transition-all duration-300';
-        document.body.appendChild(toast);
+      if (currentSearchTerm) {
+        filtered = filtered.filter(r => 
+          r.id.toLowerCase().includes(currentSearchTerm) ||
+          r.scenario_type.toLowerCase().includes(currentSearchTerm) ||
+          r.explanation.toLowerCase().includes(currentSearchTerm)
+        );
       }
-      
-      const bgColor = type === 'error' ? 'bg-rose-600/95 border-rose-400' : 'bg-emerald-600/95 border-emerald-400';
-      toast.innerHTML = `
-        <div class="flex items-center gap-3 px-4 py-3 rounded-xl text-white font-semibold text-xs shadow-2xl border ${bgColor} backdrop-blur-md">
-          <span>${message}</span>
-        </div>
-      `;
-      toast.style.opacity = '1';
-      toast.style.transform = 'translateY(0)';
-      
-      setTimeout(() => {
-        toast.style.opacity = '0';
-        toast.style.transform = 'translateY(-10px)';
-      }, 3500);
+
+      renderReconTable(filtered);
     }
 
-    // Update filter pill counts dynamically
     function updateFilterPillCounts() {
-      const totalCount = allRecords.length;
-      const matchedCount = allRecords.filter(r => r.is_auto_matched || (r.status === 'MATCHED' && !r.is_ai_resolved)).length;
-      const aiCount = allRecords.filter(r => r.is_ai_resolved || r.status === 'AI_RESOLVED' || r.status === 'AI_INVESTIGATED').length;
-      const openExceptions = allRecords.filter(r => 
-        (r.needs_review || (r.status === 'EXCEPTIONS' && !r.is_ai_resolved) || r.risk_priority.includes('P0'))
+      const allCount = allRecords.length;
+      const matchedCount = allRecords.filter(r => r.is_auto_matched || r.status === 'MATCHED').length;
+      const aiResolvedCount = allRecords.filter(r => r.is_ai_resolved || r.status === 'AI_RESOLVED' || r.status === 'AI_INVESTIGATED').length;
+      const exceptionsCount = allRecords.filter(r => 
+        (r.status === 'EXCEPTIONS' || r.status === 'EXCEPTION' || r.needs_review || (r.risk_priority && r.risk_priority.includes('P0')))
         && r.remediation_status !== 'RESOLVED' && r.remediation_status !== 'WRITTEN_OFF'
       ).length;
 
-      const pillAll = document.getElementById('pill-ALL');
-      if (pillAll) pillAll.innerText = `All Records (${totalCount})`;
+      const elAll = document.getElementById('count-ALL');
+      if (elAll) elAll.innerText = allCount;
+      const elMatched = document.getElementById('count-MATCHED');
+      if (elMatched) elMatched.innerText = matchedCount;
+      const elAi = document.getElementById('count-AI_RESOLVED');
+      if (elAi) elAi.innerText = aiResolvedCount;
+      const elExc = document.getElementById('count-EXCEPTIONS');
+      if (elExc) elExc.innerText = exceptionsCount;
+    }
 
-      const pillMatched = document.getElementById('pill-MATCHED');
-      if (pillMatched) pillMatched.innerText = `Auto-Matched (${matchedCount})`;
+    // --- Forensic AI Investigator Tab ---
+    function renderInvestigationList(records) {
+      const container = document.getElementById('investigation-list');
+      if (!container) return;
+      container.innerHTML = '';
 
-      const pillAi = document.getElementById('pill-AI_INVESTIGATED');
-      if (pillAi) pillAi.innerText = `AI Resolved (${aiCount})`;
+      const exceptions = records.filter(r => r.needs_review || r.status === 'EXCEPTIONS' || (r.risk_priority && r.risk_priority.includes('P0')));
 
-      const pillExceptions = document.getElementById('pill-EXCEPTIONS');
-      if (pillExceptions) {
-        pillExceptions.innerHTML = `<span class="w-1.5 h-1.5 rounded-full ${openExceptions > 0 ? 'bg-rose-400' : 'bg-emerald-400'}"></span> Needs Review (${openExceptions})`;
+      exceptions.forEach((r, idx) => {
+        const isSelected = idx === 0;
+        const card = document.createElement('div');
+        card.id = `inv-item-${r.id}`;
+        card.className = `p-3 rounded-xl border transition-all cursor-pointer ${isSelected ? 'bg-indigo-500/15 border-indigo-500/40' : 'bg-slate-900/70 hover:bg-slate-900 border-white/5'}`;
+        card.onclick = () => selectForInvestigation(r.id);
+
+        let prioBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-rose-500/20 text-rose-300">P0 CRITICAL</span>`;
+        if (r.risk_priority !== 'P0_CRITICAL') {
+          prioBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-mono bg-amber-500/20 text-amber-300">P1 HIGH</span>`;
+        }
+
+        card.innerHTML = `
+          <div class="flex items-center justify-between">
+            <span class="font-mono font-bold text-xs text-white">${r.id}</span>
+            ${prioBadge}
+          </div>
+          <div class="text-[11px] text-slate-300 mt-1 capitalize">${r.scenario_type.replace(/_/g, ' ')}</div>
+          <div class="text-[10px] font-mono text-slate-400 mt-0.5 truncate">${r.variance_display || '$0.00'} variance</div>
+        `;
+        container.appendChild(card);
+
+        if (isSelected) {
+          populateInvestigationDetails(r);
+        }
+      });
+    }
+
+    function selectForInvestigation(recordId) {
+      const r = allRecords.find(x => x.id === recordId) || allRecords[0];
+      currentInvestigationRecord = r;
+
+      document.querySelectorAll('#investigation-list > div').forEach(el => {
+        el.classList.remove('bg-indigo-500/15', 'border-indigo-500/40');
+        el.classList.add('bg-slate-900/70', 'border-white/5');
+      });
+      const target = document.getElementById(`inv-item-${recordId}`);
+      if (target) {
+        target.classList.remove('bg-slate-900/70', 'border-white/5');
+        target.classList.add('bg-indigo-500/15', 'border-indigo-500/40');
       }
 
-      const kpiExceptions = document.getElementById('kpi-exceptions');
-      if (kpiExceptions) {
-        kpiExceptions.innerText = `${openExceptions} Items`;
+      populateInvestigationDetails(r);
+    }
+
+    function populateInvestigationDetails(r) {
+      currentInvestigationRecord = r;
+      document.getElementById('inv-selected-id').innerText = r.id;
+      document.getElementById('inv-selected-txn').innerText = r.id;
+      document.getElementById('inv-selected-category').innerText = r.scenario_type.replace(/_/g, ' ');
+      document.getElementById('inv-selected-diff').innerText = r.variance_display || '$0.00';
+      document.getElementById('inv-selected-explanation').innerText = r.explanation || 'Variance detected during 4-way settlement pass.';
+      
+      const prioEl = document.getElementById('inv-selected-priority');
+      if (r.risk_priority === 'P0_CRITICAL') {
+        prioEl.className = "px-2.5 py-0.5 rounded text-[10px] font-bold font-mono bg-rose-500/20 text-rose-300 border border-rose-500/30";
+        prioEl.innerText = "P0 CRITICAL";
+      } else {
+        prioEl.className = "px-2.5 py-0.5 rounded text-[10px] font-bold font-mono bg-amber-500/20 text-amber-300 border border-amber-500/30";
+        prioEl.innerText = "P1 HIGH";
       }
-      const kpiExceptionsSub = document.getElementById('kpi-exceptions-sub');
-      if (kpiExceptionsSub && openExceptions === 0) {
-        kpiExceptionsSub.innerHTML = `<span class="text-emerald-400 font-medium">All exceptions resolved</span>`;
+
+      document.getElementById('inv-action-box').classList.remove('hidden');
+      document.getElementById('inv-results-container').classList.add('hidden');
+      lucide.createIcons();
+    }
+
+    function runAiInvestigation() {
+      const btn = document.getElementById('btn-run-investigate');
+      btn.disabled = true;
+      btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>Synthesizing multi-source ledger evidence...</span>`;
+      lucide.createIcons();
+
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.innerHTML = `<i data-lucide="sparkles" class="w-4 h-4"></i><span>Run Forensic AI Diagnosis</span>`;
+        document.getElementById('inv-action-box').classList.add('hidden');
+        document.getElementById('inv-results-container').classList.remove('hidden');
+        lucide.createIcons();
+      }, 500);
+    }
+
+    function sendToApprovals() {
+      if (!currentInvestigationRecord) return;
+      const rec = {
+        id: currentInvestigationRecord.id,
+        recordId: currentInvestigationRecord.id,
+        amount: currentInvestigationRecord.variance_display || '$124.50',
+        risk: currentInvestigationRecord.risk_priority,
+        text: `Forensic controller remediation: Compensate variance of ${currentInvestigationRecord.variance_display || '$124.50'} on ${currentInvestigationRecord.id} and adjust ledger.`,
+        confidence: "94%",
+        created: "Today, Just now"
+      };
+
+      if (!pendingApprovals.some(p => p.id === rec.id)) {
+        pendingApprovals.unshift(rec);
+      }
+      setupPendingApprovals();
+      showToast(`✅ Exception ${rec.id} routed to Controller Approvals!`);
+      switchTab('approvals');
+    }
+
+    function quickApproveFromInvestigation() {
+      if (!currentInvestigationRecord) return;
+      executeWorkbenchAction('approve-variance', currentInvestigationRecord.id);
+      showToast(`✅ Exception ${currentInvestigationRecord.id} approved and resolved!`);
+    }
+
+    // --- Approvals Queue Management ---
+    function setupPendingApprovals() {
+      const container = document.getElementById('approvals-pending-container');
+      const badge = document.getElementById('approvals-pending-badge');
+      const navBadge = document.getElementById('nav-approvals-count');
+      if (!container) return;
+
+      container.innerHTML = '';
+      badge.innerText = pendingApprovals.length;
+      if (navBadge) navBadge.innerText = pendingApprovals.length;
+
+      if (pendingApprovals.length === 0) {
+        container.innerHTML = `<div class="glass-card p-6 text-center text-xs text-slate-400">All pending controller approvals resolved!</div>`;
+        return;
+      }
+
+      pendingApprovals.forEach(item => {
+        const card = document.createElement('div');
+        card.className = "glass-card p-5 space-y-3";
+        card.innerHTML = `
+          <div class="flex items-start justify-between">
+            <div class="flex items-center gap-2">
+              <span class="font-mono font-bold text-white text-sm">${item.id}</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-rose-500/20 text-rose-300 border border-rose-500/30">${item.risk}</span>
+            </div>
+            <div class="text-right">
+              <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Exposure</span>
+              <span class="text-sm font-bold font-mono text-white">${item.amount}</span>
+            </div>
+          </div>
+
+          <p class="text-xs text-slate-300 leading-relaxed">${item.text}</p>
+
+          <div class="flex items-center justify-between pt-2 border-t border-white/5 text-[11px]">
+            <span class="text-slate-400">Confidence ${item.confidence} • ${item.created}</span>
+            <div class="flex items-center gap-2">
+              <button onclick="handleApprovalAction('${item.id}', 'Disputed')" class="px-3 py-1.5 rounded-lg bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/30 text-xs font-semibold transition-colors">
+                File Dispute
+              </button>
+              <button onclick="handleApprovalAction('${item.id}', 'Written-Off')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 border border-white/10 text-xs font-semibold transition-colors">
+                Write-Off
+              </button>
+              <button onclick="handleApprovalAction('${item.id}', 'Approved')" class="px-4 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-sm transition-colors">
+                Approve & Post GL
+              </button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      renderDecidedTable();
+    }
+
+    function handleApprovalAction(id, decision) {
+      const idx = pendingApprovals.findIndex(p => p.id === id);
+      if (idx !== -1) {
+        const item = pendingApprovals.splice(idx, 1)[0];
+        decidedApprovals.unshift({
+          id: item.id,
+          amount: item.amount,
+          risk: item.risk,
+          status: decision,
+          decidedBy: "FINANCE_CONTROLLER",
+          decidedAt: "Just now"
+        });
+
+        if (decision === 'Approved') executeWorkbenchAction('approve-variance', item.recordId);
+        else if (decision === 'Disputed') executeWorkbenchAction('file-dispute', item.recordId);
+        else if (decision === 'Written-Off') executeWorkbenchAction('write-off', item.recordId);
+
+        setupPendingApprovals();
+        showToast(`✅ ${item.id} action executed: ${decision}`);
       }
     }
 
-    // Slide-out Drawer Functions
-    function openDrawer(recordId) {
-      const rec = allRecords.find(r => r.id === recordId) || {
-        id: recordId,
-        scenario_type: 'UNKNOWN',
-        explanation: 'Detailed audit trace available.',
-        variance_display: '$0.00',
-        variance_cents: 0,
-        risk_priority: 'P4_NORMAL',
-        remediation_status: 'OPEN'
-      };
+    function renderDecidedTable() {
+      const tbody = document.getElementById('approvals-decided-body');
+      const badge = document.getElementById('approvals-decided-badge');
+      if (!tbody) return;
 
-      document.getElementById('drawer-record-id').innerText = rec.id;
+      tbody.innerHTML = '';
+      badge.innerText = decidedApprovals.length;
 
-      const isResolved = rec.remediation_status === 'RESOLVED';
-      const isDisputed = rec.remediation_status === 'DISPUTED';
-      const isWrittenOff = rec.remediation_status === 'WRITTEN_OFF';
+      decidedApprovals.forEach(d => {
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-white/[0.02] transition-colors";
 
-      let statusText = 'Pending Review';
-      let statusColor = 'text-amber-400';
-      if (isResolved) {
-        statusText = 'Verified & Resolved';
-        statusColor = 'text-emerald-400';
-      } else if (isDisputed) {
-        statusText = 'Dispute Filed';
-        statusColor = 'text-rose-400';
-      } else if (isWrittenOff) {
-        statusText = 'Written Off';
-        statusColor = 'text-slate-400';
+        let statBadge = `<span class="px-2.5 py-0.5 rounded-md text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Approved</span>`;
+        if (d.status === 'Written-Off') {
+          statBadge = `<span class="px-2.5 py-0.5 rounded-md text-[10px] font-semibold bg-slate-700/60 text-slate-300 border border-slate-600">Written Off</span>`;
+        } else if (d.status === 'Disputed') {
+          statBadge = `<span class="px-2.5 py-0.5 rounded-md text-[10px] font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/40">Disputed</span>`;
+        }
+
+        tr.innerHTML = `
+          <td class="py-3 px-4 font-mono font-semibold text-white">${d.id}</td>
+          <td class="py-3 px-4 text-right font-mono font-bold text-white">${d.amount}</td>
+          <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] font-mono text-slate-300 bg-slate-800">${d.risk}</span></td>
+          <td class="py-3 px-4 text-center">${statBadge}</td>
+          <td class="py-3 px-4 font-mono text-[11px] text-slate-400">${d.decidedBy}</td>
+          <td class="py-3 px-4 text-[11px] text-slate-400">${d.decidedAt}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // --- Cryptographic Audit Trail Loader ---
+    async function loadAuditTrail() {
+      const tbody = document.getElementById('audit-log-body');
+      if (!tbody) return;
+      tbody.innerHTML = `<tr><td colspan="7" class="py-4 text-center text-slate-500 font-sans">Querying SHA-256 chained audit logs...</td></tr>`;
+
+      try {
+        const res = await fetch('/api/v1/workbench/audit-trail');
+        const data = await res.json();
+
+        tbody.innerHTML = '';
+        if (!data || data.length === 0) {
+          tbody.innerHTML = `<tr><td colspan="7" class="py-4 text-center text-slate-500 font-sans">No audit events logged yet. Execute an approval or GL posting to generate entries.</td></tr>`;
+          return;
+        }
+
+        data.forEach(item => {
+          const tr = document.createElement('tr');
+          tr.className = "hover:bg-white/[0.02] transition-colors";
+          const shortHash = item.hash_signature ? `${item.hash_signature.slice(0, 10)}...${item.hash_signature.slice(-8)}` : 'GENESIS';
+
+          tr.innerHTML = `
+            <td class="py-2.5 px-4 font-bold text-cyan-400">#${item.id}</td>
+            <td class="py-2.5 px-4 text-slate-400">${item.timestamp.slice(0, 19).replace('T', ' ')}</td>
+            <td class="py-2.5 px-4 font-semibold text-white font-sans">${item.event_type}</td>
+            <td class="py-2.5 px-4 text-slate-300">${item.actor}</td>
+            <td class="py-2.5 px-4 text-white">${item.record_id}</td>
+            <td class="py-2.5 px-4 text-slate-300 font-sans max-w-xs truncate" title="${item.rationale}">${item.rationale}</td>
+            <td class="py-2.5 px-4 text-slate-400 text-[10px]">
+              <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-white/10 font-mono">${shortHash}</span>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      } catch (e) {
+        tbody.innerHTML = `<tr><td colspan="7" class="py-4 text-center text-rose-400 font-sans">Error loading audit trail: ${e.message}</td></tr>`;
+      }
+    }
+
+    // --- Overview Analytics Charts ---
+    function initCharts() {
+      // 1. Payment Outcome Status Donut Chart
+      const ctxDonut = document.getElementById('chart-status-donut');
+      if (ctxDonut) {
+        statusDonutChart = new Chart(ctxDonut, {
+          type: 'doughnut',
+          data: {
+            labels: ['Auto-Matched', 'AI Resolved', 'Quarantined Exceptions'],
+            datasets: [{
+              data: [48, 10, 2],
+              backgroundColor: ['#10b981', '#6366f1', '#f43f5e'],
+              borderWidth: 2,
+              borderColor: '#0f172a'
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            cutout: '72%',
+            plugins: { legend: { display: false } }
+          }
+        });
       }
 
-      // Metadata Grid
-      const meta = document.getElementById('drawer-metadata-grid');
-      meta.innerHTML = `
-        <div class="p-3 rounded-xl bg-slate-900/80 border border-white/5">
-          <div class="text-[10px] text-slate-400 font-medium">Category</div>
-          <div class="font-bold text-xs text-white mt-1">${rec.scenario_type.replace(/_/g, ' ')}</div>
+      // 2. Exception Categories Horizontal Bar Chart
+      const ctxBar = document.getElementById('chart-categories-bar');
+      if (ctxBar) {
+        categoriesBarChart = new Chart(ctxBar, {
+          type: 'bar',
+          data: {
+            labels: [
+              'Timing delay (T+2)',
+              'Processor fee cuts',
+              'Tax difference (8.25%)',
+              'Duplicate posting',
+              'Deposit shortage',
+              'Unbooked wire (P0)'
+            ],
+            datasets: [{
+              data: [12, 10, 8, 4, 1, 1],
+              backgroundColor: '#6366f1',
+              borderRadius: 4
+            }]
+          },
+          options: {
+            indexAxis: 'y',
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: {
+                grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                ticks: { color: '#64748b', font: { size: 10 } }
+              },
+              y: {
+                grid: { display: false },
+                ticks: { color: '#cbd5e1', font: { size: 10 } }
+              }
+            }
+          }
+        });
+      }
+
+      // 3. 30-Day Cash Trajectory & Waterfall
+      initCashForecastChart();
+      initWaterfallChart();
+    }
+
+    async function initCashForecastChart() {
+      const ctx = document.getElementById('chart-cash-forecast');
+      if (!ctx) return;
+      try {
+        const res = await fetch('/api/v1/forecast/trajectory');
+        const data = await res.json();
+
+        trajectoryChart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: data.labels,
+            datasets: [
+              {
+                label: 'Projected Cash ($)',
+                data: data.balances,
+                borderColor: '#38bdf8',
+                backgroundColor: 'rgba(56, 189, 248, 0.1)',
+                fill: true,
+                borderWidth: 2,
+                tension: 0.2
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { grid: { color: 'rgba(255, 255, 255, 0.04)' }, ticks: { color: '#64748b', font: { size: 9 } } },
+              y: { grid: { color: 'rgba(255, 255, 255, 0.04)' }, ticks: { color: '#64748b', font: { size: 9 } } }
+            }
+          }
+        });
+      } catch (e) {
+        console.error("Failed to load trajectory chart:", e);
+      }
+    }
+
+    async function initWaterfallChart() {
+      const ctx = document.getElementById('chart-waterfall');
+      if (!ctx) return;
+      try {
+        const res = await fetch('/api/v1/forecast/waterfall');
+        const data = await res.json();
+        const steps = data.steps || [];
+
+        waterfallChart = new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: steps.map(s => s.step_name),
+            datasets: [{
+              data: steps.map(s => s.delta_cents / 100),
+              backgroundColor: steps.map(s => s.delta_cents >= 0 ? '#10b981' : '#f43f5e'),
+              borderRadius: 4
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+              x: { grid: { display: false }, ticks: { color: '#64748b', font: { size: 9 } } },
+              y: { grid: { color: 'rgba(255, 255, 255, 0.04)' }, ticks: { color: '#64748b', font: { size: 9 } } }
+            }
+          }
+        });
+      } catch (e) {
+        console.error("Failed to load waterfall chart:", e);
+      }
+    }
+
+    function toggleTrendTrajectory() {
+      const trajEl = document.getElementById('trajectoryChart');
+      const wfEl = document.getElementById('waterfallContainer');
+      const title = document.getElementById('trend-card-title');
+      const sub = document.getElementById('trend-card-subtitle');
+
+      if (trajEl.classList.contains('hidden')) {
+        wfEl.classList.add('hidden');
+        trajEl.classList.remove('hidden');
+        title.innerText = "30-Day Cash Trajectory";
+        sub.innerText = "Continuous forward liquidity forecast";
+      } else {
+        trajEl.classList.add('hidden');
+        wfEl.classList.remove('hidden');
+        title.innerText = "Liquidity Waterfall Bridge";
+        sub.innerText = "Opening to closing cash balance waterfall";
+      }
+    }
+
+    // --- Slide-Out Forensic Review Drawer ---
+    function openDrawer(recordId) {
+      const r = allRecords.find(x => x.id === recordId) || allRecords[0];
+      if (!r) return;
+
+      document.getElementById('drawer-record-id').innerText = r.id;
+
+      const grid = document.getElementById('drawer-metadata-grid');
+      grid.innerHTML = `
+        <div class="p-3 rounded-xl bg-slate-900/90 border border-white/10">
+          <span class="text-[10px] text-slate-400 block uppercase">Category</span>
+          <span class="text-xs font-semibold text-white">${r.scenario_type.replace(/_/g, ' ')}</span>
         </div>
-        <div class="p-3 rounded-xl bg-slate-900/80 border border-white/5">
-          <div class="text-[10px] text-slate-400 font-medium">Risk Level</div>
-          <div class="font-bold text-xs ${rec.risk_priority.includes('P0') ? 'text-rose-400' : 'text-slate-200'} mt-1">${rec.risk_priority.replace('_', ' ')}</div>
-        </div>
-        <div class="p-3 rounded-xl bg-slate-900/80 border border-white/5">
-          <div class="text-[10px] text-slate-400 font-medium">Variance Amount</div>
-          <div class="font-bold font-mono text-xs ${rec.variance_cents > 0 ? 'text-rose-400' : 'text-emerald-400'} mt-1">${rec.variance_display || '$0.00'}</div>
-        </div>
-        <div class="p-3 rounded-xl bg-slate-900/80 border border-white/5">
-          <div class="text-[10px] text-slate-400 font-medium">Remediation Status</div>
-          <div class="font-bold text-xs ${statusColor} mt-1">${statusText}</div>
+        <div class="p-3 rounded-xl bg-slate-900/90 border border-white/10">
+          <span class="text-[10px] text-slate-400 block uppercase">Variance</span>
+          <span class="text-xs font-bold font-mono ${r.variance_cents !== 0 ? 'text-rose-400' : 'text-slate-300'}">${r.variance_display || '$0.00'}</span>
         </div>
       `;
 
-      // Explanation
       document.getElementById('drawer-explanation').innerHTML = `
-        <p class="text-xs text-slate-200 leading-relaxed">${rec.explanation}</p>
-        <div class="flex items-center gap-2 pt-2 border-t border-white/5 text-[11px] text-slate-400">
-          <i data-lucide="info" class="w-3.5 h-3.5 text-cyan-400"></i>
-          <span>Verified against canonical source ledgers.</span>
+        <p class="leading-relaxed text-slate-300">${r.explanation}</p>
+        <div class="pt-2 border-t border-white/10 flex items-center justify-between text-[11px] text-slate-400">
+          <span>Priority: <b class="text-white">${r.risk_priority.replace('_', ' ')}</b></span>
+          <span>Status: <b class="text-cyan-400">${r.remediation_status || (r.is_ai_resolved ? 'AI_RESOLVED' : r.status)}</b></span>
         </div>
       `;
 
-      // Source mapping
-      document.getElementById('drawer-sources-map').innerHTML = `
+      const sourcesMap = document.getElementById('drawer-sources-map');
+      sourcesMap.innerHTML = `
         <div class="flex justify-between py-1 border-b border-white/5">
-          <span class="text-slate-400">Bank Statement:</span>
-          <span class="text-white">${rec.bank_line_id || rec.id}</span>
+          <span class="text-slate-400">Bank Record</span>
+          <span class="text-white font-semibold">${r.id}</span>
         </div>
         <div class="flex justify-between py-1 border-b border-white/5">
-          <span class="text-slate-400">Gateway Transaction:</span>
-          <span class="text-white">${rec.gateway_tx_id || 'N/A (Direct Wire)'}</span>
-        </div>
-        <div class="flex justify-between py-1 border-b border-white/5">
-          <span class="text-slate-400">ERP Ledger Entry:</span>
-          <span class="text-white">${rec.erp_entry_id || 'Pending Post'}</span>
+          <span class="text-slate-400">Scenario Code</span>
+          <span class="text-cyan-400 font-semibold">${r.scenario_id || 'SCEN-001'}</span>
         </div>
         <div class="flex justify-between py-1">
-          <span class="text-slate-400">AP Invoice:</span>
-          <span class="text-white">${rec.invoice_id || 'N/A'}</span>
+          <span class="text-slate-400">Deterministic Match</span>
+          <span class="${r.is_auto_matched ? 'text-emerald-400' : 'text-amber-400'} font-semibold">${r.is_auto_matched ? 'Yes (Stage 1/2)' : 'Exception (Stage 3)'}</span>
         </div>
       `;
 
-      // Action Buttons
-      const actions = document.getElementById('drawer-actions-container');
-      if (isResolved || isDisputed || isWrittenOff) {
-        actions.innerHTML = `
-          <div class="col-span-2 p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 font-semibold text-xs flex items-center justify-center gap-2">
-            <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-400"></i>
-            <span>Action Recorded: ${statusText} • Audit Trail Verified</span>
-          </div>
-        `;
+      const actionsContainer = document.getElementById('drawer-actions-container');
+      const isResolved = r.remediation_status === 'RESOLVED';
+
+      if (isResolved) {
+        actionsContainer.innerHTML = `<div class="col-span-2 p-3 text-center rounded-xl bg-emerald-500/15 text-emerald-300 font-semibold text-xs border border-emerald-500/30">✓ Remediation Complete</div>`;
       } else {
-        actions.innerHTML = `
-          <button onclick="executeAction('${rec.id}', 'approve-variance')" class="px-3 py-2.5 rounded-xl text-xs font-semibold bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-300 border border-emerald-500/20 transition-all flex items-center justify-center gap-1.5">
-            <i data-lucide="check" class="w-3.5 h-3.5"></i> Approve Variance
+        actionsContainer.innerHTML = `
+          <button onclick="executeWorkbenchAction('approve-variance', '${r.id}')" class="px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold transition-all shadow-sm">
+            Approve Variance
           </button>
-          <button onclick="executeAction('${rec.id}', 'post-gl-entry')" class="px-3 py-2.5 rounded-xl text-xs font-semibold bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/20 transition-all flex items-center justify-center gap-1.5">
-            <i data-lucide="file-plus" class="w-3.5 h-3.5"></i> Post Adjustment
+          <button onclick="executeWorkbenchAction('post-gl-entry', '${r.id}')" class="px-3 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold transition-all shadow-sm">
+            Post GL Entry
           </button>
-          <button onclick="executeAction('${rec.id}', 'file-dispute')" class="px-3 py-2.5 rounded-xl text-xs font-semibold bg-rose-500/10 hover:bg-rose-500/20 text-rose-300 border border-rose-500/20 transition-all flex items-center justify-center gap-1.5">
-            <i data-lucide="alert-octagon" class="w-3.5 h-3.5"></i> Flag for Dispute
+          <button onclick="executeWorkbenchAction('file-dispute', '${r.id}')" class="px-3 py-2 rounded-xl bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-500/40 text-xs font-semibold transition-all">
+            File Dispute
           </button>
-          <button onclick="executeAction('${rec.id}', 'write-off')" class="px-3 py-2.5 rounded-xl text-xs font-semibold bg-slate-800 hover:bg-slate-700 text-slate-300 border border-white/5 transition-all flex items-center justify-center gap-1.5">
-            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i> Write-Off
+          <button onclick="executeWorkbenchAction('write-off', '${r.id}')" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-white/10 text-xs font-semibold transition-all">
+            Write-Off
           </button>
         `;
       }
 
-      const drawer = document.getElementById('inspection-drawer');
-      drawer.classList.remove('translate-x-full');
+      document.getElementById('inspection-drawer').classList.remove('translate-x-full');
       document.getElementById('drawer-backdrop').classList.remove('hidden');
-      lucide.createIcons();
     }
 
     function closeDrawer() {
@@ -993,27 +1461,23 @@
       document.getElementById('drawer-backdrop').classList.add('hidden');
     }
 
-    // Execute workbench action
-    async function executeAction(recordId, action) {
-      const rec = allRecords.find(r => r.id === recordId) || {};
-      const amountCents = Math.abs(rec.variance_cents || 5000) || 5000;
-
+    // --- Workbench Actions Execution ---
+    async function executeWorkbenchAction(action, recordId) {
       let endpoint = `/api/v1/workbench/${action}`;
-      let body = {};
-      if (action === 'approve-variance') {
-        body = { exception_id: recordId, reason: "Controller approved operational variance" };
-      } else if (action === 'post-gl-entry') {
+      let body = { exception_id: recordId, reason: "Controller approved in operations console" };
+
+      if (action === 'post-gl-entry') {
         body = {
           exception_id: recordId,
-          debit_account: "6010-Processing Fees",
-          credit_account: "1010-Operating Cash",
-          amount_cents: amountCents,
-          memo: "Compensating adjusting entry posted by controller"
+          debit_account: "6010-Payment Processing Fees",
+          credit_account: "1010-Cash & Liquidity",
+          amount_cents: 2500,
+          memo: `Compensating GL voucher for ${recordId}`
         };
       } else if (action === 'file-dispute') {
-        body = { exception_id: recordId, dispute_reason: "Vendor dispute initiated by controller" };
+        body = { exception_id: recordId, dispute_reason: "Dispute initiated by controller" };
       } else if (action === 'write-off') {
-        body = { exception_id: recordId, justification: "Immaterial balance write-off approved by controller" };
+        body = { exception_id: recordId, justification: "Immaterial balance write-off approved" };
       }
 
       try {
@@ -1024,72 +1488,22 @@
         });
 
         if (res.ok) {
-          const result = await res.json();
-          const newRemStatus = (action === 'approve-variance' || action === 'post-gl-entry') ? 'RESOLVED' : (action === 'file-dispute' ? 'DISPUTED' : 'WRITTEN_OFF');
-          
-          // Update in-memory state
+          const rec = allRecords.find(x => x.id === recordId);
           if (rec) {
-            rec.remediation_status = newRemStatus;
+            rec.remediation_status = action === 'approve-variance' || action === 'post-gl-entry' ? 'RESOLVED' : (action === 'file-dispute' ? 'DISPUTED' : 'WRITTEN_OFF');
           }
-          
-          showToast(`✅ Successfully executed ${action.replace(/-/g, ' ')} on ${recordId}!`);
-          
-          // Re-render table and update counts
-          renderReconTable(allRecords);
+          showToast(`✅ Successfully executed ${action.replace('-', ' ')} on ${recordId}!`);
+          applyFilters();
           updateFilterPillCounts();
-          openDrawer(recordId); // refresh drawer with completed state
-          
-          // Background sync
-          await loadRecords();
-          await loadKPIs();
-        } else {
-          const err = await res.json();
-          showToast(`❌ Action error: ${err.detail || 'Failed to execute'}`, 'error');
+          openDrawer(recordId);
+          loadKPIs();
         }
       } catch (e) {
-        showToast(`❌ Network error: ${e.message}`, 'error');
+        showToast(`❌ Error: ${e.message}`);
       }
     }
 
-    // Trigger reconciliation run
-    async function triggerReconciliation() {
-      const btn = document.getElementById('btn-run-recon');
-      const icon = document.getElementById('icon-recon');
-      btn.disabled = true;
-      icon.classList.add('animate-spin');
-
-      try {
-        const res = await fetch('/api/v1/reconcile/run', { method: 'POST' });
-        if (res.ok) {
-          await loadKPIs();
-          await loadRecords();
-          alert("✅ Reconciliation completed! All bank, gateway, ERP, and invoice feeds reconciled.");
-        }
-      } catch (e) {
-        alert("Reconciliation error: " + e.message);
-      } finally {
-        btn.disabled = false;
-        icon.classList.remove('animate-spin');
-      }
-    }
-
-    // Download audit memo
-    async function downloadAuditMemo() {
-      try {
-        const res = await fetch('/api/v1/reports/audit-memo');
-        const data = await res.json();
-        const blob = new Blob([data.markdown_memo], { type: 'text/markdown' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = `Reconciliation_Audit_Report_${new Date().toISOString().slice(0, 10)}.md`;
-        a.click();
-      } catch (e) {
-        alert("Error generating report: " + e.message);
-      }
-    }
-
-    // Copilot Modal Controls & Grounded Intelligence
+    // --- Financial Copilot Intelligence ---
     function toggleCopilotModal() {
       const modal = document.getElementById('copilot-modal');
       modal.classList.toggle('hidden');
@@ -1129,15 +1543,10 @@
           continue;
         }
 
-        // Inline markdown formatters
-        // Bold: **text**
         line = line.replace(/\*\*(.*?)\*\*/g, '<strong class="font-semibold text-white">$1</strong>');
-        // Italic: *text*
         line = line.replace(/\*([^\*]+)\*/g, '<em class="text-slate-300 italic">$1</em>');
-        // Inline code: `code`
         line = line.replace(/`([^`]+)`/g, '<code class="px-1.5 py-0.5 rounded bg-slate-800 text-cyan-300 font-mono text-[11px] border border-white/5">$1</code>');
 
-        // Bullet lists: - or *
         const bulletMatch = line.match(/^[-*]\s+(.*)$/);
         if (bulletMatch) {
           if (!inUl) {
@@ -1149,7 +1558,6 @@
           continue;
         }
 
-        // Numbered lists: 1. or 2.
         const numMatch = line.match(/^(\d+)\.\s+(.*)$/);
         if (numMatch) {
           if (!inOl) {
@@ -1161,7 +1569,6 @@
           continue;
         }
 
-        // Normal paragraph line
         if (inUl) { result += '</ul>'; inUl = false; }
         if (inOl) { result += '</ol>'; inOl = false; }
         result += `<p class="leading-relaxed text-slate-300 my-1">${line}</p>`;
@@ -1172,43 +1579,6 @@
       return result;
     }
 
-    function handleSuggestedAction(actionText) {
-      if (!actionText) return;
-      const lower = actionText.toLowerCase();
-
-      if (lower.includes('drawer') || lower.includes('open bnk') || lower.includes('inspect bnk') || lower.includes('bnk-') || lower.includes('gtw-')) {
-        const match = actionText.match(/\b(BNK-\w+|GTW-\w+|INV-\w+|SCEN-\w+)\b/);
-        if (match) {
-          toggleCopilotModal();
-          openDrawer(match[1]);
-          return;
-        }
-      }
-
-      if (lower.includes('residual exceptions') || lower.includes('operations console') || lower.includes('exception')) {
-        toggleCopilotModal();
-        filterRecords('EXCEPTIONS');
-        const tbl = document.getElementById('transaction-stream-table');
-        if (tbl) tbl.scrollIntoView({ behavior: 'smooth' });
-        return;
-      }
-
-      if (lower.includes('audit memo') || lower.includes('export')) {
-        downloadAuditMemo();
-        return;
-      }
-
-      if (lower.includes('trajectory') || lower.includes('burn') || lower.includes('waterfall') || lower.includes('dashboard')) {
-        toggleCopilotModal();
-        const chartEl = document.getElementById('chart-cash-forecast');
-        if (chartEl) chartEl.scrollIntoView({ behavior: 'smooth' });
-        return;
-      }
-
-      // Default fallback: ask copilot about this follow-up
-      askCopilot(actionText);
-    }
-
     async function submitCopilotQuery() {
       const input = document.getElementById('copilot-input');
       const query = input.value.trim();
@@ -1216,7 +1586,6 @@
 
       const history = document.getElementById('copilot-chat-history');
       
-      // User message bubble
       const userBubble = document.createElement('div');
       userBubble.className = "flex justify-end";
       userBubble.innerHTML = `
@@ -1227,7 +1596,6 @@
       history.appendChild(userBubble);
       input.value = '';
 
-      // Assistant thinking bubble
       const botBubble = document.createElement('div');
       botBubble.className = "flex justify-start";
       botBubble.innerHTML = `
@@ -1254,9 +1622,8 @@
         });
         const data = await res.json();
 
-        // Citations
         let citationsHtml = '';
-        const citationsList = data.citations || (data.data_citation ? [data.data_citation] : ['Ground Truth Ledger']);
+        const citationsList = data.citations || ['Ground Truth Ledger'];
         if (citationsList && citationsList.length > 0) {
           citationsHtml = `
             <div class="pt-2.5 border-t border-white/10 mt-2.5">
@@ -1268,7 +1635,6 @@
           `;
         }
 
-        // Suggested Actions
         let actionsHtml = '';
         if (data.suggested_actions && data.suggested_actions.length > 0) {
           actionsHtml = `
@@ -1276,7 +1642,7 @@
               <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-semibold">Recommended Follow-Ups:</span>
               <div class="flex flex-wrap gap-1.5">
                 ${data.suggested_actions.map(act => `
-                  <button onclick="handleSuggestedAction('${escapeHtml(act).replace(/'/g, "\\'")}')" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/20 text-[11px] transition-all group">
+                  <button onclick="askCopilot('${escapeHtml(act).replace(/'/g, "\\'")}')" class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-300 border border-cyan-500/20 text-[11px] transition-all group">
                     <i data-lucide="arrow-right" class="w-3 h-3 text-cyan-400 group-hover:translate-x-0.5 transition-transform"></i>
                     <span>${escapeHtml(act)}</span>
                   </button>
@@ -1295,7 +1661,7 @@
               </div>
               <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono font-medium">100% Grounded</span>
             </div>
-            <div class="copilot-prose text-slate-200 leading-relaxed">
+            <div class="text-slate-200 leading-relaxed">
               ${formatCopilotMarkdown(data.answer)}
             </div>
             ${citationsHtml}
@@ -1313,6 +1679,54 @@
         `;
         lucide.createIcons();
       }
+    }
+
+    // --- Run Reconcile & Export Report Triggers ---
+    async function triggerReconciliation() {
+      const btn = document.getElementById('btn-run-recon');
+      const icon = document.getElementById('icon-recon');
+      btn.disabled = true;
+      icon.classList.add('animate-spin');
+
+      try {
+        const res = await fetch('/api/v1/reconcile/run', { method: 'POST' });
+        if (res.ok) {
+          await loadKPIs();
+          await loadRecords();
+          showToast("✅ Reconciliation completed! All 4-way feeds reconciled.");
+        }
+      } catch (e) {
+        showToast("❌ Reconciliation failed: " + e.message);
+      } finally {
+        btn.disabled = false;
+        icon.classList.remove('animate-spin');
+      }
+    }
+
+    async function downloadAuditMemo() {
+      try {
+        const res = await fetch('/api/v1/reports/audit-memo');
+        const data = await res.json();
+        const blob = new Blob([data.markdown_memo], { type: 'text/markdown' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `Reconciliation_Audit_Report_${new Date().toISOString().slice(0, 10)}.md`;
+        a.click();
+        showToast("📄 Audit Memo downloaded successfully!");
+      } catch (e) {
+        showToast("❌ Report download failed: " + e.message);
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const content = document.getElementById('toast-content');
+      content.innerText = msg;
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      setTimeout(() => {
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3000);
     }
 
     // Initialize on DOM load

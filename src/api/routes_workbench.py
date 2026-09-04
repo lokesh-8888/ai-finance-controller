@@ -84,6 +84,14 @@ def write_off(req: WriteOffRequest):
         raise HTTPException(status_code=400, detail=str(e))
 
 
+@router.get("/audit-trail")
+def list_all_audit_trail() -> List[Dict[str, Any]]:
+    """Retrieve all recent immutable cryptographic audit trail events."""
+    with db_manager.get_connection() as conn:
+        records = AuditTrailService.get_all_records(conn, limit=100)
+        return [r.model_dump() for r in records]
+
+
 @router.get("/audit-trail/{record_id}")
 def get_audit_trail(record_id: str) -> List[Dict[str, Any]]:
     """Retrieve immutable cryptographic audit trail for a financial record ID."""
