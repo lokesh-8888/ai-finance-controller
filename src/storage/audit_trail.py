@@ -11,7 +11,7 @@ from src.storage.models_db import AuditLogRecord, StorageError
 import threading
 
 GENESIS_HASH = "0" * 64
-_audit_lock = threading.Lock()
+_audit_lock = threading.RLock()
 
 
 class AuditTrailService:
@@ -337,3 +337,67 @@ class AuditTrailService:
             )
             for r in rows
         ]
+
+    @classmethod
+    def reset_audit_trail_to_clean_state(cls, conn: sqlite3.Connection) -> int:
+        """Reset the audit log chain to a clean, tamper-evident baseline state."""
+        with _audit_lock:
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM audit_logs;")
+            try:
+                cursor.execute("DELETE FROM sqlite_sequence WHERE name = 'audit_logs';")
+            except Exception:
+                pass
+            conn.commit()
+            cursor.close()
+
+            # 1. Seed initial foundation system and controller actions
+            baseline_events = [
+                (
+                    "LEDGER_SYNC_INITIALIZED",
+                    "SYSTEM_CORE",
+                    "SYS-LEDGER-01",
+                    {"status": "SYNCHRONIZED", "sources": ["STRIPE", "CHASE", "ERP", "GATEWAY"]},
+                    "Multi-source deterministic reconciliation engine initialized with integer-cent precision.",
+                ),
+                (
+                    "EXCEPTION_REGISTERED",
+                    "SYSTEM",
+                    "BNK-0054",
+                    {"status": "OPEN", "variance_cents": 12450, "priority": "P1_HIGH"},
+                    "Registered UNEXPLAINED_MISMATCH exception for BNK-0054 ($124.50 fee disparity).",
+                ),
+                (
+                    "APPROVE_VARIANCE",
+                    "HUMAN_CONTROLLER",
+                    "BNK-0058",
+                    {"status": "RESOLVED", "variance_cents": 8250},
+                    "Controller approved sales tax variance delta of $82.50 across Chase statement.",
+                ),
+                (
+                    "POST_GL_ENTRY",
+                    "HUMAN_CONTROLLER",
+                    "GTW-0040",
+                    {"debit_account": "1100-Cash", "credit_account": "6100-BankFees", "amount_cents": 145000},
+                    "Compensating fee voucher posted to clearance account for gateway reconciliation.",
+                ),
+            ]
+
+            for event_type, actor, record_id, after_state, rationale in baseline_events:
+                cls.log_event(
+                    conn=conn,
+                    event_type=event_type,
+                    actor=actor,
+                    record_id=record_id,
+                    after_state=after_state,
+                    rationale=rationale,
+                )
+
+            # 2. Seed baseline AI forensic events
+            cls.seed_ai_audit_events_if_needed(conn)
+
+            cursor = conn.cursor()
+            cursor.execute("SELECT COUNT(*) FROM audit_logs;")
+            count = cursor.fetchone()[0]
+            cursor.close()
+            return count

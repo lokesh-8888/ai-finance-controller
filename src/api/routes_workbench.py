@@ -134,6 +134,18 @@ def list_all_audit_trail(actor: str = None, limit: int = 100) -> List[Dict[str, 
         return [r.model_dump() for r in records]
 
 
+@router.post("/audit-trail/reset")
+def reset_audit_trail_endpoint() -> Dict[str, Any]:
+    """Reset the audit trail to a clean verified cryptographic baseline."""
+    with db_manager.get_connection() as conn:
+        count = AuditTrailService.reset_audit_trail_to_clean_state(conn)
+        return {
+            "success": True,
+            "message": f"Audit trail reset to clean baseline with {count} verified cryptographically chained blocks.",
+            "total_blocks": count,
+        }
+
+
 @router.get("/audit-trail/{record_id}")
 def get_audit_trail(record_id: str) -> List[Dict[str, Any]]:
     """Retrieve immutable cryptographic audit trail for a financial record ID."""

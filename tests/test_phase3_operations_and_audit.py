@@ -370,3 +370,29 @@ class TestSQLiteAuditTrailAndTamperDetection:
             valid, err = AuditTrailService.verify_chain_integrity(conn)
             assert valid is True, f"Chain integrity failed: {err}"
 
+    def test_reset_audit_trail_to_clean_state(self, tmp_path):
+        """Verify resetting audit trail establishes a clean, fully verified 10-block baseline chain."""
+        db_file = tmp_path / "test_reset.db"
+        db = DatabaseManager(db_file)
+
+        with db.get_connection() as conn:
+            # 1. Add some junk/noisy records
+            for i in range(15):
+                AuditTrailService.log_event(conn, f"JUNK_{i}", "TEST_ACTOR", f"REC-{i}", {}, "Temporary test event")
+            assert AuditTrailService.get_actor_counts(conn)["all"] == 15
+
+            # 2. Reset audit trail to clean baseline
+            count = AuditTrailService.reset_audit_trail_to_clean_state(conn)
+            assert count == 10  # 4 foundation system/human events + 6 rich AI forensic events
+
+            # 3. Verify counts
+            counts = AuditTrailService.get_actor_counts(conn)
+            assert counts["all"] == 10
+            assert counts["human"] == 2
+            assert counts["system"] == 2
+            assert counts["ai"] == 6
+
+            # 4. Verify 100% cryptographic integrity of reset chain
+            valid, err = AuditTrailService.verify_chain_integrity(conn)
+            assert valid is True, f"Chain broken after reset: {err}"
+
