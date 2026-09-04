@@ -373,111 +373,173 @@
     <!-- ======================================================= -->
     <!-- TAB 2: TRANSACTION STREAM                               -->
     <!-- ======================================================= -->
-    <section id="tab-transactions" class="space-y-5 hidden">
+    <!-- TAB 2: TRANSACTION STREAM                               -->
+    <!-- ======================================================= -->
+    <section id="tab-transactions" class="space-y-4 hidden">
       
-      <!-- Stream Header & Search -->
-      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <!-- Stream Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
         <div>
           <h2 class="text-xl font-bold text-white tracking-tight">4-Way Transaction Stream</h2>
           <p class="text-xs text-slate-400 mt-0.5">Real-time multi-source ledger across Bank Feeds, Gateway Payouts, ERP Ledgers, and AP Invoices</p>
         </div>
-
-        <!-- Global Search Input -->
-        <div class="relative w-full sm:w-72">
-          <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
-          <input 
-            type="text" 
-            id="recon-search" 
-            oninput="handleSearch(this.value)" 
-            placeholder="Search ID, vendor, memo, or type..." 
-            class="w-full bg-slate-900/90 border border-white/10 rounded-xl pl-8 pr-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500/50 shadow-inner font-mono"
-          >
-        </div>
       </div>
 
-      <!-- Interactive Multi-Dimension Toggle Bar (Status, Priority, Variance) -->
-      <div class="glass-card p-4 space-y-3.5">
-        
-        <!-- Toggle Row 1: Status Filters -->
+      <!-- Unified Compact Filter Toolbar (Clean Dropdown Style matching reference) -->
+      <div class="glass-card p-2.5 sm:p-3 flex flex-wrap items-center justify-between gap-2.5">
         <div class="flex flex-wrap items-center gap-2">
-          <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 w-20 shrink-0 flex items-center gap-1.5">
-            <i data-lucide="check-circle" class="w-3.5 h-3.5 text-cyan-400"></i>
-            Status:
-          </span>
-          <div class="flex flex-wrap items-center gap-1.5 text-xs">
-            <button onclick="setStatusToggle('ALL')" id="filter-pill-ALL" class="recon-toggle-btn active px-3 py-1.5 rounded-lg font-medium text-white bg-white/10 border border-white/20 transition-all">
-              All (<span id="count-ALL">60</span>)
-            </button>
-            <button onclick="setStatusToggle('MATCHED')" id="filter-pill-MATCHED" class="recon-toggle-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white bg-slate-900/60 border border-white/5 transition-all">
-              Auto-Matched (<span id="count-MATCHED">48</span>)
-            </button>
-            <button onclick="setStatusToggle('AI_RESOLVED')" id="filter-pill-AI_RESOLVED" class="recon-toggle-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white bg-slate-900/60 border border-white/5 transition-all">
-              AI Resolved (<span id="count-AI_RESOLVED">10</span>)
-            </button>
-            <button onclick="setStatusToggle('EXCEPTIONS')" id="filter-pill-EXCEPTIONS" class="recon-toggle-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white bg-slate-900/60 border border-white/5 transition-all">
-              Needs Review (<span id="count-EXCEPTIONS">2</span>)
-            </button>
+          
+          <!-- Global Search Input -->
+          <div class="relative w-56 sm:w-64">
+            <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+            <input 
+              type="text" 
+              id="recon-search" 
+              oninput="handleSearch(this.value)" 
+              placeholder="Search ID, vendor, memo..." 
+              class="w-full bg-slate-900/90 border border-white/10 hover:border-white/20 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500/50 shadow-inner font-mono transition-all"
+            >
           </div>
-        </div>
 
-        <!-- Toggle Row 2: Priority Filters -->
-        <div class="flex flex-wrap items-center gap-2 pt-2.5 border-t border-white/[0.06]">
-          <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 w-20 shrink-0 flex items-center gap-1.5">
-            <i data-lucide="alert-circle" class="w-3.5 h-3.5 text-amber-400"></i>
-            Priority:
-          </span>
-          <div class="flex flex-wrap items-center gap-1.5 text-xs">
-            <button onclick="setPriorityToggle('ALL')" id="toggle-prio-ALL" class="recon-toggle-btn active px-3 py-1.5 rounded-lg font-medium text-white bg-white/10 border border-white/20 transition-all">
-              All Priorities
+          <!-- Status Dropdown ("All statuses ⌄") -->
+          <div class="relative" id="dropdown-status-container">
+            <button 
+              type="button"
+              onclick="toggleFilterDropdown(event, 'status')" 
+              id="btn-dropdown-status" 
+              class="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800/90 border border-white/10 hover:border-white/20 text-xs font-medium text-slate-200 shadow-sm transition-all select-none"
+            >
+              <span id="label-dropdown-status">All statuses</span>
+              <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400 transition-transform duration-200" id="icon-dropdown-status"></i>
             </button>
-            <button onclick="setPriorityToggle('P0')" id="toggle-prio-P0" class="recon-toggle-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-rose-300 bg-slate-900/60 border border-white/5 transition-all flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-rose-500"></span>
-              <span>P0 Critical</span>
-            </button>
-            <button onclick="setPriorityToggle('P1')" id="toggle-prio-P1" class="recon-toggle-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-amber-300 bg-slate-900/60 border border-white/5 transition-all flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-amber-500"></span>
-              <span>P1 High</span>
-            </button>
-            <button onclick="setPriorityToggle('P2')" id="toggle-prio-P2" class="recon-toggle-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-blue-300 bg-slate-900/60 border border-white/5 transition-all flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-blue-500"></span>
-              <span>P2 Medium</span>
-            </button>
-            <button onclick="setPriorityToggle('P3')" id="toggle-prio-P3" class="recon-toggle-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-slate-300 bg-slate-900/60 border border-white/5 transition-all flex items-center gap-1.5">
-              <span class="w-2 h-2 rounded-full bg-slate-500"></span>
-              <span>P3 Low</span>
-            </button>
+            <div 
+              id="menu-dropdown-status" 
+              class="hidden absolute left-0 mt-1.5 w-52 rounded-xl bg-slate-900/95 border border-white/10 shadow-2xl backdrop-blur-xl p-1.5 z-40 space-y-0.5"
+            >
+              <button onclick="setStatusDropdown('ALL')" id="filter-pill-ALL" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs text-left hover:bg-white/10 text-white transition-colors">
+                <span class="font-medium">All statuses</span>
+                <span id="count-ALL" class="text-[10px] px-1.5 py-0.5 rounded bg-white/10 text-slate-300 font-mono">60</span>
+              </button>
+              <button onclick="setStatusDropdown('MATCHED')" id="filter-pill-MATCHED" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs text-left hover:bg-white/10 text-slate-300 transition-colors">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  <span>Auto-Matched</span>
+                </div>
+                <span id="count-MATCHED" class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-mono">48</span>
+              </button>
+              <button onclick="setStatusDropdown('AI_RESOLVED')" id="filter-pill-AI_RESOLVED" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs text-left hover:bg-white/10 text-slate-300 transition-colors">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+                  <span>AI Resolved</span>
+                </div>
+                <span id="count-AI_RESOLVED" class="text-[10px] px-1.5 py-0.5 rounded bg-cyan-500/10 text-cyan-400 font-mono">10</span>
+              </button>
+              <button onclick="setStatusDropdown('EXCEPTIONS')" id="filter-pill-EXCEPTIONS" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs text-left hover:bg-white/10 text-slate-300 transition-colors">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-rose-400"></span>
+                  <span>Needs Review</span>
+                </div>
+                <span id="count-EXCEPTIONS" class="text-[10px] px-1.5 py-0.5 rounded bg-rose-500/10 text-rose-400 font-mono">2</span>
+              </button>
+            </div>
           </div>
-        </div>
 
-        <!-- Toggle Row 3: Variance Filters & Quick Reset -->
-        <div class="flex flex-wrap items-center justify-between gap-2 pt-2.5 border-t border-white/[0.06]">
-          <div class="flex flex-wrap items-center gap-2">
-            <span class="text-[11px] font-semibold uppercase tracking-wider text-slate-400 w-20 shrink-0 flex items-center gap-1.5">
-              <i data-lucide="scale" class="w-3.5 h-3.5 text-emerald-400"></i>
-              Variance:
-            </span>
-            <div class="flex flex-wrap items-center gap-1.5 text-xs">
-              <button onclick="setVarianceToggle('ALL')" id="toggle-var-ALL" class="recon-toggle-btn active px-3 py-1.5 rounded-lg font-medium text-white bg-white/10 border border-white/20 transition-all">
-                All Variances
+          <!-- Priority Dropdown ("All priorities ⌄") -->
+          <div class="relative" id="dropdown-priority-container">
+            <button 
+              type="button"
+              onclick="toggleFilterDropdown(event, 'priority')" 
+              id="btn-dropdown-priority" 
+              class="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800/90 border border-white/10 hover:border-white/20 text-xs font-medium text-slate-200 shadow-sm transition-all select-none"
+            >
+              <span id="label-dropdown-priority">All priorities</span>
+              <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400 transition-transform duration-200" id="icon-dropdown-priority"></i>
+            </button>
+            <div 
+              id="menu-dropdown-priority" 
+              class="hidden absolute left-0 mt-1.5 w-48 rounded-xl bg-slate-900/95 border border-white/10 shadow-2xl backdrop-blur-xl p-1.5 z-40 space-y-0.5"
+            >
+              <button onclick="setPriorityDropdown('ALL')" id="toggle-prio-ALL" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs text-left hover:bg-white/10 text-white transition-colors">
+                <span class="font-medium">All priorities</span>
               </button>
-              <button onclick="setVarianceToggle('ZERO')" id="toggle-var-ZERO" class="recon-toggle-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-emerald-300 bg-slate-900/60 border border-white/5 transition-all flex items-center gap-1.5">
-                <i data-lucide="check" class="w-3 h-3 text-emerald-400"></i>
-                <span>Zero Variance ($0.00)</span>
+              <button onclick="setPriorityDropdown('P0')" id="toggle-prio-P0" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs text-left hover:bg-white/10 text-slate-300 transition-colors">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                  <span>P0 Critical</span>
+                </div>
               </button>
-              <button onclick="setVarianceToggle('NONZERO')" id="toggle-var-NONZERO" class="recon-toggle-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-rose-300 bg-slate-900/60 border border-white/5 transition-all flex items-center gap-1.5">
-                <i data-lucide="activity" class="w-3 h-3 text-rose-400"></i>
-                <span>Has Variance (≠ $0.00)</span>
+              <button onclick="setPriorityDropdown('P1')" id="toggle-prio-P1" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs text-left hover:bg-white/10 text-slate-300 transition-colors">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                  <span>P1 High</span>
+                </div>
+              </button>
+              <button onclick="setPriorityDropdown('P2')" id="toggle-prio-P2" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs text-left hover:bg-white/10 text-slate-300 transition-colors">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                  <span>P2 Medium</span>
+                </div>
+              </button>
+              <button onclick="setPriorityDropdown('P3')" id="toggle-prio-P3" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs text-left hover:bg-white/10 text-slate-300 transition-colors">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-slate-500"></span>
+                  <span>P3 Low</span>
+                </div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Variance Dropdown ("All variances ⌄") -->
+          <div class="relative" id="dropdown-variance-container">
+            <button 
+              type="button"
+              onclick="toggleFilterDropdown(event, 'variance')" 
+              id="btn-dropdown-variance" 
+              class="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800/90 border border-white/10 hover:border-white/20 text-xs font-medium text-slate-200 shadow-sm transition-all select-none"
+            >
+              <span id="label-dropdown-variance">All variances</span>
+              <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400 transition-transform duration-200" id="icon-dropdown-variance"></i>
+            </button>
+            <div 
+              id="menu-dropdown-variance" 
+              class="hidden absolute left-0 mt-1.5 w-52 rounded-xl bg-slate-900/95 border border-white/10 shadow-2xl backdrop-blur-xl p-1.5 z-40 space-y-0.5"
+            >
+              <button onclick="setVarianceDropdown('ALL')" id="toggle-var-ALL" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs text-left hover:bg-white/10 text-white transition-colors">
+                <span class="font-medium">All variances</span>
+              </button>
+              <button onclick="setVarianceDropdown('ZERO')" id="toggle-var-ZERO" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs text-left hover:bg-white/10 text-slate-300 transition-colors">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-3 h-3 text-emerald-400"></i>
+                  <span>Zero Variance ($0.00)</span>
+                </div>
+              </button>
+              <button onclick="setVarianceDropdown('NONZERO')" id="toggle-var-NONZERO" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs text-left hover:bg-white/10 text-slate-300 transition-colors">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="activity" class="w-3 h-3 text-rose-400"></i>
+                  <span>Has Variance (≠ $0.00)</span>
+                </div>
               </button>
             </div>
           </div>
 
           <!-- Reset Filter Button -->
-          <button onclick="resetAllStreamFilters()" class="text-xs font-semibold text-slate-400 hover:text-white flex items-center gap-1.5 px-3 py-1.5 rounded-lg hover:bg-white/5 transition-all">
+          <button 
+            onclick="resetAllStreamFilters()" 
+            id="btn-reset-stream-filters" 
+            class="hidden items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-white/5 border border-transparent hover:border-white/10 transition-all select-none"
+          >
             <i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-slate-400"></i>
-            <span>Reset Filters</span>
+            <span>Reset</span>
           </button>
         </div>
 
+        <!-- Right side: Table count badge -->
+        <div class="flex items-center gap-3 text-xs text-slate-400 shrink-0">
+          <span id="table-record-count-summary" class="font-mono text-slate-300">Showing 60 of 60</span>
+          <span class="text-emerald-400 font-medium hidden sm:flex items-center gap-1">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+          </span>
+        </div>
       </div>
 
       <!-- Transaction Table Card with Clickable Header Toggles -->
@@ -1190,30 +1252,72 @@
       lucide.createIcons();
     }
 
-    // --- Multi-Dimension Filter & Sort Logic (Status, Priority, Variance) ---
+    // --- Multi-Dimension Filter & Sort Logic (Unified Dropdowns: Status, Priority, Variance) ---
     let activeStatusFilter = 'ALL';
     let activePriorityFilter = 'ALL';
     let activeVarianceFilter = 'ALL';
     let currentSortKey = null; // 'id', 'status', 'priority', 'variance'
     let currentSortDir = 'asc'; // 'asc' or 'desc'
 
-    function setStatusToggle(status) {
+    function toggleFilterDropdown(event, type) {
+      if (event) event.stopPropagation();
+      const types = ['status', 'priority', 'variance'];
+      types.forEach(t => {
+        const menu = document.getElementById(`menu-dropdown-${t}`);
+        const icon = document.getElementById(`icon-dropdown-${t}`);
+        if (t === type) {
+          const isClosed = menu ? menu.classList.contains('hidden') : true;
+          if (menu) menu.classList.toggle('hidden', !isClosed);
+          if (icon) icon.style.transform = isClosed ? 'rotate(180deg)' : 'rotate(0deg)';
+        } else {
+          if (menu) menu.classList.add('hidden');
+          const otherIcon = document.getElementById(`icon-dropdown-${t}`);
+          if (otherIcon) otherIcon.style.transform = 'rotate(0deg)';
+        }
+      });
+    }
+
+    function closeAllFilterDropdowns() {
+      ['status', 'priority', 'variance'].forEach(t => {
+        const menu = document.getElementById(`menu-dropdown-${t}`);
+        const icon = document.getElementById(`icon-dropdown-${t}`);
+        if (menu) menu.classList.add('hidden');
+        if (icon) icon.style.transform = 'rotate(0deg)';
+      });
+    }
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('#dropdown-status-container') &&
+          !e.target.closest('#dropdown-priority-container') &&
+          !e.target.closest('#dropdown-variance-container')) {
+        closeAllFilterDropdowns();
+      }
+    });
+
+    function setStatusDropdown(status) {
       activeStatusFilter = status;
+      closeAllFilterDropdowns();
       updateToggleUI();
       applyFilters();
     }
 
-    function setPriorityToggle(prio) {
+    function setPriorityDropdown(prio) {
       activePriorityFilter = prio;
+      closeAllFilterDropdowns();
       updateToggleUI();
       applyFilters();
     }
 
-    function setVarianceToggle(varType) {
+    function setVarianceDropdown(varType) {
       activeVarianceFilter = varType;
+      closeAllFilterDropdowns();
       updateToggleUI();
       applyFilters();
     }
+
+    function setStatusToggle(status) { setStatusDropdown(status); }
+    function setPriorityToggle(prio) { setPriorityDropdown(prio); }
+    function setVarianceToggle(varType) { setVarianceDropdown(varType); }
 
     function resetAllStreamFilters() {
       activeStatusFilter = 'ALL';
@@ -1224,47 +1328,112 @@
       currentSearchTerm = '';
       const searchInput = document.getElementById('recon-search');
       if (searchInput) searchInput.value = '';
+      closeAllFilterDropdowns();
       updateToggleUI();
       updateSortIndicators();
       applyFilters();
     }
 
     function updateToggleUI() {
-      // Status buttons
+      // 1. Status Dropdown Label & Button Styling
+      const statusLabel = document.getElementById('label-dropdown-status');
+      const statusBtn = document.getElementById('btn-dropdown-status');
+      const statusMap = {
+        'ALL': 'All statuses',
+        'MATCHED': 'Auto-Matched',
+        'AI_RESOLVED': 'AI Resolved',
+        'EXCEPTIONS': 'Needs Review'
+      };
+      if (statusLabel) statusLabel.innerText = statusMap[activeStatusFilter] || 'All statuses';
+      if (statusBtn) {
+        if (activeStatusFilter === 'ALL') {
+          statusBtn.className = "flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800/90 border border-white/10 hover:border-white/20 text-xs font-medium text-slate-200 shadow-sm transition-all select-none";
+        } else {
+          statusBtn.className = "flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-cyan-950/50 hover:bg-cyan-900/50 border border-cyan-500/40 text-xs font-semibold text-cyan-300 ring-1 ring-cyan-500/20 shadow-sm transition-all select-none";
+        }
+      }
+
+      // 2. Priority Dropdown Label & Button Styling
+      const prioLabel = document.getElementById('label-dropdown-priority');
+      const prioBtn = document.getElementById('btn-dropdown-priority');
+      const prioMap = {
+        'ALL': 'All priorities',
+        'P0': 'P0 Critical',
+        'P1': 'P1 High',
+        'P2': 'P2 Medium',
+        'P3': 'P3 Low'
+      };
+      if (prioLabel) prioLabel.innerText = prioMap[activePriorityFilter] || 'All priorities';
+      if (prioBtn) {
+        if (activePriorityFilter === 'ALL') {
+          prioBtn.className = "flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800/90 border border-white/10 hover:border-white/20 text-xs font-medium text-slate-200 shadow-sm transition-all select-none";
+        } else {
+          prioBtn.className = "flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-amber-950/50 hover:bg-amber-900/50 border border-amber-500/40 text-xs font-semibold text-amber-300 ring-1 ring-amber-500/20 shadow-sm transition-all select-none";
+        }
+      }
+
+      // 3. Variance Dropdown Label & Button Styling
+      const varLabel = document.getElementById('label-dropdown-variance');
+      const varBtn = document.getElementById('btn-dropdown-variance');
+      const varMap = {
+        'ALL': 'All variances',
+        'ZERO': 'Zero Variance',
+        'NONZERO': 'Has Variance'
+      };
+      if (varLabel) varLabel.innerText = varMap[activeVarianceFilter] || 'All variances';
+      if (varBtn) {
+        if (activeVarianceFilter === 'ALL') {
+          varBtn.className = "flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800/90 border border-white/10 hover:border-white/20 text-xs font-medium text-slate-200 shadow-sm transition-all select-none";
+        } else {
+          varBtn.className = "flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-rose-950/50 hover:bg-rose-900/50 border border-rose-500/40 text-xs font-semibold text-rose-300 ring-1 ring-rose-500/20 shadow-sm transition-all select-none";
+        }
+      }
+
+      // 4. Highlight active menu option inside each dropdown
       ['ALL', 'MATCHED', 'AI_RESOLVED', 'EXCEPTIONS'].forEach(s => {
-        const btn = document.getElementById(`filter-pill-${s}`);
-        if (btn) {
+        const opt = document.getElementById(`filter-pill-${s}`);
+        if (opt) {
           if (s === activeStatusFilter) {
-            btn.className = "recon-toggle-btn active px-3 py-1.5 rounded-lg font-medium text-white bg-white/10 border border-white/20 transition-all";
+            opt.classList.add('bg-white/10', 'text-white', 'font-semibold');
           } else {
-            btn.className = "recon-toggle-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white bg-slate-900/60 border border-white/5 transition-all";
+            opt.classList.remove('bg-white/10', 'text-white', 'font-semibold');
           }
         }
       });
-
-      // Priority buttons
       ['ALL', 'P0', 'P1', 'P2', 'P3'].forEach(p => {
-        const btn = document.getElementById(`toggle-prio-${p}`);
-        if (btn) {
+        const opt = document.getElementById(`toggle-prio-${p}`);
+        if (opt) {
           if (p === activePriorityFilter) {
-            btn.className = "recon-toggle-btn active px-3 py-1.5 rounded-lg font-medium text-white bg-white/10 border border-white/20 transition-all flex items-center gap-1.5";
+            opt.classList.add('bg-white/10', 'text-white', 'font-semibold');
           } else {
-            btn.className = "recon-toggle-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white bg-slate-900/60 border border-white/5 transition-all flex items-center gap-1.5";
+            opt.classList.remove('bg-white/10', 'text-white', 'font-semibold');
+          }
+        }
+      });
+      ['ALL', 'ZERO', 'NONZERO'].forEach(v => {
+        const opt = document.getElementById(`toggle-var-${v}`);
+        if (opt) {
+          if (v === activeVarianceFilter) {
+            opt.classList.add('bg-white/10', 'text-white', 'font-semibold');
+          } else {
+            opt.classList.remove('bg-white/10', 'text-white', 'font-semibold');
           }
         }
       });
 
-      // Variance buttons
-      ['ALL', 'ZERO', 'NONZERO'].forEach(v => {
-        const btn = document.getElementById(`toggle-var-${v}`);
-        if (btn) {
-          if (v === activeVarianceFilter) {
-            btn.className = "recon-toggle-btn active px-3 py-1.5 rounded-lg font-medium text-white bg-white/10 border border-white/20 transition-all flex items-center gap-1.5";
-          } else {
-            btn.className = "recon-toggle-btn px-3 py-1.5 rounded-lg font-medium text-slate-400 hover:text-white bg-slate-900/60 border border-white/5 transition-all flex items-center gap-1.5";
-          }
+      // 5. Reset button visibility
+      const resetBtn = document.getElementById('btn-reset-stream-filters');
+      if (resetBtn) {
+        const hasActiveFilter = (activeStatusFilter !== 'ALL' || activePriorityFilter !== 'ALL' || activeVarianceFilter !== 'ALL' || (currentSearchTerm && currentSearchTerm.length > 0));
+        if (hasActiveFilter) {
+          resetBtn.classList.remove('hidden');
+          resetBtn.classList.add('flex');
+        } else {
+          resetBtn.classList.add('hidden');
+          resetBtn.classList.remove('flex');
         }
-      });
+      }
+      lucide.createIcons();
     }
 
     function toggleSort(col) {
@@ -1363,6 +1532,10 @@
       }
 
       renderReconTable(filtered);
+      const summaryEl = document.getElementById('table-record-count-summary');
+      if (summaryEl) summaryEl.innerText = `Showing ${filtered.length} of ${allRecords.length}`;
+      const countEl = document.getElementById('table-record-count');
+      if (countEl) countEl.innerText = `Showing ${filtered.length} of ${allRecords.length} transactions`;
     }
 
     function updateFilterPillCounts() {
