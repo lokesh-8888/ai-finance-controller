@@ -386,7 +386,7 @@
       </div>
 
       <!-- Unified Compact Filter Toolbar (Clean Dropdown Style matching reference) -->
-      <div class="glass-card p-2.5 sm:p-3 flex flex-wrap items-center justify-between gap-2.5">
+      <div class="glass-card p-2.5 sm:p-3 flex flex-wrap items-center justify-between gap-2.5 relative z-30 overflow-visible">
         <div class="flex flex-wrap items-center gap-2">
           
           <!-- Global Search Input -->
@@ -402,7 +402,7 @@
           </div>
 
           <!-- Status Dropdown ("All statuses ⌄") -->
-          <div class="relative" id="dropdown-status-container">
+          <div class="relative z-30" id="dropdown-status-container">
             <button 
               type="button"
               onclick="toggleFilterDropdown(event, 'status')" 
@@ -414,7 +414,7 @@
             </button>
             <div 
               id="menu-dropdown-status" 
-              class="hidden absolute left-0 mt-1.5 w-52 rounded-xl bg-slate-900/95 border border-white/10 shadow-2xl backdrop-blur-xl p-1.5 z-40 space-y-0.5"
+              class="hidden absolute left-0 top-full mt-1.5 w-52 rounded-xl bg-slate-900 border border-white/20 shadow-2xl backdrop-blur-xl p-1.5 z-50 space-y-0.5"
             >
               <button onclick="setStatusDropdown('ALL')" id="filter-pill-ALL" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs text-left hover:bg-white/10 text-white transition-colors">
                 <span class="font-medium">All statuses</span>
@@ -445,7 +445,7 @@
           </div>
 
           <!-- Priority Dropdown ("All priorities ⌄") -->
-          <div class="relative" id="dropdown-priority-container">
+          <div class="relative z-30" id="dropdown-priority-container">
             <button 
               type="button"
               onclick="toggleFilterDropdown(event, 'priority')" 
@@ -457,7 +457,7 @@
             </button>
             <div 
               id="menu-dropdown-priority" 
-              class="hidden absolute left-0 mt-1.5 w-48 rounded-xl bg-slate-900/95 border border-white/10 shadow-2xl backdrop-blur-xl p-1.5 z-40 space-y-0.5"
+              class="hidden absolute left-0 top-full mt-1.5 w-48 rounded-xl bg-slate-900 border border-white/20 shadow-2xl backdrop-blur-xl p-1.5 z-50 space-y-0.5"
             >
               <button onclick="setPriorityDropdown('ALL')" id="toggle-prio-ALL" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs text-left hover:bg-white/10 text-white transition-colors">
                 <span class="font-medium">All priorities</span>
@@ -490,7 +490,7 @@
           </div>
 
           <!-- Variance Dropdown ("All variances ⌄") -->
-          <div class="relative" id="dropdown-variance-container">
+          <div class="relative z-30" id="dropdown-variance-container">
             <button 
               type="button"
               onclick="toggleFilterDropdown(event, 'variance')" 
@@ -502,7 +502,7 @@
             </button>
             <div 
               id="menu-dropdown-variance" 
-              class="hidden absolute left-0 mt-1.5 w-52 rounded-xl bg-slate-900/95 border border-white/10 shadow-2xl backdrop-blur-xl p-1.5 z-40 space-y-0.5"
+              class="hidden absolute left-0 top-full mt-1.5 w-52 rounded-xl bg-slate-900 border border-white/20 shadow-2xl backdrop-blur-xl p-1.5 z-50 space-y-0.5"
             >
               <button onclick="setVarianceDropdown('ALL')" id="toggle-var-ALL" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs text-left hover:bg-white/10 text-white transition-colors">
                 <span class="font-medium">All variances</span>
@@ -543,7 +543,7 @@
       </div>
 
       <!-- Transaction Table Card with Clickable Header Toggles -->
-      <div class="glass-card overflow-hidden">
+      <div class="glass-card overflow-hidden relative z-10">
         <div class="overflow-x-auto">
           <table class="w-full text-left text-xs border-collapse">
             <thead>
@@ -1480,8 +1480,7 @@
         filtered = filtered.filter(r => r.is_ai_resolved || r.status === 'AI_RESOLVED' || r.status === 'AI_INVESTIGATED');
       } else if (activeStatusFilter === 'EXCEPTIONS') {
         filtered = filtered.filter(r => 
-          (r.status === 'EXCEPTIONS' || r.status === 'EXCEPTION' || r.needs_review || (r.risk_priority && r.risk_priority.includes('P0')))
-          && r.remediation_status !== 'RESOLVED' && r.remediation_status !== 'WRITTEN_OFF'
+          r.status === 'EXCEPTIONS' || r.status === 'EXCEPTION' || r.needs_review || (r.risk_priority && r.risk_priority.includes('P0'))
         );
       }
 
@@ -1543,8 +1542,7 @@
       const matchedCount = allRecords.filter(r => r.is_auto_matched || r.status === 'MATCHED').length;
       const aiResolvedCount = allRecords.filter(r => r.is_ai_resolved || r.status === 'AI_RESOLVED' || r.status === 'AI_INVESTIGATED').length;
       const exceptionsCount = allRecords.filter(r => 
-        (r.status === 'EXCEPTIONS' || r.status === 'EXCEPTION' || r.needs_review || (r.risk_priority && r.risk_priority.includes('P0')))
-        && r.remediation_status !== 'RESOLVED' && r.remediation_status !== 'WRITTEN_OFF'
+        r.status === 'EXCEPTIONS' || r.status === 'EXCEPTION' || r.needs_review || (r.risk_priority && r.risk_priority.includes('P0'))
       ).length;
 
       const elAll = document.getElementById('count-ALL');
