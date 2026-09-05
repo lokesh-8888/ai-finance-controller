@@ -1455,17 +1455,38 @@
       {
         id: "BNK-0055",
         recordId: "BNK-0055",
+        amountCents: 1500000,
         amount: "$15,000.00",
         risk: "P0_CRITICAL",
         text: "Quarantine unidentified inward wire of $15,000.00 under ESCALATE_FRAUD. File bank treasury inquiry ticket.",
         confidence: "98%",
         created: "Today, 09:30 am"
+      },
+      {
+        id: "GTW-0138",
+        recordId: "GTW-0138",
+        amountCents: 140765,
+        amount: "$1,407.65",
+        risk: "P1_HIGH",
+        text: "Gateway captured $1,450.00 on 2026-08-06 but payout never credited to operating bank account.",
+        confidence: "94%",
+        created: "Today, 08:45 am"
+      },
+      {
+        id: "BNK-0176",
+        recordId: "BNK-0176",
+        amountCents: 1000000,
+        amount: "$10,000.00",
+        risk: "P0_CRITICAL",
+        text: "Quarantined inward wire mismatch of $10,000.00. SOX-404 controller sign-off required.",
+        confidence: "94%",
+        created: "Today, 08:15 am"
       }
     ];
     let decidedApprovals = [
-      { id: "BNK-0052", amount: "$1,750.00", risk: "P1_HIGH", status: "Approved", decidedBy: "FINANCE_CONTROLLER", decidedAt: "23 Aug 2026, 12:17 pm" },
-      { id: "GTW-0040", amount: "$1,450.00", risk: "P1_HIGH", status: "Approved", decidedBy: "FINANCE_CONTROLLER", decidedAt: "23 Aug 2026, 07:22 am" },
-      { id: "BNK-0058", amount: "$82.50", risk: "P2_MEDIUM", status: "Approved", decidedBy: "FINANCE_CONTROLLER", decidedAt: "23 Aug 2026, 07:08 am" }
+      { id: "BNK-0052", amountCents: 175000, amount: "$1,750.00", risk: "P1_HIGH", status: "Approved", decidedBy: "FINANCE_CONTROLLER", decidedAt: "23 Aug 2026, 12:17 pm" },
+      { id: "GTW-0040", amountCents: 145000, amount: "$1,450.00", risk: "P1_HIGH", status: "Approved", decidedBy: "FINANCE_CONTROLLER", decidedAt: "23 Aug 2026, 07:22 am" },
+      { id: "BNK-0058", amountCents: 8250, amount: "$82.50", risk: "P2_MEDIUM", status: "Approved", decidedBy: "FINANCE_CONTROLLER", decidedAt: "23 Aug 2026, 07:08 am" }
     ];
 
     // --- Tab Navigation & Breadcrumbs ---
@@ -1565,6 +1586,8 @@
       if (sym) sym.innerText = (currencyMode === 'INR') ? '₹' : '$';
       updateKpiCards();
       renderExceptionsWorkbench();
+      setupPendingApprovals();
+      renderDecidedTable();
       if (currentInvestigationRecord) {
         populateInvestigationDetails(currentInvestigationRecord);
       }
@@ -2749,7 +2772,7 @@
             </div>
             <div class="text-right">
               <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Exposure</span>
-              <span class="text-sm font-bold font-mono text-white">${item.amount}</span>
+              <span class="text-sm font-bold font-mono text-white">${item.amountCents !== undefined ? formatMoney(item.amountCents) : item.amount}</span>
             </div>
           </div>
 
@@ -2777,24 +2800,14 @@
     }
 
     function handleApprovalAction(id, decision) {
-      const idx = pendingApprovals.findIndex(p => p.id === id);
-      if (idx !== -1) {
-        const item = pendingApprovals.splice(idx, 1)[0];
-        decidedApprovals.unshift({
-          id: item.id,
-          amount: item.amount,
-          risk: item.risk,
-          status: decision,
-          decidedBy: "FINANCE_CONTROLLER",
-          decidedAt: "Just now"
-        });
-
-        if (decision === 'Approved') executeWorkbenchAction('approve-variance', item.recordId);
-        else if (decision === 'Disputed') executeWorkbenchAction('file-dispute', item.recordId);
-        else if (decision === 'Written-Off') executeWorkbenchAction('write-off', item.recordId);
-
-        setupPendingApprovals();
-        showToast(`✅ ${item.id} action executed: ${decision}`);
+      if (decision === 'Approved') {
+        executeWorkbenchAction('post-gl-entry', id);
+      } else if (decision === 'Disputed') {
+        executeWorkbenchAction('file-dispute', id);
+      } else if (decision === 'Written-Off') {
+        executeWorkbenchAction('write-off', id);
+      } else {
+        executeWorkbenchAction('approve-variance', id);
       }
     }
 
@@ -2811,15 +2824,19 @@
         tr.className = "hover:bg-white/[0.02] transition-colors";
 
         let statBadge = `<span class="px-2.5 py-0.5 rounded-md text-[10px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Approved</span>`;
-        if (d.status === 'Written-Off') {
+        if (d.status === 'Written-Off' || d.status === 'Written Off') {
           statBadge = `<span class="px-2.5 py-0.5 rounded-md text-[10px] font-semibold bg-slate-700/60 text-slate-300 border border-slate-600">Written Off</span>`;
         } else if (d.status === 'Disputed') {
           statBadge = `<span class="px-2.5 py-0.5 rounded-md text-[10px] font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/40">Disputed</span>`;
+        } else if (d.status === 'GL Posted') {
+          statBadge = `<span class="px-2.5 py-0.5 rounded-md text-[10px] font-semibold bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">GL Posted</span>`;
         }
+
+        const amtDisplay = (d.amountCents !== undefined) ? formatMoney(d.amountCents) : d.amount;
 
         tr.innerHTML = `
           <td class="py-3 px-4 font-mono font-semibold text-white">${d.id}</td>
-          <td class="py-3 px-4 text-right font-mono font-bold text-white">${d.amount}</td>
+          <td class="py-3 px-4 text-right font-mono font-bold text-white">${amtDisplay}</td>
           <td class="py-3 px-4"><span class="px-2 py-0.5 rounded text-[10px] font-mono text-slate-300 bg-slate-800">${d.risk}</span></td>
           <td class="py-3 px-4 text-center">${statBadge}</td>
           <td class="py-3 px-4 font-mono text-[11px] text-slate-400">${d.decidedBy}</td>
@@ -3577,13 +3594,51 @@
             priority: rec ? (rec.risk_priority || 'P0_CRITICAL') : 'P0_CRITICAL'
           };
 
+          // 1. Immediately update Historical Decisions & Remediation Log
+          const actionLabels = {
+            'approve-variance': 'Approved',
+            'post-gl-entry': 'GL Posted',
+            'file-dispute': 'Disputed',
+            'write-off': 'Written Off'
+          };
+          const decisionLabel = actionLabels[action] || 'Approved';
+          const recAmountCents = rec ? (rec.variance_cents || 0) : 0;
+          const recRisk = rec ? (rec.risk_priority || 'P1_HIGH') : 'P1_HIGH';
+
+          // Remove duplicate if already present in decidedApprovals so recent is at top
+          const exIdx = decidedApprovals.findIndex(d => d.id === recordId);
+          if (exIdx !== -1) decidedApprovals.splice(exIdx, 1);
+
+          decidedApprovals.unshift({
+            id: recordId,
+            amountCents: recAmountCents,
+            amount: formatMoney(recAmountCents),
+            risk: recRisk,
+            status: decisionLabel,
+            decidedBy: "FINANCE_CONTROLLER",
+            decidedAt: "Just now"
+          });
+
+          // 2. Remove from pending approvals queue if present
+          const pendIdx = pendingApprovals.findIndex(p => p.id === recordId || p.recordId === recordId);
+          if (pendIdx !== -1) pendingApprovals.splice(pendIdx, 1);
+
+          // 3. Re-render both Approvals sections live
+          setupPendingApprovals();
+          renderDecidedTable();
+
+          // 4. Update Audit Trail & Exceptions lists
+          loadAuditTrail(currentAuditFilter);
+          renderExceptionsWorkbench();
+
           showToast(`✅ Successfully executed ${action.replace('-', ' ')} on ${recordId}!`);
           applyFilters();
           updateFilterPillCounts();
           loadKPIs();
 
-          const drawerContainer = document.getElementById('drawer-container');
-          if (drawerContainer && !drawerContainer.classList.contains('translate-x-full')) {
+          // 5. Update inspection drawer state if open
+          const drawer = document.getElementById('inspection-drawer');
+          if (drawer && !drawer.classList.contains('translate-x-full')) {
             openDrawer(recordId);
           }
         }
