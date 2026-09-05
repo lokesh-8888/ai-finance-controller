@@ -17,10 +17,13 @@ def get_audit_memo(format: str = Query("markdown", description="Format: markdown
     if format == "json":
         import json
         with open(files["json"], "r", encoding="utf-8") as f:
-            return json.load(f)
+            data = json.load(f)
+        with open(files["markdown"], "r", encoding="utf-8") as f:
+            data["markdown_memo"] = f.read()
+        return data
 
     with open(files["markdown"], "r", encoding="utf-8") as f:
-        return PlainTextResponse(f.read())
+        return PlainTextResponse(f.read(), media_type="text/markdown; charset=utf-8")
 
 
 @router.post("/export")

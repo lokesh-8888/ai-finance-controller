@@ -239,7 +239,7 @@
 
       <!-- Action Controls -->
       <div class="flex items-center gap-3 text-xs">
-        <button onclick="downloadAuditMemo()" title="Export Executive Audit Memo" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-white/10 transition-all font-medium">
+        <button id="btn-export-audit-memo" onclick="downloadAuditMemo()" title="Export Executive Audit Memo" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-white/10 transition-all font-medium">
           <i data-lucide="download" class="w-3.5 h-3.5"></i>
           <span>Export Audit Memo</span>
         </button>
@@ -3754,15 +3754,32 @@
     async function downloadAuditMemo() {
       try {
         const res = await fetch(`${API_BASE}/api/v1/reports/audit-memo`);
-        const data = await res.json();
-        const blob = new Blob([data.markdown_memo], { type: 'text/markdown' });
+        if (!res.ok) {
+          throw new Error(`Server returned HTTP ${res.status}: ${res.statusText}`);
+        }
+        const contentType = res.headers.get('content-type') || '';
+        let markdownContent = '';
+        if (contentType.includes('application/json')) {
+          const data = await res.json();
+          markdownContent = data.markdown_memo || JSON.stringify(data, null, 2);
+        } else {
+          markdownContent = await res.text();
+        }
+        if (!markdownContent) {
+          throw new Error('Audit memo content is empty');
+        }
+        const blob = new Blob([markdownContent], { type: 'text/markdown;charset=utf-8' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
         a.download = `Reconciliation_Audit_Report_${new Date().toISOString().slice(0, 10)}.md`;
+        document.body.appendChild(a);
         a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
         showToast("📄 Audit Memo downloaded successfully!");
       } catch (e) {
+        console.error("Audit memo download error:", e);
         showToast("❌ Report download failed: " + e.message);
       }
     }

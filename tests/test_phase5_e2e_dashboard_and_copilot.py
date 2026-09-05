@@ -259,3 +259,19 @@ class TestMonthEndAuditReportGenerator:
         assert log_data["actor"] == "AI_INVESTIGATOR"
         assert log_data["hash_signature"] is not None
 
+    def test_audit_memo_endpoint_markdown_and_json(self, client):
+        # 1. Default markdown format
+        res_md = client.get("/api/v1/reports/audit-memo")
+        assert res_md.status_code == 200
+        assert "text/markdown" in res_md.headers.get("content-type", "")
+        assert "Executive Month-End Reconciliation Audit Memo" in res_md.text
+
+        # 2. Explicit JSON format
+        res_json = client.get("/api/v1/reports/audit-memo?format=json")
+        assert res_json.status_code == 200
+        data = res_json.json()
+        assert "markdown_memo" in data
+        assert "benchmark_report" in data
+        assert "Executive Month-End Reconciliation Audit Memo" in data["markdown_memo"]
+
+
