@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-05 15:29:11 UTC",
+  "generated_at": "2026-09-05 15:38:10 UTC",
   "period": "2026-08-31",
   "benchmark_report": {
     "total_scenarios": 200,
@@ -13,8 +13,8 @@
     "baseline_deterministic_accuracy_pct": 79.0,
     "post_ai_final_accuracy_pct": 99.0,
     "accuracy_lift_pct": 20.0,
-    "average_ai_latency_ms": 0.03,
-    "total_ai_latency_ms": 1.25,
+    "average_ai_latency_ms": 0.02,
+    "total_ai_latency_ms": 0.7,
     "confusion_matrix": {
       "EXACT_MATCH": {
         "EXACT_MATCH": 108,
