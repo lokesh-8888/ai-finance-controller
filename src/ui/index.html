@@ -653,9 +653,8 @@
 
             <!-- Action Button & Run Analysis -->
             <div id="inv-action-box" class="pt-2">
-              <button onclick="runAiInvestigation()" id="btn-run-investigate" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition-all flex items-center gap-2 shadow-lg shadow-indigo-900/30">
-                <i data-lucide="sparkles" class="w-4 h-4"></i>
-                <span>Run Forensic AI Diagnosis</span>
+              <button onclick="runAiInvestigation()" id="btn-run-investigate" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs transition-all flex items-center justify-center gap-2 shadow-lg shadow-blue-900/30 border border-blue-500/40">
+                <span>Investigate with AI</span>
               </button>
             </div>
 
@@ -1693,7 +1692,7 @@
 
       setTimeout(() => {
         btn.disabled = false;
-        btn.innerHTML = `<i data-lucide="sparkles" class="w-4 h-4"></i><span>Run Forensic AI Diagnosis</span>`;
+        btn.innerHTML = `<span>Investigate with AI</span>`;
         document.getElementById('inv-action-box').classList.add('hidden');
         document.getElementById('inv-results-container').classList.remove('hidden');
         lucide.createIcons();
