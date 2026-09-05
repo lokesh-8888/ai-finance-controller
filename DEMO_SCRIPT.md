@@ -78,22 +78,36 @@
 
 ---
 
-## 🛠️ "What Broke at 2 AM, and How We Got Out" (Engineering War Stories)
+## 🛠️ "What Broke at 2 AM, and How We Got Out" (Top 4 Engineering War Stories)
 
-Use these real technical war stories in interviews, write-ups, or project submissions:
+Use these authentic technical challenges in your demo video, interview discussions, or portfolio writeups:
 
-### War Story 1: The Floating-Point Math Trap That Broke Ledger Invariance
-- **The 2 AM Crisis**: Subledgers started showing ghost 1-cent discrepancies (`$0.01`), causing double-entry journal vouchers to fail the fundamental accounting invariant ($\sum \text{Debits} == \sum \text{Credits}$).
-- **Root Cause**: Standard IEEE-754 floating-point math (`0.1 + 0.2 = 0.30000000000000004`) was silently accumulating rounding errors across 200 multi-source transaction settlements.
-- **How We Got Out**: Eliminated all float types from core calculations. Rebuilt the domain model with strict integer-cents (`StrictInt`), isolating currency formatting exclusively to the UI layer, and implemented **Bijective Atomic Set Locking** to mathematically prevent double matches.
+### 1. The Floating-Point Math Trap (Accounting Invariance Failure)
+- **The 2 AM Crisis**: When reconciling 200 multi-source bank and gateway transactions, automated double-entry journal vouchers started failing audit integrity tests with ghost 1-cent discrepancies (`$0.01`).
+- **Root Cause**: IEEE-754 binary floating-point arithmetic (`0.1 + 0.2 = 0.30000000000000004`) accumulated rounding drift across multi-currency conversions and fee deductions, violating the accounting invariant ($\sum \text{Debits} \equiv \sum \text{Credits}$).
+- **How We Got Out**: Completely eliminated raw floats from core financial calculations. Migrated domain models to **strict integer-cents** (`StrictInt`), isolating decimal numbers exclusively to UI formatting, and implemented **Bijective Atomic Set Locking** to prevent any transaction from being double-matched.
 
-### War Story 2: The Silent 28-Exception Leak
-- **The 2 AM Crisis**: The executive overview card reported 31 open exceptions, but the exceptions table stream only displayed 6 records. 28 material financial variances had vanished from the operator’s queue!
-- **Root Cause**: An overly broad rule (`is_ai_resolved = is_exception and not is_p0_critical`) was prematurely classifying non-P0 anomalies (duplicate disbursements, tax variances, missing settlements) as auto-resolved before human review.
-- **How We Got Out**: Redesigned the backend classification state machine in `routes_reconcile.py`. We decoupled ground-truth anomaly detection from automated remediation, ensuring all 34 anomalies are quarantined in the triage queue until explicitly approved or resolved by the controller.
+---
 
-### War Story 3: The Premature Container Closure & Broken Audit Download
-- **The 2 AM Crisis**: The Approvals workbench collapsed into a right-hand margin with a large black void on the left, and clicking "Export Audit Memo" threw `SyntaxError: Unexpected token '#'`.
-- **Root Cause**: Stray duplicate closing tags (`</div>\n</section>`) prematurely terminated `<main>`, casting subsequent tabs into an unintended outer flex sibling layout. Simultaneously, the frontend was calling `await res.json()` on a raw Markdown string.
-- **How We Got Out**: Built a Python HTML parser validator to guarantee 0 tag mismatches, re-wired the export pipeline to detect content-type, and promoted **tabular CSV (`.csv`)** as the primary export format to match real-world finance workflows.
+### 2. The Silent 28-Exception Vanishing Act (Premature AI Auto-Resolution)
+- **The 2 AM Crisis**: The executive overview card reported 31 open exceptions, but the exceptions table stream only displayed 6 records. 25+ real financial variances had vanished from the operator’s queue!
+- **Root Cause**: An overly aggressive rule (`is_ai_resolved = is_exception and not is_p0_critical`) was marking non-P0 anomalies (duplicate disbursements, tax variances, missing settlements) as auto-resolved by AI before any controller saw them.
+- **How We Got Out**: Decoupled anomaly detection from the remediation state machine. We created an explicit **Quarantine State Machine** where all detected anomalies remain locked in quarantine until a human controller explicitly executes a remediation action (`Post GL Entry`, `File Dispute`, `Apply Credit Memo`, `Dismiss`).
+
+---
+
+### 3. The Approvals Page Layout Collapse (The Stray HTML Tag Crisis)
+- **The 2 AM Crisis**: During live testing, clicking into the Approvals tab caused the entire page layout to collapse into a narrow 300px column on the far right, leaving a massive black void across 70% of the screen.
+- **Root Cause**: During a major template refactor, duplicate stray closing tags (`</div>\n</section>`) prematurely terminated the parent `<main class="main-content">` grid container. The browser auto-repaired the DOM by rendering `#page-approvals` as an orphaned flex sibling outside the grid layout.
+- **How We Got Out**: Built a Python script with `html.parser.HTMLParser` to trace and balance all opening and closing tags across 3,100+ lines of HTML, eliminated the orphaned tags, and verified full-width grid rendering with automated browser screenshots.
+
+---
+
+### 4. Transactions Tab vs. Exceptions Tab Looking Identical (UX & System Decoupling)
+- **The 2 AM Crisis**: In early builds, switching between the Transactions tab and Exceptions tab looked practically identical—both displayed generic tables, making it impossible for a financial controller to immediately triage urgent anomalies.
+- **Root Cause**: The frontend was reusing the same table component and data pipeline for both operational ledger browsing and risk quarantine.
+- **How We Got Out**: We architecturally decoupled the two views:
+  - **Transactions Tab** was converted into an *Auditor Explorer* (nominal subledger streams, matched pairs, fee deductions, and 100% nominal verification badges).
+  - **Exceptions Tab** was rebuilt into a dedicated **Quarantine Command Center** with glowing red `Active Quarantine` status badges, category filter chips (`Duplicate Payments`, `Missing Settlements`, `Tax Differences`), and direct **"Investigate"** action triggers linking straight into split-screen AI forensics.
+
 
