@@ -3,79 +3,79 @@
     "id": "GL-00001",
     "invoice_id": "ORD-EXACT-1000",
     "gl_account_code": "1010-CASH",
-    "amount_cents": 350243,
+    "amount_cents": 685487,
     "customer_vendor_name": "Acme Corp",
-    "entry_date": "2026-08-03",
+    "entry_date": "2026-08-05",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00002",
     "invoice_id": "ORD-EXACT-1001",
     "gl_account_code": "1010-CASH",
-    "amount_cents": 28112,
+    "amount_cents": 41225,
     "customer_vendor_name": "Globex Global",
-    "entry_date": "2026-08-13",
+    "entry_date": "2026-08-25",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00003",
     "invoice_id": "ORD-EXACT-1002",
     "gl_account_code": "1010-CASH",
-    "amount_cents": 159194,
+    "amount_cents": 303389,
     "customer_vendor_name": "Initech LLC",
-    "entry_date": "2026-08-05",
+    "entry_date": "2026-08-09",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00004",
     "invoice_id": "ORD-EXACT-1003",
     "gl_account_code": "1010-CASH",
-    "amount_cents": 132026,
+    "amount_cents": 249053,
     "customer_vendor_name": "Umbrella Enterprises",
-    "entry_date": "2026-08-04",
+    "entry_date": "2026-08-06",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00005",
     "invoice_id": "ORD-EXACT-1004",
     "gl_account_code": "1010-CASH",
-    "amount_cents": 401123,
+    "amount_cents": 787246,
     "customer_vendor_name": "Hooli Cloud",
-    "entry_date": "2026-08-03",
+    "entry_date": "2026-08-05",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00006",
     "invoice_id": "ORD-EXACT-1005",
     "gl_account_code": "1010-CASH",
-    "amount_cents": 369785,
+    "amount_cents": 724570,
     "customer_vendor_name": "Stark Industries",
-    "entry_date": "2026-08-13",
+    "entry_date": "2026-08-25",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00007",
     "invoice_id": "ORD-EXACT-1006",
     "gl_account_code": "1010-CASH",
-    "amount_cents": 300929,
+    "amount_cents": 586858,
     "customer_vendor_name": "Wayne Logistics",
-    "entry_date": "2026-08-03",
+    "entry_date": "2026-08-04",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00008",
     "invoice_id": "ORD-EXACT-1007",
     "gl_account_code": "1010-CASH",
-    "amount_cents": 324588,
+    "amount_cents": 634176,
     "customer_vendor_name": "Cyberdyne Systems",
-    "entry_date": "2026-08-08",
+    "entry_date": "2026-08-15",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00009",
     "invoice_id": "ORD-EXACT-1008",
     "gl_account_code": "1010-CASH",
-    "amount_cents": 31663,
+    "amount_cents": 48326,
     "customer_vendor_name": "Soylent Corp",
     "entry_date": "2026-08-02",
     "doc_type": "PAYMENT"
@@ -84,25 +84,25 @@
     "id": "GL-00010",
     "invoice_id": "ORD-EXACT-1009",
     "gl_account_code": "1010-CASH",
-    "amount_cents": 64123,
+    "amount_cents": 113246,
     "customer_vendor_name": "Massive Dynamic",
-    "entry_date": "2026-08-05",
+    "entry_date": "2026-08-08",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00011",
     "invoice_id": "ORD-EXACT-1010",
     "gl_account_code": "1010-CASH",
-    "amount_cents": 136981,
+    "amount_cents": 258962,
     "customer_vendor_name": "Pied Piper",
-    "entry_date": "2026-08-10",
+    "entry_date": "2026-08-18",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00012",
     "invoice_id": "ORD-EXACT-1011",
     "gl_account_code": "1010-CASH",
-    "amount_cents": 330631,
+    "amount_cents": 646262,
     "customer_vendor_name": "Dunder Mifflin",
     "entry_date": "2026-08-02",
     "doc_type": "PAYMENT"
@@ -111,454 +111,1804 @@
     "id": "GL-00013",
     "invoice_id": "ORD-EXACT-1012",
     "gl_account_code": "1010-CASH",
-    "amount_cents": 309254,
+    "amount_cents": 603508,
     "customer_vendor_name": "Wonka Confections",
-    "entry_date": "2026-08-05",
+    "entry_date": "2026-08-08",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00014",
     "invoice_id": "ORD-EXACT-1013",
     "gl_account_code": "1010-CASH",
-    "amount_cents": 390400,
+    "amount_cents": 765800,
     "customer_vendor_name": "Bluth Development",
-    "entry_date": "2026-08-12",
+    "entry_date": "2026-08-22",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00015",
     "invoice_id": "ORD-EXACT-1014",
     "gl_account_code": "1010-CASH",
-    "amount_cents": 382696,
+    "amount_cents": 750392,
     "customer_vendor_name": "Aperture Science",
-    "entry_date": "2026-08-10",
+    "entry_date": "2026-08-19",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00016",
-    "invoice_id": "INV-2026-0001",
-    "gl_account_code": "2010-AP",
-    "amount_cents": -464898,
-    "customer_vendor_name": "Datadog Inc",
-    "entry_date": "2026-08-10",
+    "invoice_id": "ORD-EXACT-1015",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 454898,
+    "customer_vendor_name": "Tyrell Corp",
+    "entry_date": "2026-08-09",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00017",
-    "invoice_id": "INV-2026-0002",
-    "gl_account_code": "2010-AP",
-    "amount_cents": -496029,
-    "customer_vendor_name": "Snowflake Inc",
-    "entry_date": "2026-08-16",
+    "invoice_id": "ORD-EXACT-1016",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 486029,
+    "customer_vendor_name": "Oscorp Tech",
+    "entry_date": "2026-08-20",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00018",
-    "invoice_id": "INV-2026-0003",
-    "gl_account_code": "2010-AP",
-    "amount_cents": -316704,
-    "customer_vendor_name": "Figma Design",
-    "entry_date": "2026-08-07",
+    "invoice_id": "ORD-EXACT-1017",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 306704,
+    "customer_vendor_name": "Starlight Media",
+    "entry_date": "2026-08-02",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00019",
-    "invoice_id": "INV-2026-0004",
-    "gl_account_code": "2010-AP",
-    "amount_cents": -192414,
-    "customer_vendor_name": "Slack Technologies",
-    "entry_date": "2026-08-13",
+    "invoice_id": "ORD-EXACT-1018",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 810667,
+    "customer_vendor_name": "Vandelay Industries",
+    "entry_date": "2026-08-07",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00020",
-    "invoice_id": "INV-2026-0005",
-    "gl_account_code": "2010-AP",
-    "amount_cents": -381778,
-    "customer_vendor_name": "GitHub Inc",
-    "entry_date": "2026-08-11",
+    "invoice_id": "ORD-EXACT-1019",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 747052,
+    "customer_vendor_name": "Gekko & Co",
+    "entry_date": "2026-08-15",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00021",
-    "invoice_id": "INV-2026-0006",
-    "gl_account_code": "2010-AP",
-    "amount_cents": -188032,
-    "customer_vendor_name": "Atlassian Corp",
+    "invoice_id": "ORD-EXACT-1020",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 371778,
+    "customer_vendor_name": "Oceanic Airlines",
     "entry_date": "2026-08-10",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00022",
-    "invoice_id": "INV-2026-0007",
-    "gl_account_code": "2010-AP",
-    "amount_cents": -377944,
-    "customer_vendor_name": "Twilio API",
+    "invoice_id": "ORD-EXACT-1021",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 178032,
+    "customer_vendor_name": "Sterling Cooper",
     "entry_date": "2026-08-08",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00023",
-    "invoice_id": "INV-2026-0008",
-    "gl_account_code": "2010-AP",
-    "amount_cents": -122251,
-    "customer_vendor_name": "Zoom Video",
-    "entry_date": "2026-08-13",
+    "invoice_id": "ORD-EXACT-1022",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 815581,
+    "customer_vendor_name": "Prestige Worldwide",
+    "entry_date": "2026-08-12",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00024",
-    "invoice_id": "INV-2026-0009",
-    "gl_account_code": "2010-AP",
-    "amount_cents": -126414,
-    "customer_vendor_name": "Notion Labs",
-    "entry_date": "2026-08-12",
+    "invoice_id": "ORD-EXACT-1023",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 122175,
+    "customer_vendor_name": "Weyland Yutani",
+    "entry_date": "2026-08-04",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00025",
-    "invoice_id": "INV-2026-0010",
-    "gl_account_code": "2010-AP",
-    "amount_cents": -385663,
-    "customer_vendor_name": "Fastly CDN",
-    "entry_date": "2026-08-16",
+    "invoice_id": "ORD-EXACT-1024",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 413382,
+    "customer_vendor_name": "Buy N Large",
+    "entry_date": "2026-08-05",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00026",
-    "invoice_id": "INV-2026-0011",
-    "gl_account_code": "2010-AP",
-    "amount_cents": -302370,
-    "customer_vendor_name": "Vercel Inc",
-    "entry_date": "2026-08-07",
+    "invoice_id": "ORD-EXACT-1025",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 391417,
+    "customer_vendor_name": "Acme Corp",
+    "entry_date": "2026-08-13",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00027",
-    "invoice_id": "INV-2026-0012",
-    "gl_account_code": "2010-AP",
-    "amount_cents": -506741,
-    "customer_vendor_name": "Cloudflare DNS",
-    "entry_date": "2026-08-15",
+    "invoice_id": "ORD-EXACT-1026",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 648052,
+    "customer_vendor_name": "Globex Global",
+    "entry_date": "2026-08-10",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00028",
-    "invoice_id": "INV-2026-0013",
-    "gl_account_code": "2010-AP",
-    "amount_cents": -155889,
-    "customer_vendor_name": "Docker Inc",
-    "entry_date": "2026-08-13",
+    "invoice_id": "ORD-EXACT-1027",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 60561,
+    "customer_vendor_name": "Initech LLC",
+    "entry_date": "2026-08-25",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00029",
-    "invoice_id": "INV-2026-0014",
-    "gl_account_code": "2010-AP",
-    "amount_cents": -107627,
-    "customer_vendor_name": "MongoDB Atlas",
-    "entry_date": "2026-08-15",
+    "invoice_id": "ORD-EXACT-1028",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 496741,
+    "customer_vendor_name": "Umbrella Enterprises",
+    "entry_date": "2026-08-19",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00030",
-    "invoice_id": "INV-2026-0015",
-    "gl_account_code": "2010-AP",
-    "amount_cents": -332419,
-    "customer_vendor_name": "PagerDuty Operations",
-    "entry_date": "2026-08-16",
+    "invoice_id": "ORD-EXACT-1029",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 145889,
+    "customer_vendor_name": "Hooli Cloud",
+    "entry_date": "2026-08-14",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00031",
-    "invoice_id": "ORD-STRIPE-4000",
-    "gl_account_code": "4000-REVENUE",
-    "amount_cents": 197600,
-    "customer_vendor_name": "STRIPE PAYMENTS",
-    "entry_date": "2026-08-12",
-    "doc_type": "INVOICE"
+    "invoice_id": "ORD-EXACT-1030",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 97627,
+    "customer_vendor_name": "Stark Industries",
+    "entry_date": "2026-08-19",
+    "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00032",
-    "invoice_id": "ORD-STRIPE-4001",
-    "gl_account_code": "4000-REVENUE",
-    "amount_cents": 44466,
-    "customer_vendor_name": "STRIPE PAYMENTS",
-    "entry_date": "2026-08-07",
-    "doc_type": "INVOICE"
+    "invoice_id": "ORD-EXACT-1031",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 322419,
+    "customer_vendor_name": "Wayne Logistics",
+    "entry_date": "2026-08-22",
+    "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00033",
-    "invoice_id": "ORD-STRIPE-4002",
-    "gl_account_code": "4000-REVENUE",
-    "amount_cents": 127484,
-    "customer_vendor_name": "STRIPE PAYMENTS",
-    "entry_date": "2026-08-15",
-    "doc_type": "INVOICE"
+    "invoice_id": "ORD-EXACT-1032",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 663564,
+    "customer_vendor_name": "Cyberdyne Systems",
+    "entry_date": "2026-08-13",
+    "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00034",
-    "invoice_id": "ORD-STRIPE-4003",
-    "gl_account_code": "4000-REVENUE",
-    "amount_cents": 49833,
-    "customer_vendor_name": "STRIPE PAYMENTS",
-    "entry_date": "2026-08-13",
-    "doc_type": "INVOICE"
+    "invoice_id": "ORD-EXACT-1033",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 620397,
+    "customer_vendor_name": "Soylent Corp",
+    "entry_date": "2026-08-08",
+    "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00035",
-    "invoice_id": "ORD-STRIPE-4004",
-    "gl_account_code": "4000-REVENUE",
-    "amount_cents": 60953,
-    "customer_vendor_name": "STRIPE PAYMENTS",
-    "entry_date": "2026-08-18",
-    "doc_type": "INVOICE"
+    "invoice_id": "ORD-EXACT-1034",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 753797,
+    "customer_vendor_name": "Massive Dynamic",
+    "entry_date": "2026-08-04",
+    "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00036",
-    "invoice_id": "ORD-STRIPE-4005",
-    "gl_account_code": "4000-REVENUE",
-    "amount_cents": 153738,
-    "customer_vendor_name": "STRIPE PAYMENTS",
-    "entry_date": "2026-08-20",
-    "doc_type": "INVOICE"
+    "invoice_id": "ORD-EXACT-1035",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 63050,
+    "customer_vendor_name": "Pied Piper",
+    "entry_date": "2026-08-23",
+    "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00037",
-    "invoice_id": "ORD-STRIPE-4006",
-    "gl_account_code": "4000-REVENUE",
-    "amount_cents": 199277,
-    "customer_vendor_name": "STRIPE PAYMENTS",
-    "entry_date": "2026-08-11",
-    "doc_type": "INVOICE"
+    "invoice_id": "ORD-EXACT-1036",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 253968,
+    "customer_vendor_name": "Dunder Mifflin",
+    "entry_date": "2026-08-26",
+    "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00038",
-    "invoice_id": "ORD-STRIPE-4007",
-    "gl_account_code": "4000-REVENUE",
-    "amount_cents": 202081,
-    "customer_vendor_name": "STRIPE PAYMENTS",
-    "entry_date": "2026-08-17",
-    "doc_type": "INVOICE"
+    "invoice_id": "ORD-EXACT-1037",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 318445,
+    "customer_vendor_name": "Wonka Confections",
+    "entry_date": "2026-08-04",
+    "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00039",
-    "invoice_id": "ORD-STRIPE-4008",
-    "gl_account_code": "4000-REVENUE",
-    "amount_cents": 117842,
-    "customer_vendor_name": "STRIPE PAYMENTS",
-    "entry_date": "2026-08-14",
-    "doc_type": "INVOICE"
+    "invoice_id": "ORD-EXACT-1038",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 259098,
+    "customer_vendor_name": "Bluth Development",
+    "entry_date": "2026-08-05",
+    "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00040",
-    "invoice_id": "ORD-STRIPE-4009",
-    "gl_account_code": "4000-REVENUE",
-    "amount_cents": 45435,
-    "customer_vendor_name": "STRIPE PAYMENTS",
-    "entry_date": "2026-08-11",
-    "doc_type": "INVOICE"
+    "invoice_id": "ORD-EXACT-1039",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 413591,
+    "customer_vendor_name": "Aperture Science",
+    "entry_date": "2026-08-10",
+    "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00041",
-    "invoice_id": "ORD-BUNDLE-7000",
-    "gl_account_code": "4000-REVENUE",
-    "amount_cents": 72589,
-    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
-    "entry_date": "2026-08-17",
-    "doc_type": "INVOICE"
+    "invoice_id": "ORD-EXACT-1040",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 490435,
+    "customer_vendor_name": "Tyrell Corp",
+    "entry_date": "2026-08-22",
+    "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00042",
-    "invoice_id": "ORD-BUNDLE-7001",
-    "gl_account_code": "4000-REVENUE",
-    "amount_cents": 61735,
-    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
-    "entry_date": "2026-08-17",
-    "doc_type": "INVOICE"
+    "invoice_id": "ORD-EXACT-1041",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 397554,
+    "customer_vendor_name": "Oscorp Tech",
+    "entry_date": "2026-08-07",
+    "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00043",
-    "invoice_id": "ORD-BUNDLE-7010",
-    "gl_account_code": "4000-REVENUE",
-    "amount_cents": 85000,
-    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
-    "entry_date": "2026-08-18",
-    "doc_type": "INVOICE"
+    "invoice_id": "ORD-EXACT-1042",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 403162,
+    "customer_vendor_name": "Starlight Media",
+    "entry_date": "2026-08-13",
+    "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00044",
-    "invoice_id": "ORD-BUNDLE-7011",
-    "gl_account_code": "4000-REVENUE",
-    "amount_cents": 40785,
-    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
-    "entry_date": "2026-08-18",
-    "doc_type": "INVOICE"
+    "invoice_id": "ORD-EXACT-1043",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 234684,
+    "customer_vendor_name": "Vandelay Industries",
+    "entry_date": "2026-08-23",
+    "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00045",
-    "invoice_id": "ORD-BUNDLE-7012",
-    "gl_account_code": "4000-REVENUE",
-    "amount_cents": 54504,
-    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
-    "entry_date": "2026-08-18",
-    "doc_type": "INVOICE"
+    "invoice_id": "ORD-EXACT-1044",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 294946,
+    "customer_vendor_name": "Gekko & Co",
+    "entry_date": "2026-08-24",
+    "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00046",
-    "invoice_id": "ORD-BUNDLE-7013",
-    "gl_account_code": "4000-REVENUE",
-    "amount_cents": 19331,
-    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
-    "entry_date": "2026-08-18",
-    "doc_type": "INVOICE"
+    "invoice_id": "ORD-EXACT-1045",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 731751,
+    "customer_vendor_name": "Oceanic Airlines",
+    "entry_date": "2026-08-22",
+    "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00047",
-    "invoice_id": "ORD-BUNDLE-7020",
-    "gl_account_code": "4000-REVENUE",
-    "amount_cents": 53347,
-    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
-    "entry_date": "2026-08-17",
-    "doc_type": "INVOICE"
+    "invoice_id": "ORD-EXACT-1046",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 89870,
+    "customer_vendor_name": "Sterling Cooper",
+    "entry_date": "2026-08-21",
+    "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00048",
-    "invoice_id": "ORD-BUNDLE-7021",
-    "gl_account_code": "4000-REVENUE",
-    "amount_cents": 64581,
-    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
-    "entry_date": "2026-08-17",
-    "doc_type": "INVOICE"
+    "invoice_id": "ORD-EXACT-1047",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 680822,
+    "customer_vendor_name": "Prestige Worldwide",
+    "entry_date": "2026-08-07",
+    "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00049",
-    "invoice_id": "ORD-BUNDLE-7030",
-    "gl_account_code": "4000-REVENUE",
-    "amount_cents": 39653,
-    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
-    "entry_date": "2026-08-18",
-    "doc_type": "INVOICE"
+    "invoice_id": "ORD-EXACT-1048",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 575086,
+    "customer_vendor_name": "Weyland Yutani",
+    "entry_date": "2026-08-25",
+    "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00050",
-    "invoice_id": "ORD-BUNDLE-7031",
-    "gl_account_code": "4000-REVENUE",
-    "amount_cents": 53245,
-    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
-    "entry_date": "2026-08-18",
-    "doc_type": "INVOICE"
+    "invoice_id": "ORD-EXACT-1049",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 271702,
+    "customer_vendor_name": "Buy N Large",
+    "entry_date": "2026-08-07",
+    "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00051",
-    "invoice_id": "ORD-BUNDLE-7040",
-    "gl_account_code": "4000-REVENUE",
-    "amount_cents": 77435,
-    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
-    "entry_date": "2026-08-16",
-    "doc_type": "INVOICE"
+    "invoice_id": "INV-2026-0001",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -509714,
+    "customer_vendor_name": "Datadog Inc",
+    "entry_date": "2026-08-18",
+    "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00052",
-    "invoice_id": "ORD-BUNDLE-7041",
-    "gl_account_code": "4000-REVENUE",
-    "amount_cents": 63856,
-    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
-    "entry_date": "2026-08-16",
-    "doc_type": "INVOICE"
+    "invoice_id": "INV-2026-0002",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -696088,
+    "customer_vendor_name": "Snowflake Inc",
+    "entry_date": "2026-08-22",
+    "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00053",
-    "invoice_id": "ORD-BUNDLE-7042",
-    "gl_account_code": "4000-REVENUE",
-    "amount_cents": 72142,
-    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
-    "entry_date": "2026-08-16",
-    "doc_type": "INVOICE"
+    "invoice_id": "INV-2026-0003",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -742870,
+    "customer_vendor_name": "Figma Design",
+    "entry_date": "2026-08-14",
+    "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00054",
-    "invoice_id": "ORD-BUNDLE-7043",
-    "gl_account_code": "4000-REVENUE",
-    "amount_cents": 30726,
-    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
-    "entry_date": "2026-08-16",
-    "doc_type": "INVOICE"
+    "invoice_id": "INV-2026-0004",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -265174,
+    "customer_vendor_name": "Slack Technologies",
+    "entry_date": "2026-08-07",
+    "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00055",
-    "invoice_id": "INV-2026-0016",
-    "gl_account_code": "6010-CLOUD-INFRA",
-    "amount_cents": -130200,
-    "customer_vendor_name": "AMAZON WEB SERVICES",
-    "entry_date": "2026-08-13",
+    "invoice_id": "INV-2026-0005",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -445651,
+    "customer_vendor_name": "GitHub Inc",
+    "entry_date": "2026-08-12",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00056",
-    "invoice_id": "INV-2026-0017",
-    "gl_account_code": "6020-SOFTWARE-SAAS",
-    "amount_cents": -108800,
-    "customer_vendor_name": "DATADOG",
-    "entry_date": "2026-08-15",
+    "invoice_id": "INV-2026-0006",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -246231,
+    "customer_vendor_name": "Atlassian Corp",
+    "entry_date": "2026-08-24",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00057",
-    "invoice_id": "INV-2026-0018",
-    "gl_account_code": "6010-CLOUD-INFRA",
-    "amount_cents": -450000,
-    "customer_vendor_name": "MICROSOFT AZURE",
-    "entry_date": "2026-08-17",
+    "invoice_id": "INV-2026-0007",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -247955,
+    "customer_vendor_name": "Twilio API",
+    "entry_date": "2026-08-22",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00058",
-    "invoice_id": "INV-2026-0019",
-    "gl_account_code": "6010-CLOUD-INFRA",
-    "amount_cents": -320000,
-    "customer_vendor_name": "GOOGLE CLOUD PLATFORM",
+    "invoice_id": "INV-2026-0008",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -699079,
+    "customer_vendor_name": "Zoom Video",
     "entry_date": "2026-08-19",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00059",
-    "invoice_id": "INV-2026-0020",
-    "gl_account_code": "6020-SOFTWARE-SAAS",
-    "amount_cents": -580000,
-    "customer_vendor_name": "SNOWFLAKE",
-    "entry_date": "2026-08-21",
+    "invoice_id": "INV-2026-0009",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -302746,
+    "customer_vendor_name": "Notion Labs",
+    "entry_date": "2026-08-09",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00060",
-    "invoice_id": "INV-2026-0021",
+    "invoice_id": "INV-2026-0010",
     "gl_account_code": "2010-AP",
-    "amount_cents": -175000,
-    "customer_vendor_name": "FIGMA DESIGN",
-    "entry_date": "2026-08-23",
+    "amount_cents": -806177,
+    "customer_vendor_name": "Fastly CDN",
+    "entry_date": "2026-08-25",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00061",
-    "invoice_id": "INV-2026-0022",
+    "invoice_id": "INV-2026-0011",
     "gl_account_code": "2010-AP",
-    "amount_cents": -98000,
-    "customer_vendor_name": "SLACK TECHNOLOGIES",
-    "entry_date": "2026-08-24",
+    "amount_cents": -300504,
+    "customer_vendor_name": "Vercel Inc",
+    "entry_date": "2026-08-25",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00062",
-    "invoice_id": "INV-2026-0022",
+    "invoice_id": "INV-2026-0012",
     "gl_account_code": "2010-AP",
-    "amount_cents": -98000,
-    "customer_vendor_name": "SLACK TECHNOLOGIES",
-    "entry_date": "2026-08-24",
+    "amount_cents": -636878,
+    "customer_vendor_name": "Cloudflare DNS",
+    "entry_date": "2026-08-18",
     "doc_type": "PAYMENT"
   },
   {
     "id": "GL-00063",
+    "invoice_id": "INV-2026-0013",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -254974,
+    "customer_vendor_name": "Docker Inc",
+    "entry_date": "2026-08-12",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00064",
+    "invoice_id": "INV-2026-0014",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -542488,
+    "customer_vendor_name": "MongoDB Atlas",
+    "entry_date": "2026-08-06",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00065",
+    "invoice_id": "INV-2026-0015",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -927931,
+    "customer_vendor_name": "PagerDuty Operations",
+    "entry_date": "2026-08-08",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00066",
+    "invoice_id": "INV-2026-0016",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -682924,
+    "customer_vendor_name": "Supabase Inc",
+    "entry_date": "2026-08-12",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00067",
+    "invoice_id": "INV-2026-0017",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -650380,
+    "customer_vendor_name": "Postman Inc",
+    "entry_date": "2026-08-09",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00068",
+    "invoice_id": "INV-2026-0018",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -425156,
+    "customer_vendor_name": "Stripe Infrastructure",
+    "entry_date": "2026-08-26",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00069",
+    "invoice_id": "INV-2026-0019",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -579816,
+    "customer_vendor_name": "OpenAI LLC",
+    "entry_date": "2026-08-16",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00070",
+    "invoice_id": "INV-2026-0020",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -927592,
+    "customer_vendor_name": "Linear Orbit",
+    "entry_date": "2026-08-04",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00071",
+    "invoice_id": "INV-2026-0021",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -739825,
+    "customer_vendor_name": "Retool Inc",
+    "entry_date": "2026-08-23",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00072",
+    "invoice_id": "INV-2026-0022",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -830934,
+    "customer_vendor_name": "Redis Labs",
+    "entry_date": "2026-08-14",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00073",
+    "invoice_id": "INV-2026-0023",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -332757,
+    "customer_vendor_name": "Sentry Dev",
+    "entry_date": "2026-08-18",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00074",
+    "invoice_id": "INV-2026-0024",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -500763,
+    "customer_vendor_name": "HashiCorp Inc",
+    "entry_date": "2026-08-06",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00075",
+    "invoice_id": "INV-2026-0025",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -549902,
+    "customer_vendor_name": "Elastic NV",
+    "entry_date": "2026-08-13",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00076",
+    "invoice_id": "INV-2026-0026",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -136579,
+    "customer_vendor_name": "Datadog Inc",
+    "entry_date": "2026-08-17",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00077",
+    "invoice_id": "INV-2026-0027",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -663551,
+    "customer_vendor_name": "Snowflake Inc",
+    "entry_date": "2026-08-11",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00078",
+    "invoice_id": "INV-2026-0028",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -417077,
+    "customer_vendor_name": "Figma Design",
+    "entry_date": "2026-08-13",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00079",
+    "invoice_id": "INV-2026-0029",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -841449,
+    "customer_vendor_name": "Slack Technologies",
+    "entry_date": "2026-08-20",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00080",
+    "invoice_id": "INV-2026-0030",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -653038,
+    "customer_vendor_name": "GitHub Inc",
+    "entry_date": "2026-08-17",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00081",
+    "invoice_id": "INV-2026-0031",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -45422,
+    "customer_vendor_name": "Atlassian Corp",
+    "entry_date": "2026-08-09",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00082",
+    "invoice_id": "INV-2026-0032",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -946406,
+    "customer_vendor_name": "Twilio API",
+    "entry_date": "2026-08-14",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00083",
+    "invoice_id": "INV-2026-0033",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -85738,
+    "customer_vendor_name": "Zoom Video",
+    "entry_date": "2026-08-15",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00084",
+    "invoice_id": "INV-2026-0034",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -107582,
+    "customer_vendor_name": "Notion Labs",
+    "entry_date": "2026-08-09",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00085",
+    "invoice_id": "INV-2026-0035",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -880662,
+    "customer_vendor_name": "Fastly CDN",
+    "entry_date": "2026-08-10",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00086",
+    "invoice_id": "INV-2026-0036",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -828035,
+    "customer_vendor_name": "Vercel Inc",
+    "entry_date": "2026-08-09",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00087",
+    "invoice_id": "INV-2026-0037",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -716798,
+    "customer_vendor_name": "Cloudflare DNS",
+    "entry_date": "2026-08-23",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00088",
+    "invoice_id": "INV-2026-0038",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -198148,
+    "customer_vendor_name": "Docker Inc",
+    "entry_date": "2026-08-16",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00089",
+    "invoice_id": "INV-2026-0039",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -939812,
+    "customer_vendor_name": "MongoDB Atlas",
+    "entry_date": "2026-08-26",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00090",
+    "invoice_id": "INV-2026-0040",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -247086,
+    "customer_vendor_name": "PagerDuty Operations",
+    "entry_date": "2026-08-22",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00091",
+    "invoice_id": "INV-2026-0041",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -772581,
+    "customer_vendor_name": "Supabase Inc",
+    "entry_date": "2026-08-16",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00092",
+    "invoice_id": "INV-2026-0042",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -729314,
+    "customer_vendor_name": "Postman Inc",
+    "entry_date": "2026-08-18",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00093",
+    "invoice_id": "INV-2026-0043",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -567717,
+    "customer_vendor_name": "Stripe Infrastructure",
+    "entry_date": "2026-08-18",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00094",
+    "invoice_id": "INV-2026-0044",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -284947,
+    "customer_vendor_name": "OpenAI LLC",
+    "entry_date": "2026-08-11",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00095",
+    "invoice_id": "INV-2026-0045",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -379508,
+    "customer_vendor_name": "Linear Orbit",
+    "entry_date": "2026-08-08",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00096",
+    "invoice_id": "INV-2026-0046",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -605828,
+    "customer_vendor_name": "Retool Inc",
+    "entry_date": "2026-08-15",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00097",
+    "invoice_id": "INV-2026-0047",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -255914,
+    "customer_vendor_name": "Redis Labs",
+    "entry_date": "2026-08-04",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00098",
+    "invoice_id": "INV-2026-0048",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -767225,
+    "customer_vendor_name": "Sentry Dev",
+    "entry_date": "2026-08-06",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00099",
+    "invoice_id": "INV-2026-0049",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -95674,
+    "customer_vendor_name": "HashiCorp Inc",
+    "entry_date": "2026-08-07",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00100",
+    "invoice_id": "INV-2026-0050",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -99299,
+    "customer_vendor_name": "Elastic NV",
+    "entry_date": "2026-08-21",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00101",
+    "invoice_id": "ORD-STRIPE-4000",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 154002,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-24",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00102",
+    "invoice_id": "ORD-STRIPE-4001",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 262496,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-09",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00103",
+    "invoice_id": "ORD-STRIPE-4002",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 290713,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-07",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00104",
+    "invoice_id": "ORD-STRIPE-4003",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 387245,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-21",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00105",
+    "invoice_id": "ORD-STRIPE-4004",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 310100,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-18",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00106",
+    "invoice_id": "ORD-STRIPE-4005",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 135400,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-18",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00107",
+    "invoice_id": "ORD-STRIPE-4006",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 221416,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-09",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00108",
+    "invoice_id": "ORD-STRIPE-4007",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 57453,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-06",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00109",
+    "invoice_id": "ORD-STRIPE-4008",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 353496,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-16",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00110",
+    "invoice_id": "ORD-STRIPE-4009",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 193753,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-16",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00111",
+    "invoice_id": "ORD-STRIPE-4010",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 223535,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-17",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00112",
+    "invoice_id": "ORD-STRIPE-4011",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 390245,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-04",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00113",
+    "invoice_id": "ORD-STRIPE-4012",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 361036,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-23",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00114",
+    "invoice_id": "ORD-STRIPE-4013",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 346784,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-06",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00115",
+    "invoice_id": "ORD-STRIPE-4014",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 39778,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-15",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00116",
+    "invoice_id": "ORD-STRIPE-4015",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 389793,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-13",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00117",
+    "invoice_id": "ORD-STRIPE-4016",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 65288,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-10",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00118",
+    "invoice_id": "ORD-STRIPE-4017",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 108448,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-09",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00119",
+    "invoice_id": "ORD-STRIPE-4018",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 289168,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-17",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00120",
+    "invoice_id": "ORD-STRIPE-4019",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 81495,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-16",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00121",
+    "invoice_id": "ORD-STRIPE-4020",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 104200,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-11",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00122",
+    "invoice_id": "ORD-STRIPE-4021",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 250550,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-10",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00123",
+    "invoice_id": "ORD-STRIPE-4022",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 47523,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-17",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00124",
+    "invoice_id": "ORD-STRIPE-4023",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 296528,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-06",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00125",
+    "invoice_id": "ORD-STRIPE-4024",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 34522,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-23",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00126",
+    "invoice_id": "ORD-STRIPE-4025",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 291423,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-03",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00127",
+    "invoice_id": "ORD-STRIPE-4026",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 56896,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-10",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00128",
+    "invoice_id": "ORD-STRIPE-4027",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 95194,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-16",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00129",
+    "invoice_id": "ORD-STRIPE-4028",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 262615,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-18",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00130",
+    "invoice_id": "ORD-STRIPE-4029",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 120065,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-15",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00131",
+    "invoice_id": "ORD-STRIPE-4030",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 38741,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-08",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00132",
+    "invoice_id": "ORD-STRIPE-4031",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 206691,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-03",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00133",
+    "invoice_id": "ORD-STRIPE-4032",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 212693,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-11",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00134",
+    "invoice_id": "ORD-STRIPE-4033",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 419078,
+    "customer_vendor_name": "STRIPE PAYMENTS",
+    "entry_date": "2026-08-17",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00135",
+    "invoice_id": "ORD-BUNDLE-7000",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 84845,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-14",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00136",
+    "invoice_id": "ORD-BUNDLE-7001",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 75788,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-14",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00137",
+    "invoice_id": "ORD-BUNDLE-7002",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 32289,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-14",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00138",
+    "invoice_id": "ORD-BUNDLE-7010",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 40534,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-11",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00139",
+    "invoice_id": "ORD-BUNDLE-7011",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 19665,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-11",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00140",
+    "invoice_id": "ORD-BUNDLE-7012",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 87914,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-11",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00141",
+    "invoice_id": "ORD-BUNDLE-7020",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 53104,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-22",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00142",
+    "invoice_id": "ORD-BUNDLE-7021",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 19492,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-22",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00143",
+    "invoice_id": "ORD-BUNDLE-7030",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 74493,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-06",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00144",
+    "invoice_id": "ORD-BUNDLE-7031",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 77909,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-06",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00145",
+    "invoice_id": "ORD-BUNDLE-7032",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 81615,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-06",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00146",
+    "invoice_id": "ORD-BUNDLE-7033",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 32635,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-06",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00147",
+    "invoice_id": "ORD-BUNDLE-7040",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 22500,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-06",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00148",
+    "invoice_id": "ORD-BUNDLE-7041",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 36356,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-06",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00149",
+    "invoice_id": "ORD-BUNDLE-7042",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 20981,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-06",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00150",
+    "invoice_id": "ORD-BUNDLE-7043",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 89992,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-06",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00151",
+    "invoice_id": "ORD-BUNDLE-7050",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 42828,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-07",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00152",
+    "invoice_id": "ORD-BUNDLE-7051",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 64923,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-07",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00153",
+    "invoice_id": "ORD-BUNDLE-7052",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 27713,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-07",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00154",
+    "invoice_id": "ORD-BUNDLE-7053",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 86668,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-07",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00155",
+    "invoice_id": "ORD-BUNDLE-7060",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 89924,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-12",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00156",
+    "invoice_id": "ORD-BUNDLE-7061",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 17209,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-12",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00157",
+    "invoice_id": "ORD-BUNDLE-7062",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 93183,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-12",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00158",
+    "invoice_id": "ORD-BUNDLE-7063",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 22745,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-12",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00159",
+    "invoice_id": "ORD-BUNDLE-7070",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 88503,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-18",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00160",
+    "invoice_id": "ORD-BUNDLE-7071",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 86085,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-18",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00161",
+    "invoice_id": "ORD-BUNDLE-7072",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 80522,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-18",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00162",
+    "invoice_id": "ORD-BUNDLE-7073",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 53467,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-18",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00163",
+    "invoice_id": "ORD-BUNDLE-7080",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 53180,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-13",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00164",
+    "invoice_id": "ORD-BUNDLE-7081",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 43285,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-13",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00165",
+    "invoice_id": "ORD-BUNDLE-7090",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 29154,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-13",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00166",
+    "invoice_id": "ORD-BUNDLE-7091",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 51321,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-13",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00167",
+    "invoice_id": "ORD-BUNDLE-7092",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 71929,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-13",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00168",
+    "invoice_id": "ORD-BUNDLE-7100",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 13220,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-15",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00169",
+    "invoice_id": "ORD-BUNDLE-7101",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 72068,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-15",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00170",
+    "invoice_id": "ORD-BUNDLE-7110",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 25104,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-24",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00171",
+    "invoice_id": "ORD-BUNDLE-7111",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 21602,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-24",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00172",
+    "invoice_id": "ORD-BUNDLE-7112",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 82468,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-24",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00173",
+    "invoice_id": "ORD-BUNDLE-7113",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 39938,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-24",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00174",
+    "invoice_id": "ORD-BUNDLE-7120",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 29361,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-21",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00175",
+    "invoice_id": "ORD-BUNDLE-7121",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 57745,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-21",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00176",
+    "invoice_id": "ORD-BUNDLE-7122",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 21016,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-21",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00177",
+    "invoice_id": "ORD-BUNDLE-7130",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 49353,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-12",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00178",
+    "invoice_id": "ORD-BUNDLE-7131",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 32676,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-12",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00179",
+    "invoice_id": "ORD-BUNDLE-7132",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 69433,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-12",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00180",
+    "invoice_id": "ORD-BUNDLE-7140",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 51651,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-22",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00181",
+    "invoice_id": "ORD-BUNDLE-7141",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 92173,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-22",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00182",
+    "invoice_id": "ORD-BUNDLE-7142",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 81329,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-22",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00183",
+    "invoice_id": "ORD-BUNDLE-7143",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 13025,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-22",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00184",
+    "invoice_id": "ORD-BUNDLE-7150",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 51240,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-26",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00185",
+    "invoice_id": "ORD-BUNDLE-7151",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 25577,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-26",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00186",
+    "invoice_id": "ORD-BUNDLE-7152",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 29601,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-26",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00187",
+    "invoice_id": "ORD-BUNDLE-7153",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 46664,
+    "customer_vendor_name": "STRIPE MERCHANT BUNDLE",
+    "entry_date": "2026-08-26",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00188",
+    "invoice_id": "INV-2026-0051",
+    "gl_account_code": "6010-CLOUD-INFRA",
+    "amount_cents": -130200,
+    "customer_vendor_name": "AMAZON WEB SERVICES",
+    "entry_date": "2026-08-11",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00189",
+    "invoice_id": "INV-2026-0052",
+    "gl_account_code": "6010-CLOUD-INFRA",
+    "amount_cents": -108800,
+    "customer_vendor_name": "DATADOG",
+    "entry_date": "2026-08-12",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00190",
+    "invoice_id": "INV-2026-0053",
+    "gl_account_code": "6010-CLOUD-INFRA",
+    "amount_cents": -178800,
+    "customer_vendor_name": "SHOPIFY",
+    "entry_date": "2026-08-13",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00191",
+    "invoice_id": "INV-2026-0054",
+    "gl_account_code": "6010-CLOUD-INFRA",
+    "amount_cents": -306000,
+    "customer_vendor_name": "SOFTBANK",
+    "entry_date": "2026-08-14",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00192",
+    "invoice_id": "INV-2026-0055",
+    "gl_account_code": "6010-CLOUD-INFRA",
+    "amount_cents": -106400,
+    "customer_vendor_name": "CANVA",
+    "entry_date": "2026-08-15",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00193",
+    "invoice_id": "INV-2026-0056",
+    "gl_account_code": "6010-CLOUD-INFRA",
+    "amount_cents": -107825,
+    "customer_vendor_name": "LOGITECH",
+    "entry_date": "2026-08-16",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00194",
+    "invoice_id": "INV-2026-0057",
+    "gl_account_code": "6010-CLOUD-INFRA",
+    "amount_cents": -236220,
+    "customer_vendor_name": "GRAB",
+    "entry_date": "2026-08-17",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00195",
+    "invoice_id": "INV-2026-0058",
+    "gl_account_code": "6010-CLOUD-INFRA",
+    "amount_cents": -202020,
+    "customer_vendor_name": "SPOTIFY",
+    "entry_date": "2026-08-18",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00196",
+    "invoice_id": "INV-2026-0059",
+    "gl_account_code": "6020-SOFTWARE-SAAS",
+    "amount_cents": -450000,
+    "customer_vendor_name": "MICROSOFT AZURE",
+    "entry_date": "2026-08-13",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00197",
+    "invoice_id": "INV-2026-0060",
+    "gl_account_code": "6020-SOFTWARE-SAAS",
+    "amount_cents": -320000,
+    "customer_vendor_name": "GOOGLE CLOUD PLATFORM",
+    "entry_date": "2026-08-14",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00198",
+    "invoice_id": "INV-2026-0061",
+    "gl_account_code": "6020-SOFTWARE-SAAS",
+    "amount_cents": -580000,
+    "customer_vendor_name": "SNOWFLAKE",
+    "entry_date": "2026-08-15",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00199",
+    "invoice_id": "INV-2026-0062",
+    "gl_account_code": "6020-SOFTWARE-SAAS",
+    "amount_cents": -275000,
+    "customer_vendor_name": "AMAZON WEB SERVICES",
+    "entry_date": "2026-08-16",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00200",
+    "invoice_id": "INV-2026-0063",
+    "gl_account_code": "6020-SOFTWARE-SAAS",
+    "amount_cents": -195000,
+    "customer_vendor_name": "STRIPE",
+    "entry_date": "2026-08-17",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00201",
+    "invoice_id": "INV-2026-0064",
+    "gl_account_code": "6020-SOFTWARE-SAAS",
+    "amount_cents": -340000,
+    "customer_vendor_name": "DATADOG",
+    "entry_date": "2026-08-18",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00202",
+    "invoice_id": "INV-2026-0065",
+    "gl_account_code": "6020-SOFTWARE-SAAS",
+    "amount_cents": -210000,
+    "customer_vendor_name": "AMAZON WEB SERVICES",
+    "entry_date": "2026-08-19",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00203",
+    "invoice_id": "INV-2026-0066",
+    "gl_account_code": "6020-SOFTWARE-SAAS",
+    "amount_cents": -410000,
+    "customer_vendor_name": "GOOGLE CLOUD PLATFORM",
+    "entry_date": "2026-08-20",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00204",
+    "invoice_id": "INV-2026-0067",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -175000,
+    "customer_vendor_name": "FIGMA DESIGN",
+    "entry_date": "2026-08-21",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00205",
+    "invoice_id": "INV-2026-0068",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -240000,
+    "customer_vendor_name": "ATLASSIAN CORP",
+    "entry_date": "2026-08-22",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00206",
+    "invoice_id": "INV-2026-0069",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -120000,
+    "customer_vendor_name": "DOCKER INC",
+    "entry_date": "2026-08-23",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00207",
+    "invoice_id": "INV-2026-0070",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -98000,
+    "customer_vendor_name": "SLACK TECHNOLOGIES",
+    "entry_date": "2026-08-22",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00208",
+    "invoice_id": "INV-2026-0070",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -98000,
+    "customer_vendor_name": "SLACK TECHNOLOGIES",
+    "entry_date": "2026-08-22",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00209",
+    "invoice_id": "INV-2026-0071",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -145000,
+    "customer_vendor_name": "NOTION LABS",
+    "entry_date": "2026-08-23",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00210",
+    "invoice_id": "INV-2026-0071",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -145000,
+    "customer_vendor_name": "NOTION LABS",
+    "entry_date": "2026-08-23",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00211",
+    "invoice_id": "INV-2026-0072",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -210000,
+    "customer_vendor_name": "CLOUDFLARE DNS",
+    "entry_date": "2026-08-24",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00212",
+    "invoice_id": "INV-2026-0072",
+    "gl_account_code": "2010-AP",
+    "amount_cents": -210000,
+    "customer_vendor_name": "CLOUDFLARE DNS",
+    "entry_date": "2026-08-24",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00213",
     "invoice_id": "ORD-MISS-3001",
     "gl_account_code": "4000-REVENUE",
     "amount_cents": 145000,
@@ -567,55 +1917,217 @@
     "doc_type": "INVOICE"
   },
   {
-    "id": "GL-00064",
-    "invoice_id": "INV-2026-0023",
-    "gl_account_code": "2010-AP",
-    "amount_cents": 210000,
-    "customer_vendor_name": "VERCEL INC",
-    "entry_date": "2026-08-09",
+    "id": "GL-00214",
+    "invoice_id": "ORD-MISS-3002",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 220000,
+    "customer_vendor_name": "ORPHAN CUSTOMER",
+    "entry_date": "2026-08-08",
     "doc_type": "INVOICE"
   },
   {
-    "id": "GL-00065",
+    "id": "GL-00215",
+    "invoice_id": "ORD-MISS-3003",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 98000,
+    "customer_vendor_name": "ORPHAN CUSTOMER",
+    "entry_date": "2026-08-10",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00216",
+    "invoice_id": "ORD-MISS-3004",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 315000,
+    "customer_vendor_name": "ORPHAN CUSTOMER",
+    "entry_date": "2026-08-12",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00217",
+    "invoice_id": "INV-2026-0073",
+    "gl_account_code": "2010-AP",
+    "amount_cents": 210000,
+    "customer_vendor_name": "VERCEL INC",
+    "entry_date": "2026-08-08",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00218",
+    "invoice_id": "INV-2026-0074",
+    "gl_account_code": "2010-AP",
+    "amount_cents": 340000,
+    "customer_vendor_name": "MONGODB ATLAS",
+    "entry_date": "2026-08-10",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00219",
+    "invoice_id": "INV-2026-0075",
+    "gl_account_code": "2010-AP",
+    "amount_cents": 165000,
+    "customer_vendor_name": "FASTLY CDN",
+    "entry_date": "2026-08-12",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00220",
+    "invoice_id": "INV-2026-0076",
+    "gl_account_code": "2010-AP",
+    "amount_cents": 280000,
+    "customer_vendor_name": "TWILIO API",
+    "entry_date": "2026-08-14",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00221",
     "invoice_id": "ORD-UNEXP-5001",
     "gl_account_code": "1010-CASH",
     "amount_cents": 300000,
+    "customer_vendor_name": "Acme Corp",
+    "entry_date": "2026-08-24",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00222",
+    "invoice_id": "ORD-UNEXP-5002",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 500000,
     "customer_vendor_name": "Acme Corp",
     "entry_date": "2026-08-25",
     "doc_type": "PAYMENT"
   },
   {
-    "id": "GL-00066",
+    "id": "GL-00223",
+    "invoice_id": "ORD-UNEXP-5003",
+    "gl_account_code": "1010-CASH",
+    "amount_cents": 420000,
+    "customer_vendor_name": "Acme Corp",
+    "entry_date": "2026-08-26",
+    "doc_type": "PAYMENT"
+  },
+  {
+    "id": "GL-00224",
     "invoice_id": "ORD-REF-7001",
     "gl_account_code": "4010-SALES-RETURNS",
     "amount_cents": -15000,
     "customer_vendor_name": "RETURN CUSTOMER",
+    "entry_date": "2026-08-23",
+    "doc_type": "CREDIT_MEMO"
+  },
+  {
+    "id": "GL-00225",
+    "invoice_id": "ORD-REF-7002",
+    "gl_account_code": "4010-SALES-RETURNS",
+    "amount_cents": -22000,
+    "customer_vendor_name": "RETURN CUSTOMER",
+    "entry_date": "2026-08-24",
+    "doc_type": "CREDIT_MEMO"
+  },
+  {
+    "id": "GL-00226",
+    "invoice_id": "ORD-REF-7003",
+    "gl_account_code": "4010-SALES-RETURNS",
+    "amount_cents": -34000,
+    "customer_vendor_name": "RETURN CUSTOMER",
+    "entry_date": "2026-08-25",
+    "doc_type": "CREDIT_MEMO"
+  },
+  {
+    "id": "GL-00227",
+    "invoice_id": "ORD-REF-7004",
+    "gl_account_code": "4010-SALES-RETURNS",
+    "amount_cents": -18000,
+    "customer_vendor_name": "RETURN CUSTOMER",
+    "entry_date": "2026-08-26",
+    "doc_type": "CREDIT_MEMO"
+  },
+  {
+    "id": "GL-00228",
+    "invoice_id": "ORD-PART-8001",
+    "gl_account_code": "4010-SALES-RETURNS",
+    "amount_cents": -7500,
+    "customer_vendor_name": "PARTIAL RETURN CUSTOMER",
+    "entry_date": "2026-08-26",
+    "doc_type": "CREDIT_MEMO"
+  },
+  {
+    "id": "GL-00229",
+    "invoice_id": "ORD-PART-8002",
+    "gl_account_code": "4010-SALES-RETURNS",
+    "amount_cents": -9500,
+    "customer_vendor_name": "PARTIAL RETURN CUSTOMER",
     "entry_date": "2026-08-27",
     "doc_type": "CREDIT_MEMO"
   },
   {
-    "id": "GL-00067",
-    "invoice_id": "ORD-PART-8001",
+    "id": "GL-00230",
+    "invoice_id": "ORD-PART-8003",
     "gl_account_code": "4010-SALES-RETURNS",
-    "amount_cents": -7500,
+    "amount_cents": -11000,
     "customer_vendor_name": "PARTIAL RETURN CUSTOMER",
     "entry_date": "2026-08-28",
     "doc_type": "CREDIT_MEMO"
   },
   {
-    "id": "GL-00068",
+    "id": "GL-00231",
     "invoice_id": "ORD-TAX-9001",
     "gl_account_code": "4000-REVENUE",
     "amount_cents": 108250,
+    "customer_vendor_name": "TAXABLE CUSTOMER LLC",
+    "entry_date": "2026-08-27",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00232",
+    "invoice_id": "ORD-TAX-9002",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 216500,
+    "customer_vendor_name": "TAXABLE CUSTOMER LLC",
+    "entry_date": "2026-08-28",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00233",
+    "invoice_id": "ORD-TAX-9003",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 162375,
     "customer_vendor_name": "TAXABLE CUSTOMER LLC",
     "entry_date": "2026-08-29",
     "doc_type": "INVOICE"
   },
   {
-    "id": "GL-00069",
+    "id": "GL-00234",
+    "invoice_id": "ORD-TAX-9004",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 303100,
+    "customer_vendor_name": "TAXABLE CUSTOMER LLC",
+    "entry_date": "2026-08-30",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00235",
     "invoice_id": "ORD-TIMING-10001",
     "gl_account_code": "4000-REVENUE",
     "amount_cents": 350000,
+    "customer_vendor_name": "END OF MONTH CLIENT",
+    "entry_date": "2026-08-31",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00236",
+    "invoice_id": "ORD-TIMING-10002",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 280000,
+    "customer_vendor_name": "END OF MONTH CLIENT",
+    "entry_date": "2026-08-31",
+    "doc_type": "INVOICE"
+  },
+  {
+    "id": "GL-00237",
+    "invoice_id": "ORD-TIMING-10003",
+    "gl_account_code": "4000-REVENUE",
+    "amount_cents": 410000,
     "customer_vendor_name": "END OF MONTH CLIENT",
     "entry_date": "2026-08-31",
     "doc_type": "INVOICE"

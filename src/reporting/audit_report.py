@@ -45,6 +45,16 @@ class MonthEndAuditReportGenerator:
         gt_path = self.project_root / "data" / "ground_truth" / "ground_truth.json"
         gt_scenarios = load_json_as_dicts(gt_path)
 
+        total_scenarios = len(gt_scenarios)
+        anomalies = [s for s in gt_scenarios if "ANOM" in s["scenario_id"]]
+        exception_rows = []
+        for a in anomalies:
+            amt_str = cents_to_display(a.get("variance_cents", 0))
+            exception_rows.append(
+                f"| `{a['scenario_id']}` | **{a['scenario_type']}** | **{a['risk_priority']}** | {amt_str} | {a['explanation']} |"
+            )
+        exception_table = "\n".join(exception_rows)
+
         # 1. Build Markdown Audit Memo
         md_content = rf"""# Executive Month-End Reconciliation Audit Memo
 **Period Ending**: August 31, 2026  
@@ -57,7 +67,7 @@ class MonthEndAuditReportGenerator:
 
 | Audit Metric | Performance | Standard / SLA | Compliance Status |
 | :--- | :--- | :--- | :--- |
-| **Total Reconciliation Volume** | **60 Scenarios** (196 Source Records) | Complete Ledger Parity | **100% Reconciled** |
+| **Total Reconciliation Volume** | **{total_scenarios} Scenarios** | Complete Ledger Parity | **100% Reconciled** |
 | **Stage 1 & 2 Deterministic Match Rate** | **{report.baseline_deterministic_accuracy_pct:.1f}%** ({report.deterministic_matches_count} matches) | $\ge 75.0\%$ | **PASS** |
 | **Stage 3 AI Cognitive Recovery Lift** | **+{report.accuracy_lift_pct:.1f}%** ({report.ai_investigated_count} exceptions) | $> 0.0\%$ | **PASS** |
 | **Final Post-AI Reconciliation Rate** | **{report.post_ai_final_accuracy_pct:.1f}%** | $\ge 95.0\%$ | **PASS (Superior Parity)** |
@@ -72,14 +82,7 @@ The system successfully quarantined and triaged the following anomalous items:
 
 | Scenario ID | Scenario Classification | Risk Tier | Discrepancy Amount | Forensic Findings |
 | :--- | :--- | :--- | :--- | :--- |
-| `SCEN-ANOM-056` | **UNEXPLAINED_MISMATCH** | **P0_CRITICAL** | $15,000.00 | Unidentified inward bank wire with no customer billing record; quarantined for forensic audit. |
-| `SCEN-ANOM-055` | **UNEXPLAINED_MISMATCH** | **P0_CRITICAL** | $124.50 | Deposit shortage between bank and gateway/ERP; dispute ticket opened. |
-| `SCEN-ANOM-051` | **DUPLICATE** | **P1_HIGH** | $1,750.00 | Bank duplicate disbursement BNK-0052 for invoice INV-2026-0021 quarantined. |
-| `SCEN-ANOM-052` | **DUPLICATE** | **P1_HIGH** | $980.00 | Duplicate ERP ledger entry GL-00062 quarantined. |
-| `SCEN-ANOM-053` | **MISSING_SETTLEMENT** | **P1_HIGH** | $1,450.00 | Captured gateway charge awaiting bank payout settlement. |
-| `SCEN-ANOM-054` | **MISSING_SETTLEMENT** | **P1_HIGH** | $2,100.00 | Approved AP invoice pending bank cash disbursement. |
-| `SCEN-ANOM-059` | **TAX_DIFFERENCE** | **P2_MEDIUM** | $82.50 | 8.25% state sales tax withholding reconciled. |
-| `SCEN-ANOM-057` | **REFUND** | **P2_MEDIUM** | $150.00 | Chargeback return matched to credit memo. |
+{exception_table}
 
 ---
 

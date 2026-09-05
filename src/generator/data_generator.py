@@ -69,40 +69,49 @@ class SyntheticFinanceDataset:
         self._scen_counter += 1
         return res
 
-    def generate_all(self) -> "SyntheticFinanceDataset":
-        """Generate all 60 benchmark scenarios across 5 specialized cohorts."""
-        self._generate_exact_matches(count=30)
-        self._generate_net_of_fee_stripe_batches(count=10)
-        self._generate_split_bundled_batches(count=5)
-        self._generate_fx_and_alias_variants(count=5)
-        self._generate_honest_anomalies(count=10)
+    def generate_all(self, total_count: int = 200) -> "SyntheticFinanceDataset":
+        """Generate 200 benchmark scenarios across 5 specialized cohorts."""
+        self._generate_exact_matches(count=100)
+        self._generate_net_of_fee_stripe_batches(count=34)
+        self._generate_split_bundled_batches(count=16)
+        self._generate_fx_and_alias_variants(count=16)
+        self._generate_honest_anomalies(count=34)
         return self
 
-    def _generate_exact_matches(self, count: int = 30):
-        """Generate 30 Exact Matches (1:1 clean parity).
+    def _generate_exact_matches(self, count: int = 100):
+        """Generate 100 Exact Matches (1:1 clean parity).
 
-        - 15 Customer Inward Receipts (Gateway -> Bank Deposit -> ERP Cash Receipt)
-        - 15 Vendor Outward Disbursements (AP Invoice -> Bank Debit -> ERP AP Payment)
+        - 50 Customer Inward Receipts (Gateway -> Bank Deposit -> ERP Cash Receipt)
+        - 50 Vendor Outward Disbursements (AP Invoice -> Bank Debit -> ERP AP Payment)
         """
         customers = [
             "Acme Corp", "Globex Global", "Initech LLC", "Umbrella Enterprises",
             "Hooli Cloud", "Stark Industries", "Wayne Logistics", "Cyberdyne Systems",
             "Soylent Corp", "Massive Dynamic", "Pied Piper", "Dunder Mifflin",
-            "Wonka Confections", "Bluth Development", "Aperture Science"
+            "Wonka Confections", "Bluth Development", "Aperture Science",
+            "Tyrell Corp", "Oscorp Tech", "Starlight Media", "Vandelay Industries",
+            "Gekko & Co", "Oceanic Airlines", "Sterling Cooper", "Prestige Worldwide",
+            "Weyland Yutani", "Buy N Large"
         ]
 
         vendors = [
             "Datadog Inc", "Snowflake Inc", "Figma Design", "Slack Technologies",
             "GitHub Inc", "Atlassian Corp", "Twilio API", "Zoom Video",
             "Notion Labs", "Fastly CDN", "Vercel Inc", "Cloudflare DNS",
-            "Docker Inc", "MongoDB Atlas", "PagerDuty Operations"
+            "Docker Inc", "MongoDB Atlas", "PagerDuty Operations",
+            "Supabase Inc", "Postman Inc", "Stripe Infrastructure", "OpenAI LLC",
+            "Linear Orbit", "Retool Inc", "Redis Labs", "Sentry Dev",
+            "HashiCorp Inc", "Elastic NV"
         ]
 
-        # 1. 15 Customer Receipts
-        for i in range(15):
+        num_receipts = count // 2
+        num_disbursements = count - num_receipts
+
+        # 1. Customer Receipts (Inward)
+        for i in range(num_receipts):
             cust = customers[i % len(customers)]
-            amount_cents = self.random.randint(15000, 450000)  # $150.00 to $4,500.00
-            tx_date = self.base_date + timedelta(days=self.random.randint(1, 15))
+            amount_cents = self.random.randint(15000, 850000)  # $150.00 to $8,500.00
+            tx_date = self.base_date + timedelta(days=self.random.randint(1, 25))
             order_ref = f"ORD-EXACT-{1000 + i}"
             batch_id = f"batch_direct_{i+1:03d}"
 
@@ -158,12 +167,12 @@ class SyntheticFinanceDataset:
             )
             self.ground_truth.append(gt)
 
-        # 2. 15 Vendor Disbursements
-        for i in range(15):
+        # 2. Vendor Disbursements (Outward)
+        for i in range(num_disbursements):
             vend = vendors[i % len(vendors)]
-            amount_cents = self.random.randint(25000, 680000)  # $250.00 to $6,800.00
-            inv_date = self.base_date + timedelta(days=self.random.randint(1, 10))
-            pay_date = inv_date + timedelta(days=5)
+            amount_cents = self.random.randint(25000, 950000)  # $250.00 to $9,500.00
+            inv_date = self.base_date + timedelta(days=self.random.randint(1, 20))
+            pay_date = inv_date + timedelta(days=self.random.randint(2, 6))
 
             inv_id = self._next_inv_id()
             bnk_id = self._next_bnk_id()
@@ -184,7 +193,7 @@ class SyntheticFinanceDataset:
             bnk = BankStatementLine(
                 id=bnk_id,
                 date=pay_date,
-                amount_cents=-amount_cents,  # Outward disbursement is negative on bank statement
+                amount_cents=-amount_cents,
                 raw_description=f"ACH OUTWARD VENDOR PMT {inv_id} {vend.upper()}",
                 reference_code=f"ACH-OUT-{2000 + i}",
                 account_id="ACCT-OPERATING-01"
@@ -216,20 +225,19 @@ class SyntheticFinanceDataset:
             )
             self.ground_truth.append(gt)
 
-    def _generate_net_of_fee_stripe_batches(self, count: int = 10):
-        """Generate 10 Net-of-fee Stripe batches.
+    def _generate_net_of_fee_stripe_batches(self, count: int = 34):
+        """Generate 34 Net-of-fee Stripe batches.
 
         Stripe standard card fee: 2.9% + $0.30 (30 cents).
         Gross revenue is recorded in ERP; net deposit hits Bank.
         Difference is precisely accounted for by gateway fee schedule.
         """
         for i in range(count):
-            gross_cents = self.random.randint(8000, 320000)  # $80.00 to $3,200.00
-            # 2.9% + 30 cents
+            gross_cents = self.random.randint(8000, 420000)  # $80.00 to $4,200.00
             fee_cents = int(round(gross_cents * 0.029)) + 30
             net_cents = gross_cents - fee_cents
 
-            order_date = self.base_date + timedelta(days=self.random.randint(5, 20))
+            order_date = self.base_date + timedelta(days=self.random.randint(2, 24))
             settle_date = order_date + timedelta(days=2)  # T+2 settlement
             order_id = f"ORD-STRIPE-{4000 + i}"
             batch_id = f"po_stripe_{5000 + i}"
@@ -261,7 +269,6 @@ class SyntheticFinanceDataset:
             )
             self.bank_lines.append(bnk)
 
-            # ERP books full gross revenue at order time
             erp = ERPLedgerEntry(
                 id=erp_id,
                 invoice_id=order_id,
@@ -290,11 +297,11 @@ class SyntheticFinanceDataset:
             )
             self.ground_truth.append(gt)
 
-    def _generate_split_bundled_batches(self, count: int = 5):
-        """Generate 5 Split/bundled batch wire deposits (1 Bank line to N Gateway transactions)."""
+    def _generate_split_bundled_batches(self, count: int = 16):
+        """Generate 16 Split/bundled batch wire deposits (1 Bank line to N Gateway transactions)."""
         for i in range(count):
             batch_id = f"po_bundle_batch_{6000 + i}"
-            settle_date = self.base_date + timedelta(days=self.random.randint(10, 25))
+            settle_date = self.base_date + timedelta(days=self.random.randint(5, 27))
             num_txs = self.random.randint(2, 4)
 
             bundled_gtw_ids = []
@@ -304,7 +311,7 @@ class SyntheticFinanceDataset:
             total_fee_cents = 0
 
             for j in range(num_txs):
-                gross = self.random.randint(12000, 85000)  # $120.00 to $850.00
+                gross = self.random.randint(12000, 95000)  # $120.00 to $950.00
                 fee = int(round(gross * 0.025))  # 2.5% merchant rate
                 net = gross - fee
                 total_gross_cents += gross
@@ -369,735 +376,479 @@ class SyntheticFinanceDataset:
             )
             self.ground_truth.append(gt)
 
-    def _generate_fx_and_alias_variants(self, count: int = 5):
-        """Generate 5 FX Currency & Vendor Alias Variants.
+    def _generate_fx_and_alias_variants(self, count: int = 16):
+        """Generate 16 FX Currency & Vendor Alias Variants.
 
-        - 2 Multi-currency conversions (EUR/GBP -> USD)
-        - 3 Vendor alias variations (e.g. AWS Cloud Dublin vs Amazon Web Services)
+        - 8 Multi-currency conversions (EUR, GBP, CAD, JPY, AUD, CHF, SGD, EUR)
+        - 8 Vendor alias variations (e.g. AWS, Google Cloud, Snowflake, Stripe, Datadog)
         """
-        # Case 1: AWS Dublin EUR invoice -> USD bank disbursement
-        inv_id_1 = self._next_inv_id()
-        bnk_id_1 = self._next_bnk_id()
-        erp_id_1 = self._next_erp_id()
-        scen_id_1 = self._next_scen_id("SCEN-FX")
+        fx_configs = [
+            ("AWS Cloud Dublin", 120000, "EUR", 1.0850, "INTL WIRE OUT EUR AWS EMEA SARL FX 1.0850", "AMAZON WEB SERVICES"),
+            ("DATADOG US", 85000, "GBP", 1.2800, "WIRE TRANSFER LONDON UK DATADOG INC GBP 850 FX 1.28", "DATADOG"),
+            ("Shopify Canada", 240000, "CAD", 0.7450, "INTL WIRE CAD SHOPIFY COMMERCE FX 0.7450", "SHOPIFY"),
+            ("SoftBank Tokyo", 45000000, "JPY", 0.0068, "WIRE TRANSFER TOKYO JAPAN JPY SOFTBANK FX 0.0068", "SOFTBANK"),
+            ("Canva Sydney", 160000, "AUD", 0.6650, "INTL WIRE AUD CANVA PTY LTD FX 0.6650", "CANVA"),
+            ("Logitech Vaud", 95000, "CHF", 1.1350, "WIRE TRANSFER SWITZERLAND CHF LOGITECH FX 1.1350", "LOGITECH"),
+            ("Grab Singapore", 310000, "SGD", 0.7620, "INTL WIRE SGD GRAB TAXI HOLDINGS FX 0.7620", "GRAB"),
+            ("Spotify Stockholm", 185000, "EUR", 1.0920, "INTL WIRE OUT EUR SPOTIFY AB FX 1.0920", "SPOTIFY"),
+        ]
 
-        eur_cents = 120000  # 1,200.00 EUR
-        fx_rate_1 = 1.0850
-        usd_cents_1 = int(round(eur_cents * fx_rate_1))  # 130200 = $1,302.00 USD
-        dt_1 = self.base_date + timedelta(days=12)
+        for idx, (vend, foreign_amt, curr, fx_rate, desc, erp_vend) in enumerate(fx_configs):
+            inv_id = self._next_inv_id()
+            bnk_id = self._next_bnk_id()
+            erp_id = self._next_erp_id()
+            scen_id = self._next_scen_id("SCEN-FX")
+            usd_cents = int(round(foreign_amt * fx_rate))
+            dt = self.base_date + timedelta(days=10 + idx)
 
-        self.ap_invoices.append(APInvoice(
-            id=inv_id_1,
-            vendor_name="AWS Cloud Dublin",
-            amount_cents=eur_cents,
-            due_date=dt_1,
-            currency="EUR",
-            fx_rate=fx_rate_1,
-            status="PAID"
-        ))
-        self.bank_lines.append(BankStatementLine(
-            id=bnk_id_1,
-            date=dt_1,
-            amount_cents=-usd_cents_1,
-            raw_description="INTL WIRE OUT EUR AWS EMEA SARL FX 1.0850",
-            reference_code="FX-EUR-101",
-            account_id="ACCT-OPERATING-01"
-        ))
-        self.erp_entries.append(ERPLedgerEntry(
-            id=erp_id_1,
-            invoice_id=inv_id_1,
-            gl_account_code="6010-CLOUD-INFRA",
-            amount_cents=-usd_cents_1,
-            customer_vendor_name="AMAZON WEB SERVICES",
-            entry_date=dt_1,
-            doc_type="PAYMENT"
-        ))
-        self.ground_truth.append(GroundTruthRecord(
-            scenario_id=scen_id_1,
-            scenario_type=ScenarioType.TIMING_DIFFERENCE,
-            risk_priority=RiskPriority.P2_MEDIUM,
-            bank_line_id=bnk_id_1,
-            gateway_tx_id=None,
-            erp_entry_id=erp_id_1,
-            invoice_id=inv_id_1,
-            expected_status="FX_RESOLVED",
-            variance_cents=0,
-            explanation="EUR 1,200.00 invoice from 'AWS Cloud Dublin' converted to USD $1,302.00 at FX rate 1.0850, matched to canonical 'AMAZON WEB SERVICES'."
-        ))
+            self.ap_invoices.append(APInvoice(
+                id=inv_id,
+                vendor_name=vend,
+                amount_cents=foreign_amt,
+                due_date=dt,
+                currency=curr,
+                fx_rate=fx_rate,
+                status="PAID"
+            ))
+            self.bank_lines.append(BankStatementLine(
+                id=bnk_id,
+                date=dt,
+                amount_cents=-usd_cents,
+                raw_description=desc,
+                reference_code=f"FX-{curr}-{100 + idx}",
+                account_id="ACCT-OPERATING-01"
+            ))
+            self.erp_entries.append(ERPLedgerEntry(
+                id=erp_id,
+                invoice_id=inv_id,
+                gl_account_code="6010-CLOUD-INFRA",
+                amount_cents=-usd_cents,
+                customer_vendor_name=erp_vend,
+                entry_date=dt,
+                doc_type="PAYMENT"
+            ))
+            self.ground_truth.append(GroundTruthRecord(
+                scenario_id=scen_id,
+                scenario_type=ScenarioType.TIMING_DIFFERENCE,
+                risk_priority=RiskPriority.P2_MEDIUM,
+                bank_line_id=bnk_id,
+                gateway_tx_id=None,
+                erp_entry_id=erp_id,
+                invoice_id=inv_id,
+                expected_status="FX_RESOLVED",
+                variance_cents=0,
+                explanation=f"{curr} {cents_to_display(foreign_amt)} invoice from '{vend}' converted to USD {cents_to_display(usd_cents)} at FX rate {fx_rate:.4f}, resolved to canonical '{erp_vend}'."
+            ))
 
-        # Case 2: Datadog GBP invoice -> USD settlement
-        inv_id_2 = self._next_inv_id()
-        bnk_id_2 = self._next_bnk_id()
-        erp_id_2 = self._next_erp_id()
-        scen_id_2 = self._next_scen_id("SCEN-FX")
+        alias_configs = [
+            ("MSFT AZURE", "ACH DEBIT MICROSOFT CORP CLOUD SERVICES", "MICROSOFT AZURE", 450000),
+            ("GOOGLE IRELAND", "DIRECT DEBIT GOOG CLOUD SERVICES REQ-404", "GOOGLE CLOUD PLATFORM", 320000),
+            ("SNOWFLAKE COMPUTING", "ACH DISBURSEMENT SNOWFLAKE INC WAREHOUSE", "SNOWFLAKE", 580000),
+            ("AWS", "AMAZON WEB SERVICES INC ACH OUT", "AMAZON WEB SERVICES", 275000),
+            ("STRIPE INC", "STRIPE PAYOUT MERCHANT SERVICES", "STRIPE", 195000),
+            ("DATADOG INC", "ACH DEBIT DATADOG MONITORING", "DATADOG", 340000),
+            ("AMZN", "AMAZON CLOUD COMPUTING DEBIT", "AMAZON WEB SERVICES", 210000),
+            ("GCP", "GOOGLE CLOUD INFRASTRUCTURE BILL", "GOOGLE CLOUD PLATFORM", 410000),
+        ]
 
-        gbp_cents = 85000  # 850.00 GBP
-        fx_rate_2 = 1.2800
-        usd_cents_2 = int(round(gbp_cents * fx_rate_2))  # 108800 = $1,088.00 USD
-        dt_2 = self.base_date + timedelta(days=14)
+        for idx, (inv_vend, bank_desc, erp_vend, amt) in enumerate(alias_configs):
+            inv_id = self._next_inv_id()
+            bnk_id = self._next_bnk_id()
+            erp_id = self._next_erp_id()
+            scen_id = self._next_scen_id("SCEN-ALIAS")
+            dt = self.base_date + timedelta(days=12 + idx)
 
-        self.ap_invoices.append(APInvoice(
-            id=inv_id_2,
-            vendor_name="DATADOG US",
-            amount_cents=gbp_cents,
-            due_date=dt_2,
-            currency="GBP",
-            fx_rate=fx_rate_2,
-            status="PAID"
-        ))
-        self.bank_lines.append(BankStatementLine(
-            id=bnk_id_2,
-            date=dt_2,
-            amount_cents=-usd_cents_2,
-            raw_description="WIRE TRANSFER LONDON UK DATADOG INC GBP 850 FX 1.28",
-            reference_code="FX-GBP-202",
-            account_id="ACCT-OPERATING-01"
-        ))
-        self.erp_entries.append(ERPLedgerEntry(
-            id=erp_id_2,
-            invoice_id=inv_id_2,
-            gl_account_code="6020-SOFTWARE-SAAS",
-            amount_cents=-usd_cents_2,
-            customer_vendor_name="DATADOG",
-            entry_date=dt_2,
-            doc_type="PAYMENT"
-        ))
-        self.ground_truth.append(GroundTruthRecord(
-            scenario_id=scen_id_2,
-            scenario_type=ScenarioType.TIMING_DIFFERENCE,
-            risk_priority=RiskPriority.P2_MEDIUM,
-            bank_line_id=bnk_id_2,
-            gateway_tx_id=None,
-            erp_entry_id=erp_id_2,
-            invoice_id=inv_id_2,
-            expected_status="FX_RESOLVED",
-            variance_cents=0,
-            explanation="GBP 850.00 invoice converted at 1.2800 to USD $1,088.00, vendor alias 'DATADOG US' matched to 'DATADOG'."
-        ))
+            self.ap_invoices.append(APInvoice(
+                id=inv_id,
+                vendor_name=inv_vend,
+                amount_cents=amt,
+                due_date=dt,
+                currency="USD",
+                fx_rate=1.0,
+                status="PAID"
+            ))
+            self.bank_lines.append(BankStatementLine(
+                id=bnk_id,
+                date=dt,
+                amount_cents=-amt,
+                raw_description=bank_desc,
+                reference_code=f"ACH-ALIAS-{300 + idx}",
+                account_id="ACCT-OPERATING-01"
+            ))
+            self.erp_entries.append(ERPLedgerEntry(
+                id=erp_id,
+                invoice_id=inv_id,
+                gl_account_code="6020-SOFTWARE-SAAS",
+                amount_cents=-amt,
+                customer_vendor_name=erp_vend,
+                entry_date=dt,
+                doc_type="PAYMENT"
+            ))
+            self.ground_truth.append(GroundTruthRecord(
+                scenario_id=scen_id,
+                scenario_type=ScenarioType.EXACT_MATCH,
+                risk_priority=RiskPriority.P4_NORMAL,
+                bank_line_id=bnk_id,
+                gateway_tx_id=None,
+                erp_entry_id=erp_id,
+                invoice_id=inv_id,
+                expected_status="MATCHED",
+                variance_cents=0,
+                explanation=f"Vendor alias '{inv_vend}' and statement descriptor '{bank_desc}' normalized and resolved to canonical '{erp_vend}'."
+            ))
 
-        # Case 3: Vendor Alias - Microsoft Azure
-        inv_id_3 = self._next_inv_id()
-        bnk_id_3 = self._next_bnk_id()
-        erp_id_3 = self._next_erp_id()
-        scen_id_3 = self._next_scen_id("SCEN-ALIAS")
-        amt_3 = 450000  # $4,500.00
-        dt_3 = self.base_date + timedelta(days=16)
+    def _generate_honest_anomalies(self, count: int = 34):
+        """Generate 34 Quarantined honest anomalies covering edge cases and full taxonomy enums.
 
-        self.ap_invoices.append(APInvoice(
-            id=inv_id_3,
-            vendor_name="MSFT AZURE",
-            amount_cents=amt_3,
-            due_date=dt_3,
-            currency="USD",
-            fx_rate=1.0,
-            status="PAID"
-        ))
-        self.bank_lines.append(BankStatementLine(
-            id=bnk_id_3,
-            date=dt_3,
-            amount_cents=-amt_3,
-            raw_description="ACH DEBIT MICROSOFT CORP CLOUD SERVICES",
-            reference_code="ACH-MSFT-303",
-            account_id="ACCT-OPERATING-01"
-        ))
-        self.erp_entries.append(ERPLedgerEntry(
-            id=erp_id_3,
-            invoice_id=inv_id_3,
-            gl_account_code="6010-CLOUD-INFRA",
-            amount_cents=-amt_3,
-            customer_vendor_name="MICROSOFT AZURE",
-            entry_date=dt_3,
-            doc_type="PAYMENT"
-        ))
-        self.ground_truth.append(GroundTruthRecord(
-            scenario_id=scen_id_3,
-            scenario_type=ScenarioType.EXACT_MATCH,
-            risk_priority=RiskPriority.P4_NORMAL,
-            bank_line_id=bnk_id_3,
-            gateway_tx_id=None,
-            erp_entry_id=erp_id_3,
-            invoice_id=inv_id_3,
-            expected_status="MATCHED",
-            variance_cents=0,
-            explanation="Vendor alias 'MSFT AZURE' and bank descriptor 'MICROSOFT CORP' normalized and resolved to 'MICROSOFT AZURE'."
-        ))
-
-        # Case 4: Vendor Alias - Google Cloud Platform
-        inv_id_4 = self._next_inv_id()
-        bnk_id_4 = self._next_bnk_id()
-        erp_id_4 = self._next_erp_id()
-        scen_id_4 = self._next_scen_id("SCEN-ALIAS")
-        amt_4 = 320000  # $3,200.00
-        dt_4 = self.base_date + timedelta(days=18)
-
-        self.ap_invoices.append(APInvoice(
-            id=inv_id_4,
-            vendor_name="GOOGLE IRELAND",
-            amount_cents=amt_4,
-            due_date=dt_4,
-            currency="USD",
-            fx_rate=1.0,
-            status="PAID"
-        ))
-        self.bank_lines.append(BankStatementLine(
-            id=bnk_id_4,
-            date=dt_4,
-            amount_cents=-amt_4,
-            raw_description="DIRECT DEBIT GOOG CLOUD SERVICES REQ-404",
-            reference_code="DD-GOOG-404",
-            account_id="ACCT-OPERATING-01"
-        ))
-        self.erp_entries.append(ERPLedgerEntry(
-            id=erp_id_4,
-            invoice_id=inv_id_4,
-            gl_account_code="6010-CLOUD-INFRA",
-            amount_cents=-amt_4,
-            customer_vendor_name="GOOGLE CLOUD PLATFORM",
-            entry_date=dt_4,
-            doc_type="PAYMENT"
-        ))
-        self.ground_truth.append(GroundTruthRecord(
-            scenario_id=scen_id_4,
-            scenario_type=ScenarioType.EXACT_MATCH,
-            risk_priority=RiskPriority.P4_NORMAL,
-            bank_line_id=bnk_id_4,
-            gateway_tx_id=None,
-            erp_entry_id=erp_id_4,
-            invoice_id=inv_id_4,
-            expected_status="MATCHED",
-            variance_cents=0,
-            explanation="Vendor alias 'GOOGLE IRELAND' and descriptor 'GOOG CLOUD' mapped to canonical 'GOOGLE CLOUD PLATFORM'."
-        ))
-
-        # Case 5: Vendor Alias - Snowflake Computing
-        inv_id_5 = self._next_inv_id()
-        bnk_id_5 = self._next_bnk_id()
-        erp_id_5 = self._next_erp_id()
-        scen_id_5 = self._next_scen_id("SCEN-ALIAS")
-        amt_5 = 580000  # $5,800.00
-        dt_5 = self.base_date + timedelta(days=20)
-
-        self.ap_invoices.append(APInvoice(
-            id=inv_id_5,
-            vendor_name="SNOWFLAKE COMPUTING",
-            amount_cents=amt_5,
-            due_date=dt_5,
-            currency="USD",
-            fx_rate=1.0,
-            status="PAID"
-        ))
-        self.bank_lines.append(BankStatementLine(
-            id=bnk_id_5,
-            date=dt_5,
-            amount_cents=-amt_5,
-            raw_description="ACH DISBURSEMENT SNOWFLAKE INC WAREHOUSE",
-            reference_code="ACH-SNOW-505",
-            account_id="ACCT-OPERATING-01"
-        ))
-        self.erp_entries.append(ERPLedgerEntry(
-            id=erp_id_5,
-            invoice_id=inv_id_5,
-            gl_account_code="6020-SOFTWARE-SAAS",
-            amount_cents=-amt_5,
-            customer_vendor_name="SNOWFLAKE",
-            entry_date=dt_5,
-            doc_type="PAYMENT"
-        ))
-        self.ground_truth.append(GroundTruthRecord(
-            scenario_id=scen_id_5,
-            scenario_type=ScenarioType.EXACT_MATCH,
-            risk_priority=RiskPriority.P4_NORMAL,
-            bank_line_id=bnk_id_5,
-            gateway_tx_id=None,
-            erp_entry_id=erp_id_5,
-            invoice_id=inv_id_5,
-            expected_status="MATCHED",
-            variance_cents=0,
-            explanation="Vendor alias 'SNOWFLAKE COMPUTING' and statement 'SNOWFLAKE INC' resolved to canonical 'SNOWFLAKE'."
-        ))
-
-    def _generate_honest_anomalies(self, count: int = 10):
-        """Generate 10 Quarantined honest anomalies covering edge cases and remaining taxonomy enums.
-
-        1. Duplicate bank statement line (P1_HIGH)
-        2. Duplicate ERP invoice entry (P1_HIGH)
-        3. Missing settlement: Gateway charge succeeded but no bank deposit (P1_HIGH)
-        4. Missing settlement: AP invoice marked paid but bank withdrawal never occurred (P1_HIGH)
-        5. Unexplained mismatch: Discrepancy of $124.50 with no mathematical formula (P0_CRITICAL)
-        6. Unexplained mismatch / unbooked bank wire: Inward bank deposit of $15,000 with no ERP record (P0_CRITICAL)
-        7. Customer refund chargeback: Gateway -$150.00, Bank -$150.00, ERP credit memo (P2_MEDIUM)
-        8. Customer refund offset: Partial return of $75.00 against an existing order (P2_MEDIUM)
-        9. Tax difference: 8.25% sales tax collected on checkout but omitted from ERP revenue line (P1_HIGH)
-        10. Timing difference: Transaction on month-end 2026-08-31 settling across reporting cutoff on 2026-09-02 (P2_MEDIUM)
+        1. Duplicate bank statement lines (3 records, P1_HIGH)
+        2. Duplicate ERP invoice entries (3 records, P1_HIGH)
+        3. Missing settlement: Gateway charge succeeded but no bank deposit (4 records, P1_HIGH)
+        4. Missing settlement: AP invoice open/unpaid, no bank withdrawal (4 records, P1_HIGH)
+        5. Unexplained mismatch: Discrepancy/shortage with arbitrary drift (3 records, P0_CRITICAL)
+        6. Unexplained mismatch: Unbooked bank wire / orphan inward deposit (3 records, P0_CRITICAL)
+        7. Customer refund chargeback: Full return (4 records, P2_MEDIUM)
+        8. Customer refund offset: Partial return against existing order (3 records, P2_MEDIUM)
+        9. Tax difference: 8.25% sales tax collected on checkout omitted from ERP line (4 records, P1_HIGH)
+        10. Timing difference: Cross-period month-end cutoff settlement (3 records, P2_MEDIUM)
+        Total = 3 + 3 + 4 + 4 + 3 + 3 + 4 + 3 + 4 + 3 = 34 records.
         """
-        # Anomaly 1: Duplicate Bank Statement Line (P1_HIGH)
-        amt_dup1 = 175000  # $1,750.00
-        dt_dup1 = self.base_date + timedelta(days=22)
-        inv_dup1 = self._next_inv_id()
-        bnk_dup1_a = self._next_bnk_id()
-        bnk_dup1_b = self._next_bnk_id()  # duplicate
-        erp_dup1 = self._next_erp_id()
-        scen_dup1 = self._next_scen_id("SCEN-ANOM")
+        # --- 1. Duplicate Bank Statement Lines (3 records) ---
+        dup_bank_vendors = [
+            ("Figma Design", 175000),
+            ("Atlassian Corp", 240000),
+            ("Docker Inc", 120000),
+        ]
+        for i, (vend, amt) in enumerate(dup_bank_vendors):
+            dt = self.base_date + timedelta(days=20 + i)
+            inv_id = self._next_inv_id()
+            bnk_a = self._next_bnk_id()
+            bnk_b = self._next_bnk_id()  # duplicate posting
+            erp_id = self._next_erp_id()
+            scen_id = self._next_scen_id("SCEN-ANOM")
 
-        self.ap_invoices.append(APInvoice(
-            id=inv_dup1,
-            vendor_name="Figma Design",
-            amount_cents=amt_dup1,
-            due_date=dt_dup1,
-            currency="USD",
-            fx_rate=1.0,
-            status="PAID"
-        ))
-        self.bank_lines.append(BankStatementLine(
-            id=bnk_dup1_a,
-            date=dt_dup1,
-            amount_cents=-amt_dup1,
-            raw_description=f"ACH DEBIT FIGMA DESIGN {inv_dup1}",
-            reference_code="REF-DUP-1",
-            account_id="ACCT-OPERATING-01"
-        ))
-        self.bank_lines.append(BankStatementLine(
-            id=bnk_dup1_b,
-            date=dt_dup1,
-            amount_cents=-amt_dup1,
-            raw_description=f"ACH DEBIT FIGMA DESIGN {inv_dup1} (DUPLICATE POSTING)",
-            reference_code="REF-DUP-1",
-            account_id="ACCT-OPERATING-01"
-        ))
-        self.erp_entries.append(ERPLedgerEntry(
-            id=erp_dup1,
-            invoice_id=inv_dup1,
-            gl_account_code="2010-AP",
-            amount_cents=-amt_dup1,
-            customer_vendor_name="FIGMA DESIGN",
-            entry_date=dt_dup1,
-            doc_type="PAYMENT"
-        ))
-        self.ground_truth.append(GroundTruthRecord(
-            scenario_id=scen_dup1,
-            scenario_type=ScenarioType.DUPLICATE,
-            risk_priority=RiskPriority.P1_HIGH,
-            bank_line_id=f"{bnk_dup1_a},{bnk_dup1_b}",
-            gateway_tx_id=None,
-            erp_entry_id=erp_dup1,
-            invoice_id=inv_dup1,
-            expected_status="DUPLICATE_QUARANTINED",
-            variance_cents=amt_dup1,
-            explanation=f"Bank posted duplicate disbursement {bnk_dup1_b} of {cents_to_display(amt_dup1)} for invoice {inv_dup1}."
-        ))
+            self.ap_invoices.append(APInvoice(
+                id=inv_id, vendor_name=vend, amount_cents=amt,
+                due_date=dt, currency="USD", fx_rate=1.0, status="PAID"
+            ))
+            self.bank_lines.append(BankStatementLine(
+                id=bnk_a, date=dt, amount_cents=-amt,
+                raw_description=f"ACH DEBIT {vend.upper()} {inv_id}",
+                reference_code=f"REF-DUP-{10 + i}", account_id="ACCT-OPERATING-01"
+            ))
+            self.bank_lines.append(BankStatementLine(
+                id=bnk_b, date=dt, amount_cents=-amt,
+                raw_description=f"ACH DEBIT {vend.upper()} {inv_id} (DUPLICATE POSTING)",
+                reference_code=f"REF-DUP-{10 + i}", account_id="ACCT-OPERATING-01"
+            ))
+            self.erp_entries.append(ERPLedgerEntry(
+                id=erp_id, invoice_id=inv_id, gl_account_code="2010-AP",
+                amount_cents=-amt, customer_vendor_name=vend.upper(), entry_date=dt, doc_type="PAYMENT"
+            ))
+            self.ground_truth.append(GroundTruthRecord(
+                scenario_id=scen_id, scenario_type=ScenarioType.DUPLICATE, risk_priority=RiskPriority.P1_HIGH,
+                bank_line_id=f"{bnk_a},{bnk_b}", gateway_tx_id=None, erp_entry_id=erp_id, invoice_id=inv_id,
+                expected_status="DUPLICATE_QUARANTINED", variance_cents=amt,
+                explanation=f"Bank posted duplicate disbursement {bnk_b} of {cents_to_display(amt)} for invoice {inv_id}."
+            ))
 
-        # Anomaly 2: Duplicate ERP Ledger Entry (P1_HIGH)
-        amt_dup2 = 98000  # $980.00
-        dt_dup2 = self.base_date + timedelta(days=23)
-        inv_dup2 = self._next_inv_id()
-        bnk_dup2 = self._next_bnk_id()
-        erp_dup2_a = self._next_erp_id()
-        erp_dup2_b = self._next_erp_id()  # duplicate booking
-        scen_dup2 = self._next_scen_id("SCEN-ANOM")
+        # --- 2. Duplicate ERP Ledger Entries (3 records) ---
+        dup_erp_vendors = [
+            ("Slack Technologies", 98000),
+            ("Notion Labs", 145000),
+            ("Cloudflare DNS", 210000),
+        ]
+        for i, (vend, amt) in enumerate(dup_erp_vendors):
+            dt = self.base_date + timedelta(days=21 + i)
+            inv_id = self._next_inv_id()
+            bnk_id = self._next_bnk_id()
+            erp_a = self._next_erp_id()
+            erp_b = self._next_erp_id()  # duplicate booking
+            scen_id = self._next_scen_id("SCEN-ANOM")
 
-        self.ap_invoices.append(APInvoice(
-            id=inv_dup2,
-            vendor_name="Slack Technologies",
-            amount_cents=amt_dup2,
-            due_date=dt_dup2,
-            currency="USD",
-            fx_rate=1.0,
-            status="PAID"
-        ))
-        self.bank_lines.append(BankStatementLine(
-            id=bnk_dup2,
-            date=dt_dup2,
-            amount_cents=-amt_dup2,
-            raw_description=f"ACH OUTWARD PMT {inv_dup2} SLACK",
-            reference_code="ACH-SLACK-2",
-            account_id="ACCT-OPERATING-01"
-        ))
-        self.erp_entries.append(ERPLedgerEntry(
-            id=erp_dup2_a,
-            invoice_id=inv_dup2,
-            gl_account_code="2010-AP",
-            amount_cents=-amt_dup2,
-            customer_vendor_name="SLACK TECHNOLOGIES",
-            entry_date=dt_dup2,
-            doc_type="PAYMENT"
-        ))
-        self.erp_entries.append(ERPLedgerEntry(
-            id=erp_dup2_b,
-            invoice_id=inv_dup2,
-            gl_account_code="2010-AP",
-            amount_cents=-amt_dup2,
-            customer_vendor_name="SLACK TECHNOLOGIES",
-            entry_date=dt_dup2,
-            doc_type="PAYMENT"
-        ))
-        self.ground_truth.append(GroundTruthRecord(
-            scenario_id=scen_dup2,
-            scenario_type=ScenarioType.DUPLICATE,
-            risk_priority=RiskPriority.P1_HIGH,
-            bank_line_id=bnk_dup2,
-            gateway_tx_id=None,
-            erp_entry_id=f"{erp_dup2_a},{erp_dup2_b}",
-            invoice_id=inv_dup2,
-            expected_status="DUPLICATE_QUARANTINED",
-            variance_cents=amt_dup2,
-            explanation=f"ERP contains duplicate ledger entry {erp_dup2_b} for single bank disbursement of {cents_to_display(amt_dup2)}."
-        ))
+            self.ap_invoices.append(APInvoice(
+                id=inv_id, vendor_name=vend, amount_cents=amt,
+                due_date=dt, currency="USD", fx_rate=1.0, status="PAID"
+            ))
+            self.bank_lines.append(BankStatementLine(
+                id=bnk_id, date=dt, amount_cents=-amt,
+                raw_description=f"ACH OUTWARD PMT {inv_id} {vend.upper()}",
+                reference_code=f"ACH-{vend[:5].upper()}-{20 + i}", account_id="ACCT-OPERATING-01"
+            ))
+            self.erp_entries.append(ERPLedgerEntry(
+                id=erp_a, invoice_id=inv_id, gl_account_code="2010-AP",
+                amount_cents=-amt, customer_vendor_name=vend.upper(), entry_date=dt, doc_type="PAYMENT"
+            ))
+            self.erp_entries.append(ERPLedgerEntry(
+                id=erp_b, invoice_id=inv_id, gl_account_code="2010-AP",
+                amount_cents=-amt, customer_vendor_name=vend.upper(), entry_date=dt, doc_type="PAYMENT"
+            ))
+            self.ground_truth.append(GroundTruthRecord(
+                scenario_id=scen_id, scenario_type=ScenarioType.DUPLICATE, risk_priority=RiskPriority.P1_HIGH,
+                bank_line_id=bnk_id, gateway_tx_id=None, erp_entry_id=f"{erp_a},{erp_b}", invoice_id=inv_id,
+                expected_status="DUPLICATE_QUARANTINED", variance_cents=amt,
+                explanation=f"ERP contains duplicate ledger entry {erp_b} for single bank disbursement of {cents_to_display(amt)}."
+            ))
 
-        # Anomaly 3: Missing Settlement (Gateway Succeeded, No Bank Line) (P1_HIGH)
-        amt_miss1 = 145000  # $1,450.00
-        dt_miss1 = self.base_date + timedelta(days=5)
-        ord_miss1 = "ORD-MISS-3001"
-        gtw_miss1 = self._next_gtw_id()
-        erp_miss1 = self._next_erp_id()
-        scen_miss1 = self._next_scen_id("SCEN-ANOM")
+        # --- 3. Missing Gateway Settlements (4 records) ---
+        miss_gtw_configs = [
+            ("ORD-MISS-3001", 145000, 4235),
+            ("ORD-MISS-3002", 220000, 6410),
+            ("ORD-MISS-3003", 98000, 2872),
+            ("ORD-MISS-3004", 315000, 9165),
+        ]
+        for i, (ord_id, gross, fee) in enumerate(miss_gtw_configs):
+            dt = self.base_date + timedelta(days=5 + i*2)
+            gtw_id = self._next_gtw_id()
+            erp_id = self._next_erp_id()
+            scen_id = self._next_scen_id("SCEN-ANOM")
+            net = gross - fee
 
-        self.gateway_txs.append(GatewayTransaction(
-            id=gtw_miss1,
-            order_id=ord_miss1,
-            gross_amount_cents=amt_miss1,
-            fee_cents=4235,
-            tax_cents=0,
-            net_amount_cents=amt_miss1 - 4235,
-            payout_batch_id="po_orphaned_unsettled",
-            status="succeeded"
-        ))
-        self.erp_entries.append(ERPLedgerEntry(
-            id=erp_miss1,
-            invoice_id=ord_miss1,
-            gl_account_code="4000-REVENUE",
-            amount_cents=amt_miss1,
-            customer_vendor_name="ORPHAN CUSTOMER",
-            entry_date=dt_miss1,
-            doc_type="INVOICE"
-        ))
-        self.ground_truth.append(GroundTruthRecord(
-            scenario_id=scen_miss1,
-            scenario_type=ScenarioType.MISSING_SETTLEMENT,
-            risk_priority=RiskPriority.P1_HIGH,
-            bank_line_id=None,
-            gateway_tx_id=gtw_miss1,
-            erp_entry_id=erp_miss1,
-            invoice_id=None,
-            expected_status="SETTLEMENT_MISSING",
-            variance_cents=amt_miss1 - 4235,
-            explanation=f"Gateway captured {cents_to_display(amt_miss1)} on {dt_miss1} but payout never credited to operating bank account."
-        ))
+            self.gateway_txs.append(GatewayTransaction(
+                id=gtw_id, order_id=ord_id, gross_amount_cents=gross,
+                fee_cents=fee, tax_cents=0, net_amount_cents=net,
+                payout_batch_id="po_orphaned_unsettled", status="succeeded"
+            ))
+            self.erp_entries.append(ERPLedgerEntry(
+                id=erp_id, invoice_id=ord_id, gl_account_code="4000-REVENUE",
+                amount_cents=gross, customer_vendor_name="ORPHAN CUSTOMER",
+                entry_date=dt, doc_type="INVOICE"
+            ))
+            self.ground_truth.append(GroundTruthRecord(
+                scenario_id=scen_id, scenario_type=ScenarioType.MISSING_SETTLEMENT, risk_priority=RiskPriority.P1_HIGH,
+                bank_line_id=None, gateway_tx_id=gtw_id, erp_entry_id=erp_id, invoice_id=None,
+                expected_status="SETTLEMENT_MISSING", variance_cents=net,
+                explanation=f"Gateway captured {cents_to_display(gross)} on {dt} but payout never credited to operating bank account."
+            ))
 
-        # Anomaly 4: Missing Settlement (AP Invoice Approved/Open, No Bank Outflow) (P1_HIGH)
-        amt_miss2 = 210000  # $2,100.00
-        dt_miss2 = self.base_date + timedelta(days=8)
-        inv_miss2 = self._next_inv_id()
-        erp_miss2 = self._next_erp_id()
-        scen_miss2 = self._next_scen_id("SCEN-ANOM")
+        # --- 4. Missing AP Settlements / Unpaid Invoices (4 records) ---
+        miss_ap_configs = [
+            ("Vercel Inc", 210000),
+            ("MongoDB Atlas", 340000),
+            ("Fastly CDN", 165000),
+            ("Twilio API", 280000),
+        ]
+        for i, (vend, amt) in enumerate(miss_ap_configs):
+            dt = self.base_date + timedelta(days=7 + i*2)
+            inv_id = self._next_inv_id()
+            erp_id = self._next_erp_id()
+            scen_id = self._next_scen_id("SCEN-ANOM")
 
-        self.ap_invoices.append(APInvoice(
-            id=inv_miss2,
-            vendor_name="Vercel Inc",
-            amount_cents=amt_miss2,
-            due_date=dt_miss2,
-            currency="USD",
-            fx_rate=1.0,
-            status="OPEN"
-        ))
-        self.erp_entries.append(ERPLedgerEntry(
-            id=erp_miss2,
-            invoice_id=inv_miss2,
-            gl_account_code="2010-AP",
-            amount_cents=amt_miss2,
-            customer_vendor_name="VERCEL INC",
-            entry_date=dt_miss2,
-            doc_type="INVOICE"
-        ))
-        self.ground_truth.append(GroundTruthRecord(
-            scenario_id=scen_miss2,
-            scenario_type=ScenarioType.MISSING_SETTLEMENT,
-            risk_priority=RiskPriority.P1_HIGH,
-            bank_line_id=None,
-            gateway_tx_id=None,
-            erp_entry_id=erp_miss2,
-            invoice_id=inv_miss2,
-            expected_status="UNPAID_INVOICE",
-            variance_cents=amt_miss2,
-            explanation=f"AP Invoice {inv_miss2} for {cents_to_display(amt_miss2)} booked in ERP but pending bank wire settlement."
-        ))
+            self.ap_invoices.append(APInvoice(
+                id=inv_id, vendor_name=vend, amount_cents=amt,
+                due_date=dt, currency="USD", fx_rate=1.0, status="OPEN"
+            ))
+            self.erp_entries.append(ERPLedgerEntry(
+                id=erp_id, invoice_id=inv_id, gl_account_code="2010-AP",
+                amount_cents=amt, customer_vendor_name=vend.upper(),
+                entry_date=dt, doc_type="INVOICE"
+            ))
+            self.ground_truth.append(GroundTruthRecord(
+                scenario_id=scen_id, scenario_type=ScenarioType.MISSING_SETTLEMENT, risk_priority=RiskPriority.P1_HIGH,
+                bank_line_id=None, gateway_tx_id=None, erp_entry_id=erp_id, invoice_id=inv_id,
+                expected_status="UNPAID_INVOICE", variance_cents=amt,
+                explanation=f"AP Invoice {inv_id} for {cents_to_display(amt)} booked in ERP but pending bank wire settlement."
+            ))
 
-        # Anomaly 5: Unexplained Mismatch ($124.50 arbitrary drift) (P0_CRITICAL)
-        amt_exp = 300000  # $3,000.00 expected
-        amt_act = 287550  # $2,875.50 actual deposit ($124.50 missing)
-        diff_cents = amt_exp - amt_act  # 12450 cents
-        dt_unexp = self.base_date + timedelta(days=24)
-        ord_unexp = "ORD-UNEXP-5001"
-        gtw_unexp = self._next_gtw_id()
-        bnk_unexp = self._next_bnk_id()
-        erp_unexp = self._next_erp_id()
-        scen_unexp = self._next_scen_id("SCEN-ANOM")
+        # --- 5. Unexplained Shortages / Mismatches (3 records, P0_CRITICAL) ---
+        unexp_configs = [
+            (300000, 287550, "ORD-UNEXP-5001"),  # $124.50 shortage
+            (500000, 478500, "ORD-UNEXP-5002"),  # $215.00 shortage
+            (420000, 401025, "ORD-UNEXP-5003"),  # $189.75 shortage
+        ]
+        for i, (amt_exp, amt_act, ord_ref) in enumerate(unexp_configs):
+            diff = amt_exp - amt_act
+            dt = self.base_date + timedelta(days=23 + i)
+            gtw_id = self._next_gtw_id()
+            bnk_id = self._next_bnk_id()
+            erp_id = self._next_erp_id()
+            scen_id = self._next_scen_id("SCEN-ANOM")
 
-        self.gateway_txs.append(GatewayTransaction(
-            id=gtw_unexp,
-            order_id=ord_unexp,
-            gross_amount_cents=amt_exp,
-            fee_cents=0,
-            tax_cents=0,
-            net_amount_cents=amt_exp,
-            payout_batch_id="po_corrupt_settle",
-            status="succeeded"
-        ))
-        self.bank_lines.append(BankStatementLine(
-            id=bnk_unexp,
-            date=dt_unexp,
-            amount_cents=amt_act,
-            raw_description=f"INWARD DEPOSIT SETTLEMENT {ord_unexp} SHORTAGE",
-            reference_code="REF-SHORT-5001",
-            account_id="ACCT-OPERATING-01"
-        ))
-        self.erp_entries.append(ERPLedgerEntry(
-            id=erp_unexp,
-            invoice_id=ord_unexp,
-            gl_account_code="1010-CASH",
-            amount_cents=amt_exp,
-            customer_vendor_name="Acme Corp",
-            entry_date=dt_unexp,
-            doc_type="PAYMENT"
-        ))
-        self.ground_truth.append(GroundTruthRecord(
-            scenario_id=scen_unexp,
-            scenario_type=ScenarioType.UNEXPLAINED_MISMATCH,
-            risk_priority=RiskPriority.P0_CRITICAL,
-            bank_line_id=bnk_unexp,
-            gateway_tx_id=gtw_unexp,
-            erp_entry_id=erp_unexp,
-            invoice_id=None,
-            expected_status="UNEXPLAINED_VARIANCE",
-            variance_cents=diff_cents,
-            explanation=f"Critical unexplained variance of {cents_to_display(diff_cents)} between bank deposit ({cents_to_display(amt_act)}) and ERP/Gateway ({cents_to_display(amt_exp)})."
-        ))
+            self.gateway_txs.append(GatewayTransaction(
+                id=gtw_id, order_id=ord_ref, gross_amount_cents=amt_exp,
+                fee_cents=0, tax_cents=0, net_amount_cents=amt_exp,
+                payout_batch_id="po_corrupt_settle", status="succeeded"
+            ))
+            self.bank_lines.append(BankStatementLine(
+                id=bnk_id, date=dt, amount_cents=amt_act,
+                raw_description=f"INWARD DEPOSIT SETTLEMENT {ord_ref} SHORTAGE",
+                reference_code=f"REF-SHORT-{5001 + i}", account_id="ACCT-OPERATING-01"
+            ))
+            self.erp_entries.append(ERPLedgerEntry(
+                id=erp_id, invoice_id=ord_ref, gl_account_code="1010-CASH",
+                amount_cents=amt_exp, customer_vendor_name="Acme Corp",
+                entry_date=dt, doc_type="PAYMENT"
+            ))
+            self.ground_truth.append(GroundTruthRecord(
+                scenario_id=scen_id, scenario_type=ScenarioType.UNEXPLAINED_MISMATCH, risk_priority=RiskPriority.P0_CRITICAL,
+                bank_line_id=bnk_id, gateway_tx_id=gtw_id, erp_entry_id=erp_id, invoice_id=None,
+                expected_status="UNEXPLAINED_VARIANCE", variance_cents=diff,
+                explanation=f"Critical unexplained variance of {cents_to_display(diff)} between bank deposit ({cents_to_display(amt_act)}) and ERP/Gateway ({cents_to_display(amt_exp)})."
+            ))
 
-        # Anomaly 6: Unbooked Bank Wire / Orphan Deposit (P0_CRITICAL)
-        amt_orphan = 1500000  # $15,000.00
-        dt_orphan = self.base_date + timedelta(days=25)
-        bnk_orphan = self._next_bnk_id()
-        scen_orphan = self._next_scen_id("SCEN-ANOM")
+        # --- 6. Unbooked Bank Wires / Orphan Deposits (3 records, P0_CRITICAL) ---
+        orphan_configs = [
+            (1500000, "883921"),  # $15,000.00
+            (850000, "994812"),   # $8,500.00
+            (1225000, "773105"),  # $12,250.00
+        ]
+        for i, (amt, ref) in enumerate(orphan_configs):
+            dt = self.base_date + timedelta(days=24 + i)
+            bnk_id = self._next_bnk_id()
+            scen_id = self._next_scen_id("SCEN-ANOM")
 
-        self.bank_lines.append(BankStatementLine(
-            id=bnk_orphan,
-            date=dt_orphan,
-            amount_cents=amt_orphan,
-            raw_description="WIRE INWARD REF 883921 PRIVATE UNIDENTIFIED",
-            reference_code="WIRE-UNKNOWN-883921",
-            account_id="ACCT-OPERATING-01"
-        ))
-        self.ground_truth.append(GroundTruthRecord(
-            scenario_id=scen_orphan,
-            scenario_type=ScenarioType.UNEXPLAINED_MISMATCH,
-            risk_priority=RiskPriority.P0_CRITICAL,
-            bank_line_id=bnk_orphan,
-            gateway_tx_id=None,
-            erp_entry_id=None,
-            invoice_id=None,
-            expected_status="UNBOOKED_DEPOSIT",
-            variance_cents=amt_orphan,
-            explanation=f"Unidentified bank wire of {cents_to_display(amt_orphan)} received with no matching ERP journal entry or customer billing record."
-        ))
+            self.bank_lines.append(BankStatementLine(
+                id=bnk_id, date=dt, amount_cents=amt,
+                raw_description=f"WIRE INWARD REF {ref} PRIVATE UNIDENTIFIED",
+                reference_code=f"WIRE-UNKNOWN-{ref}", account_id="ACCT-OPERATING-01"
+            ))
+            self.ground_truth.append(GroundTruthRecord(
+                scenario_id=scen_id, scenario_type=ScenarioType.UNEXPLAINED_MISMATCH, risk_priority=RiskPriority.P0_CRITICAL,
+                bank_line_id=bnk_id, gateway_tx_id=None, erp_entry_id=None, invoice_id=None,
+                expected_status="UNBOOKED_DEPOSIT", variance_cents=amt,
+                explanation=f"Unidentified bank wire of {cents_to_display(amt)} received with no matching ERP journal entry or customer billing record."
+            ))
 
-        # Anomaly 7: Customer Refund (P2_MEDIUM)
-        amt_ref = 15000  # $150.00
-        dt_ref = self.base_date + timedelta(days=26)
-        ord_ref = "ORD-REF-7001"
-        gtw_ref = self._next_gtw_id()
-        bnk_ref = self._next_bnk_id()
-        erp_ref = self._next_erp_id()
-        scen_ref = self._next_scen_id("SCEN-ANOM")
+        # --- 7. Customer Full Refunds (4 records) ---
+        full_refund_configs = [
+            (15000, "ORD-REF-7001"),
+            (22000, "ORD-REF-7002"),
+            (34000, "ORD-REF-7003"),
+            (18000, "ORD-REF-7004"),
+        ]
+        for i, (amt, ord_ref) in enumerate(full_refund_configs):
+            dt = self.base_date + timedelta(days=22 + i)
+            gtw_id = self._next_gtw_id()
+            bnk_id = self._next_bnk_id()
+            erp_id = self._next_erp_id()
+            scen_id = self._next_scen_id("SCEN-ANOM")
 
-        self.gateway_txs.append(GatewayTransaction(
-            id=gtw_ref,
-            order_id=ord_ref,
-            gross_amount_cents=-amt_ref,
-            fee_cents=0,
-            tax_cents=0,
-            net_amount_cents=-amt_ref,
-            payout_batch_id="po_refund_batch_7001",
-            status="refunded"
-        ))
-        self.bank_lines.append(BankStatementLine(
-            id=bnk_ref,
-            date=dt_ref,
-            amount_cents=-amt_ref,
-            raw_description=f"STRIPE CUSTOMER REFUND CHARGEBACK {ord_ref}",
-            reference_code="REF-CHG-7001",
-            account_id="ACCT-OPERATING-01"
-        ))
-        self.erp_entries.append(ERPLedgerEntry(
-            id=erp_ref,
-            invoice_id=ord_ref,
-            gl_account_code="4010-SALES-RETURNS",
-            amount_cents=-amt_ref,
-            customer_vendor_name="RETURN CUSTOMER",
-            entry_date=dt_ref,
-            doc_type="CREDIT_MEMO"
-        ))
-        self.ground_truth.append(GroundTruthRecord(
-            scenario_id=scen_ref,
-            scenario_type=ScenarioType.REFUND,
-            risk_priority=RiskPriority.P2_MEDIUM,
-            bank_line_id=bnk_ref,
-            gateway_tx_id=gtw_ref,
-            erp_entry_id=erp_ref,
-            invoice_id=None,
-            expected_status="REFUND_MATCHED",
-            variance_cents=0,
-            explanation=f"Processed customer refund of {cents_to_display(amt_ref)} matching gateway return, bank deduction, and ERP credit memo."
-        ))
+            self.gateway_txs.append(GatewayTransaction(
+                id=gtw_id, order_id=ord_ref, gross_amount_cents=-amt,
+                fee_cents=0, tax_cents=0, net_amount_cents=-amt,
+                payout_batch_id=f"po_refund_batch_{7001 + i}", status="refunded"
+            ))
+            self.bank_lines.append(BankStatementLine(
+                id=bnk_id, date=dt, amount_cents=-amt,
+                raw_description=f"STRIPE CUSTOMER REFUND CHARGEBACK {ord_ref}",
+                reference_code=f"REF-CHG-{7001 + i}", account_id="ACCT-OPERATING-01"
+            ))
+            self.erp_entries.append(ERPLedgerEntry(
+                id=erp_id, invoice_id=ord_ref, gl_account_code="4010-SALES-RETURNS",
+                amount_cents=-amt, customer_vendor_name="RETURN CUSTOMER",
+                entry_date=dt, doc_type="CREDIT_MEMO"
+            ))
+            self.ground_truth.append(GroundTruthRecord(
+                scenario_id=scen_id, scenario_type=ScenarioType.REFUND, risk_priority=RiskPriority.P2_MEDIUM,
+                bank_line_id=bnk_id, gateway_tx_id=gtw_id, erp_entry_id=erp_id, invoice_id=None,
+                expected_status="REFUND_MATCHED", variance_cents=0,
+                explanation=f"Processed customer refund of {cents_to_display(amt)} matching gateway return, bank deduction, and ERP credit memo."
+            ))
 
-        # Anomaly 8: Customer Partial Refund / Adjustment (P2_MEDIUM)
-        amt_part_ref = 7500  # $75.00
-        dt_part = self.base_date + timedelta(days=27)
-        ord_part = "ORD-PART-8001"
-        gtw_part = self._next_gtw_id()
-        bnk_part = self._next_bnk_id()
-        erp_part = self._next_erp_id()
-        scen_part = self._next_scen_id("SCEN-ANOM")
+        # --- 8. Customer Partial Refunds / Adjustments (3 records) ---
+        part_refund_configs = [
+            (7500, "ORD-PART-8001"),
+            (9500, "ORD-PART-8002"),
+            (11000, "ORD-PART-8003"),
+        ]
+        for i, (amt, ord_ref) in enumerate(part_refund_configs):
+            dt = self.base_date + timedelta(days=25 + i)
+            gtw_id = self._next_gtw_id()
+            bnk_id = self._next_bnk_id()
+            erp_id = self._next_erp_id()
+            scen_id = self._next_scen_id("SCEN-ANOM")
 
-        self.gateway_txs.append(GatewayTransaction(
-            id=gtw_part,
-            order_id=ord_part,
-            gross_amount_cents=-amt_part_ref,
-            fee_cents=0,
-            tax_cents=0,
-            net_amount_cents=-amt_part_ref,
-            payout_batch_id="po_partial_8001",
-            status="refunded"
-        ))
-        self.bank_lines.append(BankStatementLine(
-            id=bnk_part,
-            date=dt_part,
-            amount_cents=-amt_part_ref,
-            raw_description=f"MERCHANT PARTIAL CREDIT ADJUSTMENT {ord_part}",
-            reference_code="REF-PART-8001",
-            account_id="ACCT-OPERATING-01"
-        ))
-        self.erp_entries.append(ERPLedgerEntry(
-            id=erp_part,
-            invoice_id=ord_part,
-            gl_account_code="4010-SALES-RETURNS",
-            amount_cents=-amt_part_ref,
-            customer_vendor_name="PARTIAL RETURN CUSTOMER",
-            entry_date=dt_part,
-            doc_type="CREDIT_MEMO"
-        ))
-        self.ground_truth.append(GroundTruthRecord(
-            scenario_id=scen_part,
-            scenario_type=ScenarioType.REFUND,
-            risk_priority=RiskPriority.P2_MEDIUM,
-            bank_line_id=bnk_part,
-            gateway_tx_id=gtw_part,
-            erp_entry_id=erp_part,
-            invoice_id=None,
-            expected_status="REFUND_MATCHED",
-            variance_cents=0,
-            explanation=f"Partial refund adjustment of {cents_to_display(amt_part_ref)} reconciled between gateway, bank debit, and ERP credit memo."
-        ))
+            self.gateway_txs.append(GatewayTransaction(
+                id=gtw_id, order_id=ord_ref, gross_amount_cents=-amt,
+                fee_cents=0, tax_cents=0, net_amount_cents=-amt,
+                payout_batch_id=f"po_partial_{8001 + i}", status="refunded"
+            ))
+            self.bank_lines.append(BankStatementLine(
+                id=bnk_id, date=dt, amount_cents=-amt,
+                raw_description=f"MERCHANT PARTIAL CREDIT ADJUSTMENT {ord_ref}",
+                reference_code=f"REF-PART-{8001 + i}", account_id="ACCT-OPERATING-01"
+            ))
+            self.erp_entries.append(ERPLedgerEntry(
+                id=erp_id, invoice_id=ord_ref, gl_account_code="4010-SALES-RETURNS",
+                amount_cents=-amt, customer_vendor_name="PARTIAL RETURN CUSTOMER",
+                entry_date=dt, doc_type="CREDIT_MEMO"
+            ))
+            self.ground_truth.append(GroundTruthRecord(
+                scenario_id=scen_id, scenario_type=ScenarioType.REFUND, risk_priority=RiskPriority.P2_MEDIUM,
+                bank_line_id=bnk_id, gateway_tx_id=gtw_id, erp_entry_id=erp_id, invoice_id=None,
+                expected_status="REFUND_MATCHED", variance_cents=0,
+                explanation=f"Partial refund adjustment of {cents_to_display(amt)} reconciled between gateway, bank debit, and ERP credit memo."
+            ))
 
-        # Anomaly 9: Tax Difference (P1_HIGH)
-        gross_no_tax = 100000  # $1,000.00
-        tax_cents = 8250  # 8.25% sales tax = $82.50
-        gross_with_tax = gross_no_tax + tax_cents  # $1,082.50
-        dt_tax = self.base_date + timedelta(days=28)
-        ord_tax = "ORD-TAX-9001"
-        gtw_tax = self._next_gtw_id()
-        bnk_tax = self._next_bnk_id()
-        erp_tax = self._next_erp_id()
-        scen_tax = self._next_scen_id("SCEN-ANOM")
+        # --- 9. Tax Differences (4 records) ---
+        tax_configs = [
+            (100000, 8250, "ORD-TAX-9001"),
+            (200000, 16500, "ORD-TAX-9002"),
+            (150000, 12375, "ORD-TAX-9003"),
+            (280000, 23100, "ORD-TAX-9004"),
+        ]
+        for i, (gross_no_tax, tax, ord_ref) in enumerate(tax_configs):
+            gross_with_tax = gross_no_tax + tax
+            dt = self.base_date + timedelta(days=26 + i)
+            gtw_id = self._next_gtw_id()
+            bnk_id = self._next_bnk_id()
+            erp_id = self._next_erp_id()
+            scen_id = self._next_scen_id("SCEN-ANOM")
 
-        self.gateway_txs.append(GatewayTransaction(
-            id=gtw_tax,
-            order_id=ord_tax,
-            gross_amount_cents=gross_with_tax,
-            fee_cents=0,
-            tax_cents=tax_cents,
-            net_amount_cents=gross_no_tax,
-            payout_batch_id="po_tax_settle",
-            status="succeeded"
-        ))
-        self.bank_lines.append(BankStatementLine(
-            id=bnk_tax,
-            date=dt_tax,
-            amount_cents=gross_no_tax,
-            raw_description=f"GATEWAY NET PAYOUT (TAX EXCLUDED) {ord_tax}",
-            reference_code="REF-TAX-9001",
-            account_id="ACCT-OPERATING-01"
-        ))
-        # ERP booked full amount including sales tax
-        self.erp_entries.append(ERPLedgerEntry(
-            id=erp_tax,
-            invoice_id=ord_tax,
-            gl_account_code="4000-REVENUE",
-            amount_cents=gross_with_tax,
-            customer_vendor_name="TAXABLE CUSTOMER LLC",
-            entry_date=dt_tax,
-            doc_type="INVOICE"
-        ))
-        self.ground_truth.append(GroundTruthRecord(
-            scenario_id=scen_tax,
-            scenario_type=ScenarioType.TAX_DIFFERENCE,
-            risk_priority=RiskPriority.P1_HIGH,
-            bank_line_id=bnk_tax,
-            gateway_tx_id=gtw_tax,
-            erp_entry_id=erp_tax,
-            invoice_id=None,
-            expected_status="TAX_EXPLAINED",
-            variance_cents=tax_cents,
-            explanation=f"Discrepancy of {cents_to_display(tax_cents)} explained by 8.25% state sales tax withheld by marketplace facilitator."
-        ))
+            self.gateway_txs.append(GatewayTransaction(
+                id=gtw_id, order_id=ord_ref, gross_amount_cents=gross_with_tax,
+                fee_cents=0, tax_cents=tax, net_amount_cents=gross_no_tax,
+                payout_batch_id=f"po_tax_settle_{i}", status="succeeded"
+            ))
+            self.bank_lines.append(BankStatementLine(
+                id=bnk_id, date=dt, amount_cents=gross_no_tax,
+                raw_description=f"GATEWAY NET PAYOUT (TAX EXCLUDED) {ord_ref}",
+                reference_code=f"REF-TAX-{9001 + i}", account_id="ACCT-OPERATING-01"
+            ))
+            self.erp_entries.append(ERPLedgerEntry(
+                id=erp_id, invoice_id=ord_ref, gl_account_code="4000-REVENUE",
+                amount_cents=gross_with_tax, customer_vendor_name="TAXABLE CUSTOMER LLC",
+                entry_date=dt, doc_type="INVOICE"
+            ))
+            self.ground_truth.append(GroundTruthRecord(
+                scenario_id=scen_id, scenario_type=ScenarioType.TAX_DIFFERENCE, risk_priority=RiskPriority.P1_HIGH,
+                bank_line_id=bnk_id, gateway_tx_id=gtw_id, erp_entry_id=erp_id, invoice_id=None,
+                expected_status="TAX_EXPLAINED", variance_cents=tax,
+                explanation=f"Discrepancy of {cents_to_display(tax)} explained by 8.25% state sales tax withheld by marketplace facilitator."
+            ))
 
-        # Anomaly 10: Timing Difference across Month-End Cutoff (P2_MEDIUM)
-        amt_time = 350000  # $3,500.00
-        dt_order_time = date(2026, 8, 31)  # Last day of August
-        dt_settle_time = date(2026, 9, 2)   # Settled in September (across cutoff)
-        ord_time = "ORD-TIMING-10001"
-        gtw_time = self._next_gtw_id()
-        bnk_time = self._next_bnk_id()
-        erp_time = self._next_erp_id()
-        scen_time = self._next_scen_id("SCEN-ANOM")
+        # --- 10. Timing Differences Across Month-End Cutoff (3 records) ---
+        timing_configs = [
+            (350000, "ORD-TIMING-10001", date(2026, 8, 31), date(2026, 9, 2)),
+            (280000, "ORD-TIMING-10002", date(2026, 8, 31), date(2026, 9, 2)),
+            (410000, "ORD-TIMING-10003", date(2026, 8, 31), date(2026, 9, 3)),
+        ]
+        for i, (amt, ord_ref, dt_order, dt_settle) in enumerate(timing_configs):
+            gtw_id = self._next_gtw_id()
+            bnk_id = self._next_bnk_id()
+            erp_id = self._next_erp_id()
+            scen_id = self._next_scen_id("SCEN-ANOM")
 
-        self.gateway_txs.append(GatewayTransaction(
-            id=gtw_time,
-            order_id=ord_time,
-            gross_amount_cents=amt_time,
-            fee_cents=0,
-            tax_cents=0,
-            net_amount_cents=amt_time,
-            payout_batch_id="po_cutoff_batch",
-            status="succeeded"
-        ))
-        self.bank_lines.append(BankStatementLine(
-            id=bnk_time,
-            date=dt_settle_time,
-            amount_cents=amt_time,
-            raw_description=f"BATCH DEPOSIT CROSS-MONTH SETTLEMENT {ord_time}",
-            reference_code="REF-CUTOFF-1001",
-            account_id="ACCT-OPERATING-01"
-        ))
-        self.erp_entries.append(ERPLedgerEntry(
-            id=erp_time,
-            invoice_id=ord_time,
-            gl_account_code="4000-REVENUE",
-            amount_cents=amt_time,
-            customer_vendor_name="END OF MONTH CLIENT",
-            entry_date=dt_order_time,
-            doc_type="INVOICE"
-        ))
-        self.ground_truth.append(GroundTruthRecord(
-            scenario_id=scen_time,
-            scenario_type=ScenarioType.TIMING_DIFFERENCE,
-            risk_priority=RiskPriority.P2_MEDIUM,
-            bank_line_id=bnk_time,
-            gateway_tx_id=gtw_time,
-            erp_entry_id=erp_time,
-            invoice_id=None,
-            expected_status="TIMING_IN_FLIGHT",
-            variance_cents=0,
-            explanation=f"Transaction initiated 2026-08-31 posted in ERP August close; bank deposit received 2026-09-02 (T+2 cross-period settlement)."
-        ))
+            self.gateway_txs.append(GatewayTransaction(
+                id=gtw_id, order_id=ord_ref, gross_amount_cents=amt,
+                fee_cents=0, tax_cents=0, net_amount_cents=amt,
+                payout_batch_id=f"po_cutoff_batch_{i}", status="succeeded"
+            ))
+            self.bank_lines.append(BankStatementLine(
+                id=bnk_id, date=dt_settle, amount_cents=amt,
+                raw_description=f"BATCH DEPOSIT CROSS-MONTH SETTLEMENT {ord_ref}",
+                reference_code=f"REF-CUTOFF-{1001 + i}", account_id="ACCT-OPERATING-01"
+            ))
+            self.erp_entries.append(ERPLedgerEntry(
+                id=erp_id, invoice_id=ord_ref, gl_account_code="4000-REVENUE",
+                amount_cents=amt, customer_vendor_name="END OF MONTH CLIENT",
+                entry_date=dt_order, doc_type="INVOICE"
+            ))
+            self.ground_truth.append(GroundTruthRecord(
+                scenario_id=scen_id, scenario_type=ScenarioType.TIMING_DIFFERENCE, risk_priority=RiskPriority.P2_MEDIUM,
+                bank_line_id=bnk_id, gateway_tx_id=gtw_id, erp_entry_id=erp_id, invoice_id=None,
+                expected_status="TIMING_IN_FLIGHT", variance_cents=0,
+                explanation=f"Transaction initiated {dt_order.isoformat()} posted in ERP August close; bank deposit received {dt_settle.isoformat()} (T+2 cross-period settlement)."
+            ))
 
     def export_canonical(self, output_dir: Path):
         """Export canonical dataset fixtures as both CSV and JSON."""

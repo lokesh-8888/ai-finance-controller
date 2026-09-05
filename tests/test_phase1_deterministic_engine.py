@@ -244,23 +244,23 @@ class TestCanonicalDatasetReconciliation:
         metrics = output.metrics
 
         # 1. Total records
-        assert metrics.total_bank_lines == 59
-        assert metrics.total_gateway_txs == 45
-        assert metrics.total_erp_entries == 69
-        assert metrics.total_ap_invoices == 23
+        assert metrics.total_bank_lines == len(canonical_data["bank_lines"])
+        assert metrics.total_gateway_txs == len(canonical_data["gateway_txs"])
+        assert metrics.total_erp_entries == len(canonical_data["erp_entries"])
+        assert metrics.total_ap_invoices == len(canonical_data["ap_invoices"])
 
         # 2. Stage 1 should resolve exact customer receipts, vendor disbursements, and alias matches
-        assert metrics.stage1_exact_matches >= 30, (
-            f"Expected >= 30 Stage 1 exact matches, got {metrics.stage1_exact_matches}"
+        assert metrics.stage1_exact_matches >= 100, (
+            f"Expected >= 100 Stage 1 exact matches, got {metrics.stage1_exact_matches}"
         )
 
         # 3. Stage 2 should resolve Stripe fee batches and clustered wire bundles
-        assert metrics.stage2_batch_matches >= 15, (
-            f"Expected >= 15 Stage 2 batch matches (10 Stripe + 5 bundles), got {metrics.stage2_batch_matches}"
+        assert metrics.stage2_batch_matches >= 30, (
+            f"Expected >= 30 Stage 2 batch matches, got {metrics.stage2_batch_matches}"
         )
 
-        # 4. Total matches should be >= 45
-        assert len(output.matches) >= 45
+        # 4. Total matches should be >= 130
+        assert len(output.matches) >= 130
 
         # 5. Residual pool must contain the seeded honest anomalies
         residual = output.residual_unmatched

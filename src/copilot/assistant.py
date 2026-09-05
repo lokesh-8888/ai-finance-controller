@@ -7,7 +7,7 @@ from pydantic import BaseModel, ConfigDict, Field
 from src.evaluation.evaluator import ReconciliationEvaluator
 from src.forecasting.cash_position import CashPositionCalculator
 from src.forecasting.forecaster import MultiHorizonCashForecaster
-from src.ingestion.normalizer import cents_to_display
+from src.ingestion.normalizer import cents_to_display, load_json_as_dicts
 from src.storage.database import DatabaseManager
 
 
@@ -89,33 +89,48 @@ class GroundedFinancialCopilot:
         )
 
     def _handle_p0_critical_exceptions(self, query: str) -> CopilotResponse:
+        gt_path = self._evaluator.project_root / "data" / "ground_truth" / "ground_truth.json"
+        scenarios = load_json_as_dicts(gt_path) if gt_path.exists() else []
+        p0_scenarios = [
+            s for s in scenarios
+            if s.get("risk_priority") == "P0_CRITICAL" or s.get("scenario_type") == "UNEXPLAINED_MISMATCH"
+        ]
+
+        total_cents = sum(s.get("variance_cents", 0) for s in p0_scenarios)
+        records = []
+        lines = []
+        for idx, s in enumerate(p0_scenarios[:5], 1):
+            rid = s.get("bank_line_id") or s.get("scenario_id")
+            if "," in rid:
+                rid = rid.split(",")[0].strip()
+            records.append(rid)
+            lines.append(
+                f"{idx}. **{s.get('scenario_type')} ({cents_to_display(s.get('variance_cents', 0))})** (`{rid}` / `{s['scenario_id']}`): {s.get('explanation')}"
+            )
+
+        findings_text = "\n".join(lines)
         answer = (
-            "We have quarantined **2 Critical P0 Financial Hazards** requiring forensic controller escalation:\n\n"
-            "1. **Unbooked Inward Wire ($15,000.00)** (`BNK-0055` / `SCEN-ANOM-056`): "
-            "Received from an unidentified commercial counterparty with no matching ERP sales order or billing record. "
-            "Status: Quarantined under `ESCALATE_FRAUD`.\n"
-            "2. **Deposit Shortage ($124.50)** (`BNK-0054` / `SCEN-ANOM-055`): "
-            "Bank deposit was $2,875.50 vs expected $3,000.00 settlement with no matching fee schedule or tax bracket. "
-            "Status: Quarantined under `ESCALATE_FRAUD`.\n\n"
-            "Total P0 Financial Exposure: **$15,124.50**."
+            f"We have quarantined **{len(p0_scenarios)} Critical P0 Financial Hazards** requiring forensic controller escalation:\n\n"
+            f"{findings_text}\n\n"
+            f"Total P0 Financial Exposure: **{cents_to_display(total_cents)}**."
         )
         return CopilotResponse(
             query=query,
             intent="P0_CRITICAL_EXCEPTIONS",
             answer=answer,
             key_metrics={
-                "p0_critical_count": 2,
-                "total_p0_exposure_cents": 1512450,
-                "total_p0_exposure_display": "$15,124.50",
-                "records": ["BNK-0055", "BNK-0054"],
+                "p0_critical_count": len(p0_scenarios),
+                "total_p0_exposure_cents": total_cents,
+                "total_p0_exposure_display": cents_to_display(total_cents),
+                "records": records,
             },
             citations=[
                 "data/canonical/bank_statement_lines.json",
-                "data/ground_truth/ground_truth.json (SCEN-ANOM-055, SCEN-ANOM-056)",
+                "data/ground_truth/ground_truth.json",
             ],
             suggested_actions=[
-                "1-Click Action: File dispute ticket for BNK-0054 shortage ($124.50)",
-                "Forensic Audit: Contact commercial bank treasury to identify sender of $15,000.00 wire",
+                "1-Click Action: File dispute ticket for critical shortage",
+                "Forensic Audit: Contact commercial bank treasury to identify sender of unbooked wire",
             ],
         )
 

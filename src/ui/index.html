@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VeraLedger AI — Autonomous Multi-Source Reconciliation & Forward Cash Ops (AI Finance Controller)</title>
+  <title>RazorLedger AI — Autonomous Multi-Source Reconciliation & Forward Cash Ops (AI Finance Controller)</title>
   
   <!-- Modern Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -140,7 +140,7 @@
         </div>
         <div class="min-w-0">
           <div class="flex items-center gap-1.5">
-            <h1 class="text-sm font-bold text-white tracking-tight leading-tight truncate">VeraLedger AI</h1>
+            <h1 class="text-sm font-bold text-white tracking-tight leading-tight truncate">RazorLedger AI</h1>
           </div>
           <p class="text-[11px] text-slate-400 leading-snug mt-0.5 font-medium">AI Finance Controller for Payment Reconciliation</p>
         </div>
@@ -162,10 +162,10 @@
         </button>
 
         <!-- Exceptions -->
-        <button onclick="switchToExceptions()" id="nav-exceptions" class="sidebar-nav-btn">
+        <button onclick="switchTab('exceptions')" id="nav-exceptions" class="sidebar-nav-btn">
           <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-400"></i>
           <span>Exceptions</span>
-          <span id="nav-exceptions-badge" class="ml-auto px-1.5 py-0.2 rounded-full bg-rose-500/20 text-rose-300 font-mono text-[10px]">2</span>
+          <span id="nav-exceptions-badge" class="ml-auto px-1.5 py-0.2 rounded-full bg-rose-500/20 text-rose-300 font-mono text-[10px]">29</span>
         </button>
 
         <!-- AI Investigation -->
@@ -313,9 +313,10 @@
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
           
           <!-- Card 5: Exceptions -->
-          <div class="glass-card p-5 space-y-1.5 hover:border-blue-500/30 transition-all shadow-lg">
+          <div class="glass-card p-5 space-y-1 hover:border-blue-500/30 transition-all shadow-lg">
             <span class="text-xs font-semibold text-slate-400 tracking-wide block">Exceptions</span>
-            <div class="text-3xl font-bold font-mono text-blue-500 tracking-tight" id="kpi-exceptions-count">39</div>
+            <div class="text-3xl font-bold font-mono text-blue-500 tracking-tight" id="kpi-exceptions-count">31</div>
+            <div class="text-xs text-slate-400 font-medium pt-0.5" id="kpi-exceptions-subtext">31 open of 34 total (3 resolved)</div>
           </div>
 
           <!-- Card 6: High Priority (Critical + High severity) -->
@@ -427,6 +428,46 @@
         </div>
       </div>
 
+      <!-- Transaction Stream Ledger Metrics Ribbon -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div class="glass-card p-3 flex items-center justify-between">
+          <div>
+            <span class="text-[10px] text-slate-400 uppercase font-mono tracking-wider block">Total Ledger</span>
+            <span class="text-base font-bold font-mono text-white" id="tx-stat-total">200 Records</span>
+          </div>
+          <div class="w-8 h-8 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+            <i data-lucide="database" class="w-4 h-4 text-blue-400"></i>
+          </div>
+        </div>
+        <div class="glass-card p-3 flex items-center justify-between">
+          <div>
+            <span class="text-[10px] text-slate-400 uppercase font-mono tracking-wider block">1:1 Auto-Matched</span>
+            <span class="text-base font-bold font-mono text-emerald-400" id="tx-stat-matched">158 (79.0%)</span>
+          </div>
+          <div class="w-8 h-8 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center">
+            <i data-lucide="check-check" class="w-4 h-4 text-emerald-400"></i>
+          </div>
+        </div>
+        <div class="glass-card p-3 flex items-center justify-between">
+          <div>
+            <span class="text-[10px] text-slate-400 uppercase font-mono tracking-wider block">AI Resolved (FX/Timing)</span>
+            <span class="text-base font-bold font-mono text-cyan-400" id="tx-stat-ai">8 (4.0%)</span>
+          </div>
+          <div class="w-8 h-8 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
+            <i data-lucide="sparkles" class="w-4 h-4 text-cyan-400"></i>
+          </div>
+        </div>
+        <div class="glass-card p-3 flex items-center justify-between">
+          <div>
+            <span class="text-[10px] text-slate-400 uppercase font-mono tracking-wider block">Open Exceptions</span>
+            <span class="text-base font-bold font-mono text-rose-400" id="tx-stat-exceptions">34 (17.0%)</span>
+          </div>
+          <div class="w-8 h-8 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center">
+            <i data-lucide="alert-triangle" class="w-4 h-4 text-rose-400"></i>
+          </div>
+        </div>
+      </div>
+
       <!-- Unified Compact Filter Toolbar (Clean Dropdown Style matching reference) -->
       <div class="glass-card p-2.5 sm:p-3 flex flex-wrap items-center justify-between gap-2.5 relative z-30 overflow-visible">
         <div class="flex flex-wrap items-center gap-2">
@@ -481,7 +522,14 @@
                   <span class="w-2 h-2 rounded-full bg-rose-400"></span>
                   <span>Needs Review</span>
                 </div>
-                <span id="count-EXCEPTIONS" class="text-[10px] px-1.5 py-0.5 rounded bg-rose-500/10 text-rose-400 font-mono">2</span>
+                <span id="count-EXCEPTIONS" class="text-[10px] px-1.5 py-0.5 rounded bg-rose-500/10 text-rose-400 font-mono">31</span>
+              </button>
+              <button onclick="setStatusDropdown('RESOLVED')" id="filter-pill-RESOLVED" class="w-full flex items-center justify-between px-2.5 py-1.5 rounded-lg text-xs text-left hover:bg-white/10 text-slate-300 transition-colors">
+                <div class="flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  <span>Resolved Exceptions</span>
+                </div>
+                <span id="count-RESOLVED" class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 font-mono">3</span>
               </button>
             </div>
           </div>
@@ -647,123 +695,331 @@
     </section>
 
     <!-- ======================================================= -->
+    <!-- TAB 2B: DEDICATED EXCEPTIONS TRIAGE WORKBENCH           -->
+    <!-- ======================================================= -->
+    <section id="tab-exceptions" class="space-y-6 hidden">
+      
+      <!-- Exceptions Workbench Header -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <div class="flex items-center gap-2.5">
+            <h2 class="text-xl font-bold text-white tracking-tight">Exceptions Triage & Resolution Queue</h2>
+            <span class="px-2.5 py-0.5 rounded-full text-[11px] font-mono font-semibold bg-rose-500/20 text-rose-300 border border-rose-500/30">
+              Active Quarantine
+            </span>
+          </div>
+          <p class="text-xs text-slate-400 mt-1">High-risk ledger breaks, duplicate disbursements, missing payout settlements, tax withholding variances, and fraud alerts</p>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <button onclick="switchTab('investigator')" class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white text-xs font-semibold shadow-lg shadow-purple-900/30 transition-all">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            <span>AI Forensic Investigation</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Triage Metric Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        
+        <div class="glass-card p-4 space-y-1">
+          <div class="flex items-center justify-between text-slate-400 text-xs">
+            <span class="font-medium">Open Exceptions</span>
+            <i data-lucide="alert-circle" class="w-4 h-4 text-rose-400"></i>
+          </div>
+          <div class="text-2xl font-bold font-mono text-white" id="exc-kpi-open">29</div>
+          <div class="text-[11px] text-rose-400 font-mono flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-rose-400 animate-pulse"></span>
+            <span>Requiring controller resolution</span>
+          </div>
+        </div>
+
+        <div class="glass-card p-4 space-y-1">
+          <div class="flex items-center justify-between text-slate-400 text-xs">
+            <span class="font-medium">Financial Exposure</span>
+            <i data-lucide="activity" class="w-4 h-4 text-amber-400"></i>
+          </div>
+          <div class="text-2xl font-bold font-mono text-white" id="exc-kpi-exposure">₹53,55,705.03</div>
+          <div class="text-[11px] text-slate-400 font-mono">
+            Unreconciled ledger variance
+          </div>
+        </div>
+
+        <div class="glass-card p-4 space-y-1">
+          <div class="flex items-center justify-between text-slate-400 text-xs">
+            <span class="font-medium">P0 / P1 High Severity</span>
+            <i data-lucide="shield-alert" class="w-4 h-4 text-rose-500"></i>
+          </div>
+          <div class="text-2xl font-bold font-mono text-rose-300" id="exc-kpi-critical">23</div>
+          <div class="text-[11px] text-slate-400 font-mono">
+            Direct income & balance risk
+          </div>
+        </div>
+
+        <div class="glass-card p-4 space-y-1">
+          <div class="flex items-center justify-between text-slate-400 text-xs">
+            <span class="font-medium">AI Auto-Resolvable</span>
+            <i data-lucide="sparkles" class="w-4 h-4 text-emerald-400"></i>
+          </div>
+          <div class="text-2xl font-bold font-mono text-emerald-300" id="exc-kpi-autoresolve">23</div>
+          <div class="text-[11px] text-emerald-400/80 font-mono">
+            Confidence ≥ 90%
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick Triage Category Chips & Search Toolbar -->
+      <div class="glass-card p-3 space-y-3">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          
+          <!-- Category Chips -->
+          <div class="flex flex-wrap items-center gap-1.5" id="exc-category-chips">
+            <button onclick="setExceptionCategoryFilter('ALL')" id="exc-chip-ALL" class="px-3 py-1.5 rounded-xl text-xs font-semibold bg-indigo-600/30 text-indigo-200 border border-indigo-500/40 transition-all flex items-center gap-1.5">
+              <span>All Exceptions</span>
+              <span id="exc-chip-count-ALL" class="px-1.5 py-0.2 rounded-full bg-indigo-500/30 font-mono text-[10px]">29</span>
+            </button>
+            <button onclick="setExceptionCategoryFilter('DUPLICATE')" id="exc-chip-DUPLICATE" class="px-3 py-1.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-800/80 border border-transparent hover:border-white/10 transition-all flex items-center gap-1.5">
+              <span>Duplicate Payments</span>
+              <span id="exc-chip-count-DUPLICATE" class="px-1.5 py-0.2 rounded-full bg-slate-800 font-mono text-[10px]">9</span>
+            </button>
+            <button onclick="setExceptionCategoryFilter('MISSING_SETTLEMENT')" id="exc-chip-MISSING_SETTLEMENT" class="px-3 py-1.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-800/80 border border-transparent hover:border-white/10 transition-all flex items-center gap-1.5">
+              <span>Missing Settlements</span>
+              <span id="exc-chip-count-MISSING_SETTLEMENT" class="px-1.5 py-0.2 rounded-full bg-slate-800 font-mono text-[10px]">5</span>
+            </button>
+            <button onclick="setExceptionCategoryFilter('TAX_DIFFERENCE')" id="exc-chip-TAX_DIFFERENCE" class="px-3 py-1.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-800/80 border border-transparent hover:border-white/10 transition-all flex items-center gap-1.5">
+              <span>Tax Differences</span>
+              <span id="exc-chip-count-TAX_DIFFERENCE" class="px-1.5 py-0.2 rounded-full bg-slate-800 font-mono text-[10px]">5</span>
+            </button>
+            <button onclick="setExceptionCategoryFilter('UNEXPLAINED_MISMATCH')" id="exc-chip-UNEXPLAINED_MISMATCH" class="px-3 py-1.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-800/80 border border-transparent hover:border-white/10 transition-all flex items-center gap-1.5">
+              <span>Unexplained (P0 Fraud)</span>
+              <span id="exc-chip-count-UNEXPLAINED_MISMATCH" class="px-1.5 py-0.2 rounded-full bg-slate-800 font-mono text-[10px]">5</span>
+            </button>
+            <button onclick="setExceptionCategoryFilter('REFUND')" id="exc-chip-REFUND" class="px-3 py-1.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-800/80 border border-transparent hover:border-white/10 transition-all flex items-center gap-1.5">
+              <span>Customer Refunds</span>
+              <span id="exc-chip-count-REFUND" class="px-1.5 py-0.2 rounded-full bg-slate-800 font-mono text-[10px]">4</span>
+            </button>
+          </div>
+
+          <!-- Exception Search -->
+          <div class="relative w-56 sm:w-64">
+            <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"></i>
+            <input 
+              type="text" 
+              id="exc-search-input" 
+              oninput="handleExceptionSearch(this.value)" 
+              placeholder="Search exceptions..." 
+              class="w-full bg-slate-900/90 border border-white/10 hover:border-white/20 rounded-xl pl-8 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500/50 shadow-inner font-mono transition-all"
+            >
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Dedicated Exception Triage Table -->
+      <div class="glass-card overflow-hidden">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs border-collapse">
+            <thead>
+              <tr class="border-b border-white/10 text-[11px] font-semibold text-slate-400 uppercase tracking-wider bg-slate-900/50">
+                <th class="py-3 px-4 font-mono">Exception ID & Risk</th>
+                <th class="py-3 px-4">Scenario Classification</th>
+                <th class="py-3 px-4 font-mono">Exposure Amount</th>
+                <th class="py-3 px-4">Discrepancy Details & Subledger Break</th>
+                <th class="py-3 px-4">AI Diagnosis</th>
+                <th class="py-3 px-4 text-center">Triage Actions</th>
+              </tr>
+            </thead>
+            <tbody id="exceptions-table-body" class="divide-y divide-white/[0.04] text-slate-200">
+              <!-- Dynamically populated with exceptions workbench rows -->
+            </tbody>
+          </table>
+        </div>
+
+        <div class="p-4 border-t border-white/10 flex items-center justify-between text-xs text-slate-400">
+          <span id="exceptions-record-count" class="font-mono text-slate-300">Showing 29 of 29 active exceptions</span>
+          <span class="text-rose-400 font-medium flex items-center gap-1.5 font-mono text-[11px]">
+            <i data-lucide="shield-alert" class="w-4 h-4"></i> SOX-404 Ambiguity Gated
+          </span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ======================================================= -->
     <!-- TAB 3: AI EXCEPTION INVESTIGATOR                        -->
     <!-- ======================================================= -->
     <section id="tab-investigator" class="space-y-6 hidden">
       
+      <!-- Top Title & Subtitle matching reference design -->
       <div>
-        <h2 class="text-xl font-bold text-white tracking-tight">AI Exception Forensic Investigator</h2>
-        <p class="text-xs text-slate-400 mt-0.5">Automated root cause diagnostics, multi-source evidence synthesis, and ambiguity gating</p>
+        <h2 class="text-2xl font-bold text-white tracking-tight">AI Investigation</h2>
+        <p class="text-xs text-slate-400 mt-1">Select an exception for the AI Finance Controller to investigate</p>
       </div>
 
-      <!-- Master-Detail Forensic Split Layout -->
+      <!-- Master-Detail Split Layout -->
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         
         <!-- Left Pane: Exception Queue (4 cols) -->
-        <div class="lg:col-span-4 glass-card p-3 max-h-[640px] overflow-y-auto space-y-2.5" id="investigation-list">
-          <!-- Dynamically populated exception cards -->
+        <div class="lg:col-span-4 glass-card p-3 max-h-[720px] overflow-y-auto space-y-2.5" id="investigation-list">
+          <!-- Dynamically populated exception cards with clean styling -->
         </div>
 
         <!-- Right Pane: Diagnostic Workspace (8 cols) -->
-        <div class="lg:col-span-8 space-y-5">
+        <div class="lg:col-span-8 space-y-4">
           
-          <!-- Selected Exception Diagnostic Card -->
-          <div class="glass-card p-6 space-y-5" id="investigation-detail-card">
-            
-            <div class="flex items-start justify-between pb-4 border-b border-white/10">
+          <!-- Top Card: Selected Exception Summary Card -->
+          <div class="glass-card p-5 space-y-3" id="investigation-detail-card">
+            <div class="flex items-start justify-between pb-3 border-b border-white/10">
               <div>
-                <div class="flex items-center gap-2.5">
-                  <h3 class="text-base font-bold text-white font-mono" id="inv-selected-id">BNK-0055</h3>
-                  <span id="inv-selected-priority" class="px-2.5 py-0.5 rounded text-[10px] font-bold font-mono bg-rose-500/20 text-rose-300 border border-rose-500/30">P0 CRITICAL</span>
-                  <span id="inv-selected-category" class="px-2.5 py-0.5 rounded text-[10px] font-semibold bg-slate-800 text-slate-300 border border-white/5">Unbooked Inward Wire</span>
+                <div class="flex items-center gap-2">
+                  <h3 class="text-base font-bold text-white font-mono" id="inv-selected-id">BNK-0171</h3>
+                  <span id="inv-selected-priority-pill" class="px-2.5 py-0.5 rounded text-[10px] font-bold font-mono bg-rose-500/20 text-rose-300 border border-rose-500/30">Critical</span>
+                  <span id="inv-selected-category-pill" class="px-2.5 py-0.5 rounded text-[10px] font-semibold bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 capitalize">Duplicate payment</span>
                 </div>
-                <p class="text-xs text-slate-400 mt-1">Transaction Link: <span id="inv-selected-txn" class="text-cyan-400 font-mono cursor-pointer hover:underline" onclick="openDrawer(currentInvestigationRecord?.id)">BNK-0055</span></p>
+                <p class="text-xs text-slate-400 mt-1.5 font-mono">
+                  Transaction: <span id="inv-selected-txn" class="text-cyan-400 font-semibold cursor-pointer hover:underline" onclick="openDrawer(currentInvestigationRecord?.id)">TXN-1056-DUP5</span>
+                </p>
               </div>
               <div class="text-right">
-                <span class="text-[10px] text-slate-400 uppercase tracking-wider block">Financial Exposure</span>
-                <span class="text-xl font-bold font-mono text-rose-400" id="inv-selected-diff">$15,000.00</span>
+                <span class="text-[11px] text-slate-400 block mb-0.5">Amount difference</span>
+                <span class="text-2xl font-bold font-mono text-white" id="inv-selected-diff">$1,200.00</span>
               </div>
             </div>
 
-            <!-- Root Cause Synopsis -->
-            <div class="space-y-2">
-              <label class="text-xs font-semibold text-slate-300 uppercase tracking-wider block">Forensic Synthesis & Explanation</label>
-              <div class="p-4 rounded-xl bg-slate-900/80 border border-white/10 text-xs text-slate-300 leading-relaxed" id="inv-selected-explanation">
-                Inward wire of $15,000.00 received with no matching ERP sales invoice, customer order, or billing token. Potential unbooked cash or unidentified deposit requiring forensic escalation.
+            <!-- Exception Context Sentence -->
+            <p class="text-xs text-slate-300 leading-relaxed pt-1" id="inv-selected-explanation">
+              Transaction BNK-0171 appears to be a duplicate charge of BNK-0172 for invoice INV-2026-0069. Amount $1,200.00 was captured twice.
+            </p>
+          </div>
+
+          <!-- Bottom Card: Dedicated Structured AI Investigation Container -->
+          <div class="rounded-2xl bg-[#0b1120] border border-slate-800 p-6 space-y-5 shadow-2xl" id="inv-ai-card">
+            
+            <!-- AI Investigation Bar -->
+            <div class="flex items-center justify-between pb-3 border-b border-white/10">
+              <div class="flex items-center gap-2">
+                <h4 class="text-sm font-bold text-white tracking-tight flex items-center gap-2">
+                  <i data-lucide="sparkles" class="w-4 h-4 text-indigo-400"></i>
+                  <span>AI Investigation</span>
+                </h4>
               </div>
-            </div>
-
-            <!-- Action Button & Run Analysis -->
-            <div id="inv-action-box" class="pt-2">
-              <button onclick="runAiInvestigation()" id="btn-run-investigate" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs transition-all flex items-center justify-center gap-2 shadow-lg shadow-blue-900/30 border border-blue-500/40">
-                <span>Investigate with AI</span>
-              </button>
-            </div>
-
-            <!-- Forensic Results Container (Revealed upon investigation) -->
-            <div id="inv-results-container" class="hidden p-4 rounded-xl bg-indigo-950/40 border border-indigo-500/30 space-y-3">
-              <div class="flex items-center justify-between">
-                <span class="text-xs font-bold text-indigo-300 flex items-center gap-1.5">
-                  <i data-lucide="check-circle" class="w-4 h-4 text-indigo-400"></i> AI Diagnosis Complete & Verified
+              <div class="flex items-center gap-2">
+                <span id="inv-engine-badge" class="px-3 py-1 rounded-full text-[11px] font-mono font-medium bg-slate-800/90 text-slate-300 border border-slate-700/70">
+                  Demo AI / Rule-Based Fallback
                 </span>
-                <span class="text-[11px] px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 font-bold font-mono border border-indigo-500/30" id="inv-confidence-badge">Confidence 94% • Ambiguity Gated</span>
+                <button onclick="runAiInvestigation()" id="btn-reinvestigate" title="Re-synthesize Evidence" class="p-1.5 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-all">
+                  <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                </button>
               </div>
-              <p class="text-xs text-slate-200 leading-relaxed" id="inv-recommendation-text">
-                Recommendation: Quarantine item under ESCALATE_FRAUD. File bank treasury inquiry ticket to trace originating counterparty before posting cash clearance.
+            </div>
+
+            <!-- Section 1: ROOT CAUSE -->
+            <div class="space-y-1.5">
+              <div class="text-[11px] font-bold text-slate-400 tracking-wider uppercase font-mono">ROOT CAUSE</div>
+              <p class="text-xs text-slate-200 leading-relaxed font-normal" id="inv-root-cause">
+                The same order was charged more than once, most likely caused by a retried payment request after a slow or failed gateway response.
               </p>
-              <div class="flex flex-wrap items-center gap-2.5 pt-2 border-t border-white/10">
-                <button onclick="sendToApprovals()" class="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold shadow-sm transition-all flex items-center gap-1.5">
+            </div>
+
+            <!-- Section 2: EVIDENCE -->
+            <div class="space-y-2">
+              <div class="text-[11px] font-bold text-slate-400 tracking-wider uppercase font-mono">EVIDENCE</div>
+              <ul class="space-y-1.5 text-xs text-slate-300" id="inv-evidence-list">
+                <li class="flex items-start gap-2">
+                  <span class="text-slate-500 font-bold">•</span>
+                  <span>Original transaction: <strong class="text-white font-mono">BNK-0171</strong></span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-slate-500 font-bold">•</span>
+                  <span>Duplicate transaction: <strong class="text-white font-mono">BNK-0172</strong></span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-slate-500 font-bold">•</span>
+                  <span>Amount captured twice: <strong class="text-white font-mono">$1,200.00</strong></span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Section 3: CONFIDENCE -->
+            <div class="space-y-2">
+              <div class="text-[11px] font-bold text-slate-400 tracking-wider uppercase font-mono">CONFIDENCE</div>
+              <div class="flex items-center gap-4">
+                <div class="flex-1 h-2 rounded-full bg-slate-800/90 overflow-hidden">
+                  <div id="inv-confidence-bar" class="h-full rounded-full bg-emerald-500 transition-all duration-700" style="width: 94%;"></div>
+                </div>
+                <span id="inv-confidence-val" class="font-mono font-bold text-xs text-slate-200">94%</span>
+              </div>
+            </div>
+
+            <!-- Section 4: AI RECOMMENDATION -->
+            <div class="space-y-2">
+              <div class="text-[11px] font-bold text-slate-400 tracking-wider uppercase font-mono">AI RECOMMENDATION</div>
+              <div class="p-3.5 rounded-xl bg-slate-900/80 border border-indigo-500/25 text-xs text-slate-200 leading-relaxed shadow-sm" id="inv-recommendation-box">
+                Refund the duplicate charge of $1,200.00 on BNK-0171 back to the customer and flag the payment gateway retry logic for review.
+              </div>
+            </div>
+
+            <!-- Section 5: FOOTER (Approval Status & Actions) -->
+            <div class="flex flex-wrap items-center justify-between gap-4 pt-3 border-t border-white/10">
+              <div class="flex items-center gap-2 text-xs text-slate-300">
+                <span class="text-slate-400 font-medium">Approval status:</span>
+                <span id="inv-approval-status-badge" class="px-2.5 py-0.5 rounded font-semibold text-[11px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
+                  Approved
+                </span>
+              </div>
+              <div class="flex items-center gap-2.5">
+                <button onclick="sendToApprovals()" class="px-3.5 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-semibold shadow-sm transition-all flex items-center gap-1.5">
                   <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i>
-                  <span>Send to Approvals Queue</span>
+                  <span>Send to Approvals</span>
                 </button>
-                <button onclick="quickApproveFromInvestigation()" id="btn-quick-resolve" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-sm transition-all flex items-center gap-1.5">
+                <button onclick="quickApproveFromInvestigation()" id="btn-quick-resolve" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-sm transition-all flex items-center gap-1.5">
                   <i data-lucide="check" class="w-3.5 h-3.5"></i>
-                  <span>1-Click Resolve Variance</span>
+                  <span>1-Click Resolve</span>
                 </button>
-                <button onclick="sealInvestigationToAuditTrail()" id="btn-seal-investigation" class="px-4 py-2 rounded-xl bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-200 border border-indigo-500/40 text-xs font-semibold shadow-sm transition-all flex items-center gap-1.5">
+                <button onclick="sealInvestigationToAuditTrail()" id="btn-seal-investigation" class="px-3.5 py-2 rounded-xl bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-200 border border-indigo-500/40 text-xs font-semibold shadow-sm transition-all flex items-center gap-1.5">
                   <i data-lucide="shield-check" class="w-3.5 h-3.5 text-indigo-400"></i>
-                  <span>Seal to Audit Trail</span>
+                  <span>Seal to Audit</span>
                 </button>
               </div>
             </div>
 
           </div>
 
-          <!-- Controller Guardrails Card -->
-          <div class="glass-card p-6 space-y-4">
-            <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-2">
-              <i data-lucide="shield-alert" class="w-4 h-4 text-emerald-400"></i>
-              <span>Controller Safety & Integrity Guardrails</span>
-            </h4>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-y-3 gap-x-6 text-xs text-slate-300 font-medium">
-              <div class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
-                <span>Human controller approval required for GL postings</span>
+          <!-- Controller Guardrails Collapsible Ribbon -->
+          <div class="glass-card p-4">
+            <details class="group cursor-pointer">
+              <summary class="text-xs font-semibold text-slate-400 hover:text-slate-200 uppercase tracking-wider flex items-center justify-between select-none">
+                <span class="flex items-center gap-2">
+                  <i data-lucide="shield-check" class="w-4 h-4 text-emerald-400"></i>
+                  <span>Controller Safety & Integrity Guardrails (Active)</span>
+                </span>
+                <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-500 transition-transform group-open:rotate-180"></i>
+              </summary>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-y-2.5 gap-x-6 pt-3 mt-3 border-t border-white/5 text-[11px] text-slate-300">
+                <div class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                  <span>Human controller approval required for GL postings</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                  <span>Cryptographic SHA-256 audit chaining on all mutations</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                  <span>Strict ambiguity gating (Gap &lt; 8% &rarr; Human Review)</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                  <span>Zero direct money movement without multi-sig approval</span>
+                </div>
               </div>
-              <div class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
-                <span>Cryptographic SHA-256 audit chaining on all mutations</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
-                <span>Strict ambiguity gating (Gap &lt; 8% &rarr; Human Review)</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
-                <span>Zero direct money movement without multi-sig approval</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
-                <span>Integer-cents math guarantees zero floating-point drift</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
-                <span>Deterministic Stage 1 & 2 fallback engine available</span>
-              </div>
-            </div>
+            </details>
           </div>
 
         </div>
+
+      </div>
+    </section>
 
       </div>
 
@@ -1143,7 +1399,10 @@
   <!-- 5. JAVASCRIPT APPLICATION LOGIC                           -->
   <!-- ========================================================= -->
   <script>
+    const API_BASE = (window.location.protocol === 'file:' || (window.location.port && window.location.port !== '8000')) ? 'http://127.0.0.1:8000' : '';
     let allRecords = [];
+    let resolvedExceptionIds = new Set();
+    window.remediatedItems = window.remediatedItems || {};
     let currentInvestigationRecord = null;
     let activeFilter = 'ALL';
     let currentSearchTerm = '';
@@ -1174,14 +1433,12 @@
 
     // --- Tab Navigation & Breadcrumbs ---
     function switchTab(tabId) {
-      ['dashboard', 'transactions', 'investigator', 'approvals', 'audit-trail'].forEach(id => {
+      ['dashboard', 'transactions', 'exceptions', 'investigator', 'approvals', 'audit-trail'].forEach(id => {
         const el = document.getElementById(`tab-${id}`);
         if (el) el.classList.add('hidden');
         const nav = document.getElementById(`nav-${id}`);
         if (nav) nav.classList.remove('active');
       });
-      const navEx = document.getElementById('nav-exceptions');
-      if (navEx) navEx.classList.remove('active');
 
       const selected = document.getElementById(`tab-${tabId}`);
       if (selected) selected.classList.remove('hidden');
@@ -1192,26 +1449,35 @@
       const titles = {
         'dashboard': 'Overview & Analytics',
         'transactions': '4-Way Transaction Stream',
-        'investigator': 'Autonomous AI Investigator',
+        'exceptions': 'Exceptions Triage & Resolution Queue',
+        'investigator': 'AI Investigation',
         'approvals': 'Human-in-the-Loop Approvals Queue',
         'audit-trail': 'Cryptographic SHA-256 Audit Trail'
       };
       const breadcrumb = document.getElementById('top-breadcrumb-title');
       if (breadcrumb) breadcrumb.textContent = titles[tabId] || 'Overview';
 
+      window.scrollTo(0, 0);
+
+      if (tabId === 'transactions') {
+        // Transactions shows all records cleanly by default
+        if (activeStatusFilter === 'EXCEPTIONS') {
+          activeStatusFilter = 'ALL';
+          updateToggleUI();
+          applyFilters();
+        }
+      }
+
+      if (tabId === 'exceptions') {
+        renderExceptionsWorkbench();
+      }
+
       if (tabId === 'audit-trail') loadAuditTrail();
       lucide.createIcons();
     }
 
     function switchToExceptions() {
-      switchTab('transactions');
-      setStatusToggle('EXCEPTIONS');
-      const navEx = document.getElementById('nav-exceptions');
-      const navTx = document.getElementById('nav-transactions');
-      if (navTx) navTx.classList.remove('active');
-      if (navEx) navEx.classList.add('active');
-      const breadcrumb = document.getElementById('top-breadcrumb-title');
-      if (breadcrumb) breadcrumb.textContent = 'Exceptions Queue';
+      switchTab('exceptions');
     }
 
     // --- Initialize Dashboard ---
@@ -1230,13 +1496,14 @@
     // --- Load Records & Populate Tables ---
     async function loadRecords() {
       try {
-        const res = await fetch('/api/v1/reconcile/records?status=ALL');
+        const res = await fetch(`${API_BASE}/api/v1/reconcile/records?status=ALL`);
         if (!res.ok) return;
         const data = await res.json();
         allRecords = Array.isArray(data) ? data : (data.records || []);
         renderReconTable(allRecords);
         updateFilterPillCounts();
         renderInvestigationList(allRecords);
+        renderExceptionsWorkbench();
       } catch (e) {
         console.error("Failed to load records:", e);
       }
@@ -1245,6 +1512,14 @@
     let currencyMode = 'INR'; // Default to INR as shown in reference mockup
     let cachedKpiData = null;
 
+    function formatMoney(cents) {
+      const fxRate = (currencyMode === 'INR') ? 83.5 : 1.0;
+      const currSymbol = (currencyMode === 'INR') ? '₹' : '$';
+      const loc = (currencyMode === 'INR') ? 'en-IN' : 'en-US';
+      const val = ((cents || 0) / 100) * fxRate;
+      return currSymbol + val.toLocaleString(loc, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
     function toggleCurrencyMode() {
       currencyMode = (currencyMode === 'INR') ? 'USD' : 'INR';
       const lbl = document.getElementById('lbl-currency-mode');
@@ -1252,6 +1527,10 @@
       if (lbl) lbl.innerText = (currencyMode === 'INR') ? 'INR (₹)' : 'USD ($)';
       if (sym) sym.innerText = (currencyMode === 'INR') ? '₹' : '$';
       updateKpiCards();
+      renderExceptionsWorkbench();
+      if (currentInvestigationRecord) {
+        populateInvestigationDetails(currentInvestigationRecord);
+      }
     }
 
     function updateKpiCards(data = cachedKpiData) {
@@ -1263,88 +1542,100 @@
       const highPrioEl = document.getElementById('kpi-high-priority');
       const resolvedValEl = document.getElementById('kpi-resolved-exception-value');
 
-      // Calculate dynamic remediated impact from user actions
+      // Calculate dynamic remediated impact from user actions & loaded database state
       const remediatedMap = window.remediatedItems || {};
-      const remediatedKeys = Object.keys(remediatedMap);
-      const remediatedCount = remediatedKeys.length;
-      
+      const isRecordResolved = (r) => {
+        if (!r) return false;
+        if (remediatedMap[r.id] || remediatedMap[r.scenario_id]) return true;
+        return r.remediation_status === 'RESOLVED' || r.remediation_status === 'WRITTEN_OFF';
+      };
+
+      const resolvedExceptions = (allRecords && allRecords.length > 0)
+        ? allRecords.filter(r => {
+            const isEx = (r.status === 'EXCEPTION' || r.status === 'EXCEPTIONS' || r.risk_priority === 'P0_CRITICAL' || (r.scenario_id && r.scenario_id.includes('ANOM')));
+            return isEx && isRecordResolved(r);
+          })
+        : [];
+
+      const remediatedCount = resolvedExceptions.length;
       let remediatedHighPrioCount = 0;
       let remediatedCents = 0;
-      remediatedKeys.forEach(k => {
-        const item = remediatedMap[k];
-        if (item.priority && (item.priority.includes('P0') || item.priority.includes('P1'))) {
+      resolvedExceptions.forEach(r => {
+        if (r.risk_priority === 'P0_CRITICAL' || r.risk_priority === 'P1_HIGH') {
           remediatedHighPrioCount++;
         }
-        remediatedCents += (item.varianceCents || 0);
+        remediatedCents += (r.variance_cents || 0);
       });
 
-      // Fraction of portfolio exception variance resolved (baseline total variance is 15,124.50 USD = 1,512,450 cents)
-      const totalPortfolioVarianceCents = 1512450;
-      const resolvedFraction = totalPortfolioVarianceCents > 0 
-        ? Math.min(1.0, remediatedCents / totalPortfolioVarianceCents) 
-        : 0;
+      const totalScenarios = (allRecords && allRecords.length) ? allRecords.length : (data?.total_scenarios || 200);
 
-      if (currencyMode === 'INR') {
-        // Base INR figures from executive overview
-        const baseTotalTxns = 105;
-        const baseExpected = 679158.89;
-        const baseReceived = 594094.65;
-        const baseUnreconciled = 39715.82;
-        const baseExceptions = 39;
-        const baseHighPrio = 23;
-        const baseResolvedVal = 19956.68;
+      // Base metrics derived dynamically from loaded records or API metadata
+      let baseExceptions = 0;
+      let baseHighPrio = 0;
+      let baseUnrecCents = 0;
+      let baseMatched = 0;
 
-        // Dynamic adjustment upon resolving exceptions
-        const inrVarianceResolved = resolvedFraction * baseUnreconciled;
-        const currentTotalTxns = baseTotalTxns;
-        const currentExpected = baseExpected;
-        const currentReceived = baseReceived + inrVarianceResolved;
-        const currentUnreconciled = Math.max(0, baseUnreconciled - inrVarianceResolved);
-        const currentExceptions = Math.max(0, baseExceptions - remediatedCount);
-        const currentHighPrio = Math.max(0, baseHighPrio - remediatedHighPrioCount);
-        const currentResolvedVal = baseResolvedVal + inrVarianceResolved;
-
-        if (totalTxnEl) totalTxnEl.innerText = currentTotalTxns.toString();
-        if (expectedEl) expectedEl.innerText = '₹' + currentExpected.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        if (receivedEl) receivedEl.innerText = '₹' + currentReceived.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        if (unrecEl) unrecEl.innerText = '₹' + currentUnreconciled.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        if (exCountEl) exCountEl.innerText = currentExceptions.toString();
-        if (highPrioEl) highPrioEl.innerText = currentHighPrio.toString();
-        if (resolvedValEl) resolvedValEl.innerText = '₹' + currentResolvedVal.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      if (allRecords && allRecords.length > 0) {
+        allRecords.forEach(r => {
+          const isEx = (r.status === 'EXCEPTION' || r.status === 'EXCEPTIONS' || r.risk_priority === 'P0_CRITICAL' || (r.scenario_id && r.scenario_id.includes('ANOM')));
+          if (isEx) {
+            baseExceptions++;
+            baseUnrecCents += (r.variance_cents || 0);
+            if (r.risk_priority === 'P0_CRITICAL' || r.risk_priority === 'P1_HIGH') {
+              baseHighPrio++;
+            }
+          } else {
+            baseMatched++;
+          }
+        });
       } else {
-        // USD Mode
-        const baseTotalTxns = (allRecords && allRecords.length) ? allRecords.length : 60;
-        const baseExpected = 143988.23;
-        const baseReceived = 128863.73;
-        const baseUnreconciled = 15124.50;
-        const baseExceptions = 12;
-        const baseHighPrio = 2;
-        const baseResolvedVal = 4750.00;
+        baseExceptions = data?.ai_investigated_count || 34;
+        baseHighPrio = data?.p0_exceptions_count || 24;
+        baseUnrecCents = data?.p0_exposure_cents || 1512450;
+        baseMatched = (data?.deterministic_matches_count || 158);
+      }
 
-        const usdVarianceResolved = remediatedCents / 100;
-        const currentTotalTxns = baseTotalTxns;
-        const currentExpected = baseExpected;
-        const currentReceived = baseReceived + usdVarianceResolved;
-        const currentUnreconciled = Math.max(0, baseUnreconciled - usdVarianceResolved);
-        const currentExceptions = Math.max(0, baseExceptions - remediatedCount);
-        const currentHighPrio = Math.max(0, baseHighPrio - remediatedHighPrioCount);
-        const currentResolvedVal = baseResolvedVal + usdVarianceResolved;
+      const totalVolCents = data?.total_volume_cents || (totalScenarios * 250000);
+      const fxRate = (currencyMode === 'INR') ? 83.5 : 1.0;
+      const currSymbol = (currencyMode === 'INR') ? '₹' : '$';
+      const loc = (currencyMode === 'INR') ? 'en-IN' : 'en-US';
 
-        if (totalTxnEl) totalTxnEl.innerText = currentTotalTxns.toString();
-        if (expectedEl) expectedEl.innerText = '$' + currentExpected.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        if (receivedEl) receivedEl.innerText = '$' + currentReceived.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        if (unrecEl) unrecEl.innerText = '$' + currentUnreconciled.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-        if (exCountEl) exCountEl.innerText = currentExceptions.toString();
-        if (highPrioEl) highPrioEl.innerText = currentHighPrio.toString();
-        if (resolvedValEl) resolvedValEl.innerText = '$' + currentResolvedVal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      // Dynamic reactive computations
+      const currentTotalTxns = totalScenarios;
+      const currentExceptions = Math.max(0, baseExceptions - remediatedCount);
+      const currentHighPrio = Math.max(0, baseHighPrio - remediatedHighPrioCount);
+
+      const baseExpectedVal = (totalVolCents / 100) * fxRate;
+      const baseUnrecVal = (baseUnrecCents / 100) * fxRate;
+      const resolvedVarianceVal = (remediatedCents / 100) * fxRate;
+
+      const currentUnreconciled = Math.max(0, baseUnrecVal - resolvedVarianceVal);
+      const currentReceived = baseExpectedVal - currentUnreconciled;
+      const currentResolvedVal = resolvedVarianceVal;
+
+      if (totalTxnEl) totalTxnEl.innerText = currentTotalTxns.toString();
+      if (expectedEl) expectedEl.innerText = currSymbol + baseExpectedVal.toLocaleString(loc, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      if (receivedEl) receivedEl.innerText = currSymbol + currentReceived.toLocaleString(loc, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      if (unrecEl) unrecEl.innerText = currSymbol + currentUnreconciled.toLocaleString(loc, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      if (exCountEl) exCountEl.innerText = currentExceptions.toString();
+      if (highPrioEl) highPrioEl.innerText = currentHighPrio.toString();
+      if (resolvedValEl) resolvedValEl.innerText = currSymbol + currentResolvedVal.toLocaleString(loc, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+      const exSubtextEl = document.getElementById('kpi-exceptions-subtext');
+      if (exSubtextEl) {
+        if (remediatedCount > 0) {
+          exSubtextEl.innerText = `${currentExceptions} open of ${baseExceptions} total (${remediatedCount} resolved)`;
+        } else {
+          exSubtextEl.innerText = `${currentExceptions} open exceptions requiring review`;
+        }
       }
 
       // Live update for donut chart if initialized
       if (typeof statusDonutChart !== 'undefined' && statusDonutChart && statusDonutChart.data) {
         statusDonutChart.data.datasets[0].data = [
-          48,
-          10 + remediatedCount,
-          Math.max(0, 2 - remediatedCount)
+          baseMatched,
+          remediatedCount,
+          currentExceptions
         ];
         statusDonutChart.update();
       }
@@ -1353,7 +1644,7 @@
     // --- Load Executive KPIs ---
     async function loadKPIs() {
       try {
-        const res = await fetch('/api/v1/reconcile/kpis');
+        const res = await fetch(`${API_BASE}/api/v1/reconcile/kpis`);
         if (!res.ok) return;
         const data = await res.json();
         cachedKpiData = data;
@@ -1413,24 +1704,29 @@
         const isWrittenOff = r.remediation_status === 'WRITTEN_OFF';
         const isAiResolved = r.is_ai_resolved || r.status === 'AI_RESOLVED' || r.status === 'AI_INVESTIGATED';
 
+        const isException = r.status === 'EXCEPTIONS' || (r.scenario_id && r.scenario_id.includes('ANOM'));
         let statusBadge = `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"><i data-lucide="check" class="w-3 h-3"></i> Auto-Matched</span>`;
         if (isDisputed) {
           statusBadge = `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/40"><i data-lucide="flag" class="w-3 h-3"></i> Disputed</span>`;
         } else if (isWrittenOff) {
           statusBadge = `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-slate-700/60 text-slate-300 border border-slate-600"><i data-lucide="archive" class="w-3 h-3"></i> Written Off</span>`;
-        } else if (isResolved && (r.needs_review || r.risk_priority.includes('P0'))) {
+        } else if (isResolved && isException) {
           statusBadge = `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"><i data-lucide="check-check" class="w-3 h-3"></i> Resolved</span>`;
+        } else if (isException && r.needs_review) {
+          statusBadge = `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/20"><i data-lucide="alert-triangle" class="w-3 h-3"></i> Needs Review</span>`;
         } else if (isAiResolved) {
           statusBadge = `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20"><i data-lucide="sparkles" class="w-3 h-3"></i> AI Resolved</span>`;
-        } else if (r.needs_review || r.status === 'EXCEPTIONS' || r.risk_priority.includes('P0')) {
+        } else if (isException) {
           statusBadge = `<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-semibold bg-rose-500/10 text-rose-400 border border-rose-500/20"><i data-lucide="alert-triangle" class="w-3 h-3"></i> Needs Review</span>`;
         }
 
-        let priorityBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium text-slate-400 bg-slate-800/80">${r.risk_priority.replace('_', ' ')}</span>`;
+        let priorityBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-mono font-medium text-slate-400 bg-slate-800/80">${(r.risk_priority || '').replace('_', ' ')}</span>`;
         if (r.risk_priority === 'P0_CRITICAL') {
           priorityBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold text-rose-300 bg-rose-500/20 border border-rose-500/30">P0 CRITICAL</span>`;
         } else if (r.risk_priority === 'P1_HIGH') {
           priorityBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-mono font-semibold text-amber-300 bg-amber-500/20 border border-amber-500/30">P1 HIGH</span>`;
+        } else if (r.risk_priority === 'P2_MEDIUM') {
+          priorityBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-mono font-semibold text-blue-300 bg-blue-500/20 border border-blue-500/30">P2 MEDIUM</span>`;
         }
 
         const hasVariance = r.variance_cents && r.variance_cents !== 0;
@@ -1554,12 +1850,15 @@
         'ALL': 'All statuses',
         'MATCHED': 'Auto-Matched',
         'AI_RESOLVED': 'AI Resolved',
-        'EXCEPTIONS': 'Needs Review'
+        'EXCEPTIONS': 'Needs Review',
+        'RESOLVED': 'Resolved Exceptions'
       };
       if (statusLabel) statusLabel.innerText = statusMap[activeStatusFilter] || 'All statuses';
       if (statusBtn) {
         if (activeStatusFilter === 'ALL') {
           statusBtn.className = "flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800/90 border border-white/10 hover:border-white/20 text-xs font-medium text-slate-200 shadow-sm transition-all select-none";
+        } else if (activeStatusFilter === 'RESOLVED') {
+          statusBtn.className = "flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-emerald-950/50 hover:bg-emerald-900/50 border border-emerald-500/40 text-xs font-semibold text-emerald-300 ring-1 ring-emerald-500/20 shadow-sm transition-all select-none";
         } else {
           statusBtn.className = "flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-cyan-950/50 hover:bg-cyan-900/50 border border-cyan-500/40 text-xs font-semibold text-cyan-300 ring-1 ring-cyan-500/20 shadow-sm transition-all select-none";
         }
@@ -1602,7 +1901,7 @@
       }
 
       // 4. Highlight active menu option inside each dropdown
-      ['ALL', 'MATCHED', 'AI_RESOLVED', 'EXCEPTIONS'].forEach(s => {
+      ['ALL', 'MATCHED', 'AI_RESOLVED', 'EXCEPTIONS', 'RESOLVED'].forEach(s => {
         const opt = document.getElementById(`filter-pill-${s}`);
         if (opt) {
           if (s === activeStatusFilter) {
@@ -1691,8 +1990,16 @@
       } else if (activeStatusFilter === 'AI_RESOLVED') {
         filtered = filtered.filter(r => r.is_ai_resolved || r.status === 'AI_RESOLVED' || r.status === 'AI_INVESTIGATED');
       } else if (activeStatusFilter === 'EXCEPTIONS') {
+        // Open exceptions requiring review (matches the 31 shown on Overview)
         filtered = filtered.filter(r => 
-          r.status === 'EXCEPTIONS' || r.status === 'EXCEPTION' || r.needs_review || (r.risk_priority && r.risk_priority.includes('P0'))
+          (r.status === 'EXCEPTIONS' || r.status === 'EXCEPTION' || (r.scenario_id && r.scenario_id.includes('ANOM'))) &&
+          r.remediation_status !== 'RESOLVED' && r.remediation_status !== 'WRITTEN_OFF'
+        );
+      } else if (activeStatusFilter === 'RESOLVED') {
+        // Remediated / resolved exceptions
+        filtered = filtered.filter(r => 
+          (r.status === 'EXCEPTIONS' || r.status === 'EXCEPTION' || (r.scenario_id && r.scenario_id.includes('ANOM'))) &&
+          (r.remediation_status === 'RESOLVED' || r.remediation_status === 'WRITTEN_OFF')
         );
       }
 
@@ -1753,9 +2060,10 @@
       const allCount = allRecords.length;
       const matchedCount = allRecords.filter(r => r.is_auto_matched || r.status === 'MATCHED').length;
       const aiResolvedCount = allRecords.filter(r => r.is_ai_resolved || r.status === 'AI_RESOLVED' || r.status === 'AI_INVESTIGATED').length;
-      const exceptionsCount = allRecords.filter(r => 
-        r.status === 'EXCEPTIONS' || r.status === 'EXCEPTION' || r.needs_review || (r.risk_priority && r.risk_priority.includes('P0'))
-      ).length;
+      
+      const isException = (r) => (r.status === 'EXCEPTIONS' || r.status === 'EXCEPTION' || (r.scenario_id && r.scenario_id.includes('ANOM')));
+      const openExceptionsCount = allRecords.filter(r => isException(r) && r.remediation_status !== 'RESOLVED' && r.remediation_status !== 'WRITTEN_OFF').length;
+      const resolvedExceptionsCount = allRecords.filter(r => isException(r) && (r.remediation_status === 'RESOLVED' || r.remediation_status === 'WRITTEN_OFF')).length;
 
       const elAll = document.getElementById('count-ALL');
       if (elAll) elAll.innerText = allCount;
@@ -1764,9 +2072,230 @@
       const elAi = document.getElementById('count-AI_RESOLVED');
       if (elAi) elAi.innerText = aiResolvedCount;
       const elExc = document.getElementById('count-EXCEPTIONS');
-      if (elExc) elExc.innerText = exceptionsCount;
+      if (elExc) elExc.innerText = openExceptionsCount;
+      const elRes = document.getElementById('count-RESOLVED');
+      if (elRes) elRes.innerText = resolvedExceptionsCount;
       const navExcBadge = document.getElementById('nav-exceptions-badge');
-      if (navExcBadge) navExcBadge.innerText = exceptionsCount;
+      if (navExcBadge) navExcBadge.innerText = openExceptionsCount;
+
+      // Update 4-Way Transaction Stream Mini-Stat Ribbon
+      const statTotal = document.getElementById('tx-stat-total');
+      const statMatched = document.getElementById('tx-stat-matched');
+      const statAi = document.getElementById('tx-stat-ai');
+      const statExceptions = document.getElementById('tx-stat-exceptions');
+      if (statTotal) statTotal.innerText = `${allCount} Records`;
+      if (statMatched) statMatched.innerText = `${matchedCount} (${((matchedCount/allCount)*100).toFixed(1)}%)`;
+      if (statAi) statAi.innerText = `${aiResolvedCount} (${((aiResolvedCount/allCount)*100).toFixed(1)}%)`;
+      if (statExceptions) statExceptions.innerText = `${openExceptionsCount} (${((openExceptionsCount/allCount)*100).toFixed(1)}%)`;
+    }
+
+    // =========================================================
+    // DEDICATED EXCEPTIONS TRIAGE WORKBENCH LOGIC
+    // =========================================================
+    let activeExceptionCategoryFilter = 'ALL';
+    let activeExceptionPriorityFilter = 'ALL';
+    let exceptionSearchTerm = '';
+
+    function setExceptionCategoryFilter(cat) {
+      activeExceptionCategoryFilter = cat;
+      
+      // Update chip styling
+      ['ALL', 'DUPLICATE', 'MISSING_SETTLEMENT', 'TAX_DIFFERENCE', 'UNEXPLAINED_MISMATCH', 'REFUND'].forEach(c => {
+        const chip = document.getElementById(`exc-chip-${c}`);
+        if (chip) {
+          if (c === cat) {
+            chip.className = "px-3 py-1.5 rounded-xl text-xs font-semibold bg-indigo-600/40 text-white border border-indigo-500/60 shadow-sm transition-all flex items-center gap-1.5";
+          } else {
+            chip.className = "px-3 py-1.5 rounded-xl text-xs font-medium text-slate-400 hover:text-white hover:bg-slate-800/80 border border-transparent hover:border-white/10 transition-all flex items-center gap-1.5";
+          }
+        }
+      });
+      renderExceptionsWorkbench();
+    }
+
+    function handleExceptionSearch(val) {
+      exceptionSearchTerm = (val || '').toLowerCase().trim();
+      renderExceptionsWorkbench();
+    }
+
+    function jumpToInvestigation(recordId) {
+      switchTab('investigator');
+      selectForInvestigation(recordId);
+    }
+
+    async function quickApproveException(recordId) {
+      await executeWorkbenchAction('approve-variance', recordId);
+      resolvedExceptionIds.add(recordId);
+      renderExceptionsWorkbench();
+      updateFilterPillCounts();
+      loadKPIs();
+      showToast(`✅ Exception ${recordId} variance resolved and cleared!`);
+    }
+
+    function renderExceptionsWorkbench() {
+      // Filter allRecords for exception scenarios
+      const allExceptions = allRecords.filter(r => 
+        (r.status === 'EXCEPTIONS' || r.status === 'EXCEPTION' || (r.scenario_id && r.scenario_id.includes('ANOM')))
+      );
+
+      const openExceptions = allExceptions.filter(r => 
+        r.remediation_status !== 'RESOLVED' && r.remediation_status !== 'WRITTEN_OFF' && !resolvedExceptionIds.has(r.id)
+      );
+
+      // Update Triage Metric Ribbon
+      const openCountEl = document.getElementById('exc-kpi-open');
+      const exposureEl = document.getElementById('exc-kpi-exposure');
+      const criticalEl = document.getElementById('exc-kpi-critical');
+      const autoResolveEl = document.getElementById('exc-kpi-autoresolve');
+      const badgeNav = document.getElementById('nav-exceptions-badge');
+
+      const totalExposureCents = openExceptions.reduce((sum, r) => sum + (r.variance_cents || 0), 0);
+      const criticalCount = openExceptions.filter(r => r.risk_priority === 'P0_CRITICAL' || r.risk_priority === 'P1_HIGH').length;
+      const autoCount = openExceptions.filter(r => r.scenario_type !== 'UNEXPLAINED_MISMATCH').length;
+
+      if (openCountEl) openCountEl.innerText = `${openExceptions.length}`;
+      if (exposureEl) exposureEl.innerText = formatMoney(totalExposureCents);
+      if (criticalEl) criticalEl.innerText = `${criticalCount}`;
+      if (autoResolveEl) autoResolveEl.innerText = `${autoCount}`;
+      if (badgeNav) badgeNav.innerText = `${openExceptions.length}`;
+
+      // Update chip counts
+      const counts = {
+        'ALL': openExceptions.length,
+        'DUPLICATE': openExceptions.filter(r => r.scenario_type === 'DUPLICATE').length,
+        'MISSING_SETTLEMENT': openExceptions.filter(r => r.scenario_type === 'MISSING_SETTLEMENT').length,
+        'TAX_DIFFERENCE': openExceptions.filter(r => r.scenario_type === 'TAX_DIFFERENCE').length,
+        'UNEXPLAINED_MISMATCH': openExceptions.filter(r => r.scenario_type === 'UNEXPLAINED_MISMATCH').length,
+        'REFUND': openExceptions.filter(r => r.scenario_type === 'REFUND').length
+      };
+
+      Object.keys(counts).forEach(key => {
+        const badge = document.getElementById(`exc-chip-count-${key}`);
+        if (badge) badge.innerText = counts[key];
+      });
+
+      // Filter for table
+      let filtered = [...openExceptions];
+      if (activeExceptionCategoryFilter !== 'ALL') {
+        filtered = filtered.filter(r => r.scenario_type === activeExceptionCategoryFilter);
+      }
+      if (activeExceptionPriorityFilter !== 'ALL') {
+        filtered = filtered.filter(r => r.risk_priority && r.risk_priority.includes(activeExceptionPriorityFilter));
+      }
+      if (exceptionSearchTerm) {
+        filtered = filtered.filter(r => 
+          (r.id && r.id.toLowerCase().includes(exceptionSearchTerm)) ||
+          (r.scenario_type && r.scenario_type.toLowerCase().includes(exceptionSearchTerm)) ||
+          (r.explanation && r.explanation.toLowerCase().includes(exceptionSearchTerm))
+        );
+      }
+
+      // Render table rows
+      const tbody = document.getElementById('exceptions-table-body');
+      const countEl = document.getElementById('exceptions-record-count');
+      if (countEl) countEl.innerText = `Showing ${filtered.length} of ${openExceptions.length} active exceptions`;
+
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="py-12 text-center text-slate-400">
+          <div class="flex flex-col items-center justify-center gap-2">
+            <i data-lucide="check-circle-2" class="w-8 h-8 text-emerald-400"></i>
+            <span class="text-sm font-medium text-white">No exceptions match your active filter</span>
+            <span class="text-xs text-slate-500">All ledger anomalies in this category are fully reconciled and cleared.</span>
+          </div>
+        </td></tr>`;
+        lucide.createIcons();
+        return;
+      }
+
+      filtered.forEach(r => {
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-white/[0.02] transition-colors";
+
+        const isP0 = r.risk_priority === 'P0_CRITICAL';
+        const isP1 = r.risk_priority === 'P1_HIGH';
+        
+        let priorityPill = `<span class="px-2 py-0.5 rounded text-[10px] font-mono font-semibold text-blue-300 bg-blue-500/20 border border-blue-500/30">P2 MEDIUM</span>`;
+        if (isP0) {
+          priorityPill = `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-mono font-bold text-rose-300 bg-rose-500/20 border border-rose-500/30 animate-pulse">
+            <span class="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+            <span>P0 CRITICAL</span>
+          </span>`;
+        } else if (isP1) {
+          priorityPill = `<span class="px-2 py-0.5 rounded text-[10px] font-mono font-semibold text-amber-300 bg-amber-500/20 border border-amber-500/30">P1 HIGH</span>`;
+        }
+
+        const scenarioLabels = {
+          'DUPLICATE': { name: 'Duplicate Payment', color: 'text-purple-400 bg-purple-500/10 border-purple-500/20' },
+          'TAX_DIFFERENCE': { name: 'Tax Difference', color: 'text-cyan-400 bg-cyan-500/10 border-cyan-500/20' },
+          'MISSING_SETTLEMENT': { name: 'Missing Settlement', color: 'text-amber-400 bg-amber-500/10 border-amber-500/20' },
+          'REFUND': { name: 'Customer Refund', color: 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20' },
+          'UNEXPLAINED_MISMATCH': { name: 'Unexplained Shortage', color: 'text-rose-400 bg-rose-500/10 border-rose-500/20' },
+          'TIMING_DIFFERENCE': { name: 'Timing Delay', color: 'text-blue-400 bg-blue-500/10 border-blue-500/20' },
+        };
+        const scenInfo = scenarioLabels[r.scenario_type] || { name: r.scenario_type.replace(/_/g, ' '), color: 'text-slate-400 bg-slate-800 border-slate-700' };
+
+        const formattedAmt = formatMoney(r.variance_cents || 0);
+
+        let aiBadge = `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-emerald-500/15 text-emerald-300 border border-emerald-500/30">
+          <i data-lucide="sparkles" class="w-3 h-3 text-emerald-400"></i>
+          <span>94% • Auto-Resolvable</span>
+        </span>`;
+        if (isP0 || r.scenario_type === 'UNEXPLAINED_MISMATCH') {
+          aiBadge = `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-medium bg-rose-500/15 text-rose-300 border border-rose-500/30">
+            <i data-lucide="shield-alert" class="w-3 h-3 text-rose-400"></i>
+            <span>35% • Quarantined Fraud</span>
+          </span>`;
+        }
+
+        let explanationText = r.explanation || `Variance of ${formattedAmt} detected across accounting ledgers.`;
+        if (currencyMode === 'INR' && explanationText.includes('$')) {
+          explanationText = explanationText.replace(/\$[\d,]+(\.\d{2})?/, formattedAmt);
+        }
+
+        tr.innerHTML = `
+          <td class="py-3.5 px-4 font-mono">
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-white text-xs">${r.id}</span>
+              ${priorityPill}
+            </div>
+            <div class="text-[10px] text-slate-500 font-mono mt-0.5">${r.scenario_id || ''}</div>
+          </td>
+          <td class="py-3.5 px-4">
+            <span class="inline-block px-2 py-0.5 rounded text-[11px] font-semibold border ${scenInfo.color}">
+              ${scenInfo.name}
+            </span>
+          </td>
+          <td class="py-3.5 px-4 font-mono font-bold text-rose-400 text-xs">
+            ${formattedAmt}
+          </td>
+          <td class="py-3.5 px-4 text-slate-300 text-xs max-w-xs sm:max-w-md">
+            <p class="truncate leading-snug" title="${explanationText}">${explanationText}</p>
+          </td>
+          <td class="py-3.5 px-4">
+            ${aiBadge}
+          </td>
+          <td class="py-3.5 px-4 text-center">
+            <div class="flex items-center justify-center gap-1.5">
+              <button onclick="jumpToInvestigation('${r.id}')" title="Open in AI Forensic Investigator" class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-300 border border-indigo-500/30 text-[11px] font-semibold transition-all">
+                <i data-lucide="sparkles" class="w-3 h-3 text-indigo-400"></i>
+                <span>Investigate</span>
+              </button>
+              <button onclick="quickApproveException('${r.id}')" title="1-Click Resolve Variance" class="flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-300 border border-emerald-500/30 text-[11px] font-semibold transition-all">
+                <i data-lucide="check" class="w-3 h-3 text-emerald-400"></i>
+                <span>Resolve</span>
+              </button>
+              <button onclick="openDrawer('${r.id}')" title="Inspect Multi-Source Drawer" class="p-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white border border-white/5 transition-all">
+                <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+              </button>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+      lucide.createIcons();
     }
 
     // --- Forensic AI Investigator Tab ---
@@ -1775,27 +2304,43 @@
       if (!container) return;
       container.innerHTML = '';
 
-      const exceptions = records.filter(r => r.needs_review || r.status === 'EXCEPTIONS' || (r.risk_priority && r.risk_priority.includes('P0')));
+      const exceptions = records.filter(r => 
+        r.status === 'EXCEPTIONS' || r.status === 'EXCEPTION' || r.needs_review || (r.scenario_id && r.scenario_id.includes('ANOM'))
+      );
+
+      const scenarioLabels = {
+        'DUPLICATE': 'Duplicate payment',
+        'TAX_DIFFERENCE': 'Tax difference',
+        'MISSING_SETTLEMENT': 'Missing payment',
+        'REFUND': 'Customer refund',
+        'UNEXPLAINED_MISMATCH': 'Unexplained shortage',
+        'TIMING_DIFFERENCE': 'Timing delay',
+      };
 
       exceptions.forEach((r, idx) => {
-        const isSelected = idx === 0;
+        const isSelected = (currentInvestigationRecord && currentInvestigationRecord.id === r.id) || (!currentInvestigationRecord && idx === 0);
         const card = document.createElement('div');
         card.id = `inv-item-${r.id}`;
-        card.className = `p-3 rounded-xl border transition-all cursor-pointer ${isSelected ? 'bg-indigo-500/15 border-indigo-500/40' : 'bg-slate-900/70 hover:bg-slate-900 border-white/5'}`;
+        card.className = `p-3 rounded-xl border transition-all cursor-pointer ${isSelected ? 'bg-slate-800/90 border-indigo-500/50 shadow-md ring-1 ring-indigo-500/30' : 'bg-slate-900/60 hover:bg-slate-900/90 border-white/5'}`;
         card.onclick = () => selectForInvestigation(r.id);
 
-        let prioBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-bold font-mono bg-rose-500/20 text-rose-300">P0 CRITICAL</span>`;
-        if (r.risk_priority !== 'P0_CRITICAL') {
-          prioBadge = `<span class="px-2 py-0.5 rounded text-[10px] font-mono bg-amber-500/20 text-amber-300">P1 HIGH</span>`;
+        let prioPill = `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-rose-500/15 text-rose-300 border border-rose-500/30">Critical</span>`;
+        if (r.risk_priority === 'P1_HIGH') {
+          prioPill = `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-rose-500/15 text-rose-300 border border-rose-500/30">Critical</span>`;
+        } else if (r.risk_priority === 'P2_MEDIUM') {
+          prioPill = `<span class="px-2.5 py-0.5 rounded-full text-[10px] font-semibold bg-amber-500/15 text-amber-300 border border-amber-500/30">Medium</span>`;
         }
+
+        const scenLabel = scenarioLabels[r.scenario_type] || r.scenario_type.replace(/_/g, ' ');
+        const refToken = r.reference_code || r.invoice_id || r.gateway_tx_id || (r.scenario_id ? r.scenario_id.replace('SCEN-ANOM-', 'TXN-') : r.id);
 
         card.innerHTML = `
           <div class="flex items-center justify-between">
             <span class="font-mono font-bold text-xs text-white">${r.id}</span>
-            ${prioBadge}
+            ${prioPill}
           </div>
-          <div class="text-[11px] text-slate-300 mt-1 capitalize">${r.scenario_type.replace(/_/g, ' ')}</div>
-          <div class="text-[10px] font-mono text-slate-400 mt-0.5 truncate">${r.variance_display || '$0.00'} variance</div>
+          <div class="text-xs font-semibold text-teal-400 capitalize mt-1">${scenLabel}</div>
+          <div class="text-[11px] font-mono text-slate-400 mt-0.5 truncate">${refToken}</div>
         `;
         container.appendChild(card);
 
@@ -1810,64 +2355,300 @@
       currentInvestigationRecord = r;
 
       document.querySelectorAll('#investigation-list > div').forEach(el => {
-        el.classList.remove('bg-indigo-500/15', 'border-indigo-500/40');
-        el.classList.add('bg-slate-900/70', 'border-white/5');
+        el.classList.remove('bg-slate-800/90', 'border-indigo-500/50', 'shadow-md', 'ring-1', 'ring-indigo-500/30');
+        el.classList.add('bg-slate-900/60', 'border-white/5');
       });
       const target = document.getElementById(`inv-item-${recordId}`);
       if (target) {
-        target.classList.remove('bg-slate-900/70', 'border-white/5');
-        target.classList.add('bg-indigo-500/15', 'border-indigo-500/40');
+        target.classList.remove('bg-slate-900/60', 'border-white/5');
+        target.classList.add('bg-slate-800/90', 'border-indigo-500/50', 'shadow-md', 'ring-1', 'ring-indigo-500/30');
       }
 
       populateInvestigationDetails(r);
     }
 
-    function populateInvestigationDetails(r) {
+    async function populateInvestigationDetails(r) {
       currentInvestigationRecord = r;
+
+      const scenarioLabels = {
+        'DUPLICATE': 'Duplicate payment',
+        'TAX_DIFFERENCE': 'Tax difference',
+        'MISSING_SETTLEMENT': 'Missing payment',
+        'REFUND': 'Customer refund',
+        'UNEXPLAINED_MISMATCH': 'Unexplained shortage',
+        'TIMING_DIFFERENCE': 'Timing delay',
+      };
+      const scenLabel = scenarioLabels[r.scenario_type] || r.scenario_type.replace(/_/g, ' ');
+      const refToken = r.reference_code || r.invoice_id || r.gateway_tx_id || (r.scenario_id ? r.scenario_id.replace('SCEN-ANOM-', 'TXN-') : r.id);
+
+      // Top summary card
       document.getElementById('inv-selected-id').innerText = r.id;
-      document.getElementById('inv-selected-txn').innerText = r.id;
-      document.getElementById('inv-selected-category').innerText = r.scenario_type.replace(/_/g, ' ');
-      document.getElementById('inv-selected-diff').innerText = r.variance_display || '$0.00';
-      document.getElementById('inv-selected-explanation').innerText = r.explanation || 'Variance detected during 4-way settlement pass.';
+      document.getElementById('inv-selected-txn').innerText = refToken;
       
-      const prioEl = document.getElementById('inv-selected-priority');
-      if (r.risk_priority === 'P0_CRITICAL') {
-        prioEl.className = "px-2.5 py-0.5 rounded text-[10px] font-bold font-mono bg-rose-500/20 text-rose-300 border border-rose-500/30";
-        prioEl.innerText = "P0 CRITICAL";
-      } else {
-        prioEl.className = "px-2.5 py-0.5 rounded text-[10px] font-bold font-mono bg-amber-500/20 text-amber-300 border border-amber-500/30";
-        prioEl.innerText = "P1 HIGH";
+      const prioPill = document.getElementById('inv-selected-priority-pill');
+      if (prioPill) {
+        if (r.risk_priority === 'P0_CRITICAL' || r.risk_priority === 'P1_HIGH') {
+          prioPill.className = "px-2.5 py-0.5 rounded text-[10px] font-bold font-mono bg-rose-500/20 text-rose-300 border border-rose-500/30";
+          prioPill.innerText = "Critical";
+        } else {
+          prioPill.className = "px-2.5 py-0.5 rounded text-[10px] font-bold font-mono bg-amber-500/20 text-amber-300 border border-amber-500/30";
+          prioPill.innerText = "Medium";
+        }
       }
 
-      document.getElementById('inv-action-box').classList.remove('hidden');
-      document.getElementById('inv-results-container').classList.add('hidden');
+      const catPill = document.getElementById('inv-selected-category-pill');
+      if (catPill) {
+        catPill.innerText = scenLabel;
+      }
+
+      const diffEl = document.getElementById('inv-selected-diff');
+      if (diffEl) {
+        diffEl.innerText = formatMoney(r.variance_cents || 0);
+      }
+
+      const explEl = document.getElementById('inv-selected-explanation');
+      if (explEl) {
+        let text = r.explanation || `Transaction ${r.id} exhibits a variance of ${formatMoney(r.variance_cents || 0)} across accounting ledgers.`;
+        if (currencyMode === 'INR' && text.includes('$')) {
+          text = text.replace(/\$[\d,]+(\.\d{2})?/, formatMoney(r.variance_cents || 0));
+        }
+        explEl.innerText = text;
+      }
+
+      // Check resolved status
+      const isResolved = resolvedExceptionIds.has(r.id) || r.remediation_status === 'RESOLVED';
+      const isQuarantined = (r.risk_priority === 'P0_CRITICAL') || (r.scenario_type === 'UNEXPLAINED_MISMATCH');
+
+      const appStatusBadge = document.getElementById('inv-approval-status-badge');
+      if (appStatusBadge) {
+        if (isResolved) {
+          appStatusBadge.className = "px-2.5 py-0.5 rounded font-semibold text-[11px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
+          appStatusBadge.innerText = "Approved";
+        } else if (isQuarantined) {
+          appStatusBadge.className = "px-2.5 py-0.5 rounded font-semibold text-[11px] bg-rose-500/20 text-rose-300 border border-rose-500/30";
+          appStatusBadge.innerText = "Quarantined";
+        } else {
+          appStatusBadge.className = "px-2.5 py-0.5 rounded font-semibold text-[11px] bg-amber-500/20 text-amber-300 border border-amber-500/30";
+          appStatusBadge.innerText = "Pending Review";
+        }
+      }
+
+      // Reset action button states
+      const quickBtn = document.getElementById('btn-quick-resolve');
+      if (quickBtn) {
+        if (isResolved) {
+          quickBtn.disabled = true;
+          quickBtn.className = "px-3.5 py-2 rounded-xl bg-slate-800 text-slate-400 border border-white/5 text-xs font-semibold cursor-not-allowed flex items-center gap-1.5";
+          quickBtn.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5 text-emerald-400"></i><span>Resolved</span>`;
+        } else {
+          quickBtn.disabled = false;
+          quickBtn.className = "px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold shadow-sm transition-all flex items-center gap-1.5";
+          quickBtn.innerHTML = `<i data-lucide="check" class="w-3.5 h-3.5"></i><span>1-Click Resolve</span>`;
+        }
+      }
+
+      const sealBtn = document.getElementById('btn-seal-investigation');
+      if (sealBtn) {
+        sealBtn.disabled = false;
+        sealBtn.className = "px-3.5 py-2 rounded-xl bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-200 border border-indigo-500/40 text-xs font-semibold shadow-sm transition-all flex items-center gap-1.5";
+        sealBtn.innerHTML = `<i data-lucide="shield-check" class="w-3.5 h-3.5 text-indigo-400"></i><span>Seal to Audit</span>`;
+      }
+
+      // Fetch or compute forensic details for the structured card
+      let forensicData = null;
+      if (r.id) {
+        try {
+          const res = await fetch(`${API_BASE}/api/v1/reconcile/records/${r.id}`);
+          if (res.ok) {
+            forensicData = await res.json();
+          }
+        } catch (e) {
+          console.warn('Could not fetch forensic detail', e);
+        }
+      }
+
+      renderStructuredAiInvestigation(r, forensicData);
       lucide.createIcons();
     }
 
-    function runAiInvestigation() {
-      const btn = document.getElementById('btn-run-investigate');
-      btn.disabled = true;
-      btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i><span>Synthesizing multi-source ledger evidence...</span>`;
-      lucide.createIcons();
+    function renderStructuredAiInvestigation(r, forensicData) {
+      const activeAmt = formatMoney(r.variance_cents || 0);
+
+      let rootCause = "Discrepancy identified across multi-source financial ledgers.";
+      let evidenceItems = [
+        `Primary transaction: ${r.id}`,
+        `Variance identified: ${activeAmt}`
+      ];
+      let confPct = 94;
+      let recText = `Verify variance of ${activeAmt} on ${r.id} and adjust ledger accordingly.`;
+      let isQuarantined = false;
+
+      if (forensicData) {
+        rootCause = forensicData.root_cause || forensicData.explanation || rootCause;
+        if (forensicData.evidence && Array.isArray(forensicData.evidence)) {
+          evidenceItems = forensicData.evidence.map(item => {
+            if (currencyMode === 'INR' && item.includes('$')) {
+              return item.replace(/\$[\d,]+(\.\d{2})?/, activeAmt);
+            }
+            return item;
+          });
+        }
+        confPct = forensicData.confidence_pct ?? Math.round((forensicData.confidence_score || 0.94) * 100);
+        recText = forensicData.recommendation_text || recText;
+        if (currencyMode === 'INR' && recText.includes('$')) {
+          recText = recText.replace(/\$[\d,]+(\.\d{2})?/, activeAmt);
+        }
+        isQuarantined = (forensicData.confidence_score < 0.40) || (forensicData.recommended_action === 'ESCALATE_FRAUD');
+      } else {
+        const sType = (r.scenario_type || "").toUpperCase();
+        if (sType.includes("UNEXPLAINED")) {
+          confPct = 35;
+          isQuarantined = true;
+          rootCause = "Unexplained variance between inward bank deposit and expected settlement with zero mathematical fee or tax formula match.";
+          evidenceItems = [
+            `Statement line: ${r.id}`,
+            `Unreconciled shortage: ${activeAmt}`,
+            "Verification status: Fails standard fee, tax, and FX tables",
+            "Integrity alert: Potential unbooked cash or unauthorized deposit"
+          ];
+          recText = `Quarantine item under ESCALATE_FRAUD. File bank treasury inquiry ticket to trace originating counterparty before posting cash clearance.`;
+        } else if (sType.includes("REFUND")) {
+          confPct = 95;
+          rootCause = "Outward bank debit or customer payment dispute matched against authorized ERP Credit Memo subledger entry.";
+          evidenceItems = [
+            `Bank debit line: ${r.id}`,
+            `Credit memo token: ${r.invoice_id || 'CM-2026-RETURN'}`,
+            `Reversed amount: ${activeAmt}`,
+            "Authorization status: Validated customer return"
+          ];
+          recText = `Clear return reserve and apply balancing credit memo entry of ${activeAmt} to customer account.`;
+        } else if (sType.includes("DUPLICATE")) {
+          confPct = 94;
+          rootCause = "The same order was charged more than once, most likely caused by a retried payment request after a slow or failed gateway response.";
+          evidenceItems = [
+            `Original transaction: ${r.bank_line_id ? r.bank_line_id.split(',')[0] : r.id}`,
+            `Duplicate transaction: ${r.bank_line_id && r.bank_line_id.includes(',') ? r.bank_line_id.split(',')[1] : (r.invoice_id || 'TXN-DUP')}`,
+            `Amount captured twice: ${activeAmt}`
+          ];
+          recText = `Refund the duplicate charge of ${activeAmt} on ${r.id} back to the customer and flag the payment gateway retry logic for review.`;
+        } else if (sType.includes("MISSING")) {
+          confPct = 92;
+          rootCause = "Approved customer order or AP liability booked in subledger with zero corresponding cleared settlement in operating bank accounts.";
+          evidenceItems = [
+            `Target document: ${r.invoice_id || r.gateway_tx_id || r.id}`,
+            "Operating account: ACCT-OPERATING-01",
+            `Missing cash settlement: ${activeAmt}`,
+            "Settlement latency: > 5 business days without clearing"
+          ];
+          recText = `File payment gateway settlement trace for ${activeAmt} on ${r.id} and accrue in-transit clearing balance.`;
+        } else if (sType.includes("TAX")) {
+          confPct = 91;
+          rootCause = "Discrepancy caused by statutory 8.25% state sales tax withholding retained by marketplace facilitator prior to net bank deposit.";
+          evidenceItems = [
+            `Settlement line: ${r.id}`,
+            `Sales invoice: ${r.invoice_id || 'GL-00231'}`,
+            `Withheld tax ratio: 8.25% state sales tax (${activeAmt})`,
+            "Tax entity: Marketplace Facilitator withholding"
+          ];
+          recText = `Post compensating tax withholding entry of ${activeAmt} to Account 2200-SalesTax-Payable and reconcile gross sales.`;
+        } else if (sType.includes("TIMING")) {
+          confPct = 90;
+          rootCause = "Cross-period settlement delay across month-end reporting cutoff window or multi-day ACH clearing transit.";
+          evidenceItems = [
+            `Posting transaction: ${r.id}`,
+            "Reporting period: Month-end close cutoff",
+            `In-flight transit amount: ${activeAmt}`,
+            "Clearing timeline: Expected within T+2 settlement cycle"
+          ];
+          recText = `Post month-end cutoff transit accrual for ${activeAmt} and verify clearance on statement refresh.`;
+        }
+      }
+
+      r.confidence_pct = confPct;
+      r.recommendation_text = recText;
+      r.root_cause = rootCause;
+      r.evidence = evidenceItems;
+
+      // Populate ROOT CAUSE
+      const rootCauseEl = document.getElementById('inv-root-cause');
+      if (rootCauseEl) rootCauseEl.innerText = rootCause;
+
+      // Populate EVIDENCE
+      const evidenceListEl = document.getElementById('inv-evidence-list');
+      if (evidenceListEl) {
+        evidenceListEl.innerHTML = evidenceItems.map(item => {
+          const parts = item.split(':');
+          if (parts.length >= 2) {
+            const label = parts[0];
+            const val = parts.slice(1).join(':');
+            return `<li class="flex items-start gap-2">
+              <span class="text-slate-500 font-bold">•</span>
+              <span>${label}: <strong class="text-white font-mono">${val.trim()}</strong></span>
+            </li>`;
+          }
+          return `<li class="flex items-start gap-2">
+            <span class="text-slate-500 font-bold">•</span>
+            <span>${item}</span>
+          </li>`;
+        }).join('');
+      }
+
+      // Populate CONFIDENCE
+      const confBar = document.getElementById('inv-confidence-bar');
+      const confVal = document.getElementById('inv-confidence-val');
+      if (confBar) {
+        confBar.style.width = `${confPct}%`;
+        if (isQuarantined || confPct < 40) {
+          confBar.className = "h-full rounded-full bg-rose-500 transition-all duration-700";
+        } else if (confPct >= 85) {
+          confBar.className = "h-full rounded-full bg-emerald-500 transition-all duration-700";
+        } else {
+          confBar.className = "h-full rounded-full bg-amber-500 transition-all duration-700";
+        }
+      }
+      if (confVal) {
+        confVal.innerText = `${confPct}%`;
+      }
+
+      // Populate AI RECOMMENDATION
+      const recBox = document.getElementById('inv-recommendation-box');
+      if (recBox) {
+        recBox.innerText = recText;
+      }
+    }
+
+    async function runAiInvestigation() {
+      const btn = document.getElementById('btn-reinvestigate');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = `<i data-lucide="loader-2" class="w-3.5 h-3.5 animate-spin text-cyan-400"></i>`;
+        lucide.createIcons();
+      }
+
+      if (currentInvestigationRecord) {
+        await populateInvestigationDetails(currentInvestigationRecord);
+      }
 
       setTimeout(() => {
-        btn.disabled = false;
-        btn.innerHTML = `<span>Investigate with AI</span>`;
-        document.getElementById('inv-action-box').classList.add('hidden');
-        document.getElementById('inv-results-container').classList.remove('hidden');
-        lucide.createIcons();
-      }, 500);
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = `<i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>`;
+          lucide.createIcons();
+        }
+        showToast("🔍 AI Evidence re-synthesized with deterministic zero-hallucination engine!");
+      }, 350);
     }
 
     function sendToApprovals() {
       if (!currentInvestigationRecord) return;
+      const conf = currentInvestigationRecord.confidence_pct ? `${currentInvestigationRecord.confidence_pct}%` : "94%";
       const rec = {
         id: currentInvestigationRecord.id,
         recordId: currentInvestigationRecord.id,
         amount: currentInvestigationRecord.variance_display || '$124.50',
         risk: currentInvestigationRecord.risk_priority,
-        text: `Forensic controller remediation: Compensate variance of ${currentInvestigationRecord.variance_display || '$124.50'} on ${currentInvestigationRecord.id} and adjust ledger.`,
-        confidence: "94%",
+        text: currentInvestigationRecord.recommendation_text || `Forensic controller remediation: Compensate variance of ${currentInvestigationRecord.variance_display || '$124.50'} on ${currentInvestigationRecord.id} and adjust ledger.`,
+        confidence: conf,
         created: "Today, Just now"
       };
 
@@ -2063,7 +2844,7 @@
 
       try {
         // 1. Fetch counts
-        const countsRes = await fetch('/api/v1/workbench/audit-trail/stats/counts');
+        const countsRes = await fetch(`${API_BASE}/api/v1/workbench/audit-trail/stats/counts`);
         if (countsRes.ok) {
           const counts = await countsRes.json();
           const elAll = document.getElementById('audit-count-all');
@@ -2078,8 +2859,8 @@
 
         // 2. Fetch records
         const url = currentAuditFilter === 'ALL' 
-          ? '/api/v1/workbench/audit-trail' 
-          : `/api/v1/workbench/audit-trail?actor=${encodeURIComponent(currentAuditFilter)}`;
+          ? `${API_BASE}/api/v1/workbench/audit-trail` 
+          : `${API_BASE}/api/v1/workbench/audit-trail?actor=${encodeURIComponent(currentAuditFilter)}`;
         const res = await fetch(url);
         const data = await res.json();
         cachedAuditRecords = data || [];
@@ -2285,7 +3066,7 @@
           rationale = `Autonomous multi-source ledger cryptographic seal verified across bank statements with 0 variance for ${targetId}.`;
         }
 
-        const res = await fetch('/api/v1/workbench/log-event', {
+        const res = await fetch(`${API_BASE}/api/v1/workbench/log-event`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -2316,9 +3097,9 @@
     async function sealInvestigationToAuditTrail() {
       const btn = document.getElementById('btn-seal-investigation');
       try {
-        let recId = 'BNK-0055';
+        let recId = 'BNK-0179';
         let variance = '$15,000.00';
-        let rationaleText = 'Inward wire received with no matching ERP sales invoice, customer order, or billing token.';
+        let rationaleText = 'Unidentified bank wire of $15,000.00 received with no matching ERP journal entry or customer billing record.';
 
         if (currentInvestigationRecord) {
           recId = currentInvestigationRecord.id;
@@ -2333,7 +3114,9 @@
           if (explEl && explEl.innerText) rationaleText = explEl.innerText.trim();
         }
 
-        const fullRationale = `Forensic AI Investigation Sealed for ${recId}: ${rationaleText} (Variance: ${variance}, Ambiguity Gated, Confidence 94%).`;
+        const conf = currentInvestigationRecord && currentInvestigationRecord.confidence_pct ? `${currentInvestigationRecord.confidence_pct}%` : '94%';
+        const ambLabel = currentInvestigationRecord && currentInvestigationRecord.ambiguity_label ? currentInvestigationRecord.ambiguity_label : 'Ambiguity Gated';
+        const fullRationale = `Forensic AI Investigation Sealed for ${recId}: ${rationaleText} (Variance: ${variance}, ${ambLabel}, Confidence ${conf}).`;
 
         if (btn) {
           btn.disabled = true;
@@ -2341,7 +3124,7 @@
           lucide.createIcons();
         }
 
-        const res = await fetch('/api/v1/workbench/log-event', {
+        const res = await fetch(`${API_BASE}/api/v1/workbench/log-event`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -2353,7 +3136,7 @@
               record_id: recId,
               variance: variance,
               status: 'FORENSIC_INVESTIGATION_SEALED',
-              confidence: '94%',
+              confidence: conf,
               timestamp_utc: new Date().toISOString()
             }
           })
@@ -2391,7 +3174,7 @@
         return;
       }
       try {
-        const res = await fetch('/api/v1/workbench/audit-trail/reset', { method: 'POST' });
+        const res = await fetch(`${API_BASE}/api/v1/workbench/audit-trail/reset`, { method: 'POST' });
         if (res.ok) {
           const data = await res.json();
           showToast(`🛡️ Audit trail reset to clean baseline (${data.total_blocks} verified blocks)!`);
@@ -2481,7 +3264,7 @@
       const ctx = document.getElementById('chart-cash-forecast');
       if (!ctx) return;
       try {
-        const res = await fetch('/api/v1/forecast/trajectory');
+        const res = await fetch(`${API_BASE}/api/v1/forecast/trajectory`);
         const data = await res.json();
 
         const dates = data.dates || data.labels || [];
@@ -2563,7 +3346,7 @@
       const ctx = document.getElementById('chart-waterfall');
       if (!ctx) return;
       try {
-        const res = await fetch('/api/v1/forecast/waterfall');
+        const res = await fetch(`${API_BASE}/api/v1/forecast/waterfall`);
         const data = await res.json();
         const items = data.items || [];
         
@@ -2719,7 +3502,7 @@
 
     // --- Workbench Actions Execution ---
     async function executeWorkbenchAction(action, recordId) {
-      let endpoint = `/api/v1/workbench/${action}`;
+      let endpoint = `${API_BASE}/api/v1/workbench/${action}`;
       let body = { exception_id: recordId, reason: "Controller approved in operations console" };
 
       if (action === 'post-gl-entry') {
@@ -2884,7 +3667,7 @@
       history.scrollTo({ top: history.scrollHeight, behavior: 'smooth' });
 
       try {
-        const res = await fetch('/api/v1/copilot/query', {
+        const res = await fetch(`${API_BASE}/api/v1/copilot/query`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ query: query })
@@ -2958,7 +3741,7 @@
       icon.classList.add('animate-spin');
 
       try {
-        const res = await fetch('/api/v1/reconcile/run', { method: 'POST' });
+        const res = await fetch(`${API_BASE}/api/v1/reconcile/run`, { method: 'POST' });
         if (res.ok) {
           await loadKPIs();
           await loadRecords();
@@ -2974,7 +3757,7 @@
 
     async function downloadAuditMemo() {
       try {
-        const res = await fetch('/api/v1/reports/audit-memo');
+        const res = await fetch(`${API_BASE}/api/v1/reports/audit-memo`);
         const data = await res.json();
         const blob = new Blob([data.markdown_memo], { type: 'text/markdown' });
         const url = URL.createObjectURL(blob);

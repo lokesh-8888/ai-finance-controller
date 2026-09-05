@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🏛️ AI Finance Controller
+# 🏛️ RazorLedger AI
 ### *Autonomous Multi-Source Financial Reconciliation & Forward Cash Ops*
 
 [![Tests](https://img.shields.io/badge/Pytest-81%20Passed%20(100%25)-00C853?style=for-the-badge&logo=pytest&logoColor=white)](tests/)

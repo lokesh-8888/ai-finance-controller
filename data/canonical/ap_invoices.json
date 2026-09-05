@@ -2,8 +2,8 @@
   {
     "id": "INV-2026-0001",
     "vendor_name": "Datadog Inc",
-    "amount_cents": 464898,
-    "due_date": "2026-08-10",
+    "amount_cents": 509714,
+    "due_date": "2026-08-18",
     "currency": "USD",
     "fx_rate": 1.0,
     "status": "PAID"
@@ -11,8 +11,8 @@
   {
     "id": "INV-2026-0002",
     "vendor_name": "Snowflake Inc",
-    "amount_cents": 496029,
-    "due_date": "2026-08-16",
+    "amount_cents": 696088,
+    "due_date": "2026-08-22",
     "currency": "USD",
     "fx_rate": 1.0,
     "status": "PAID"
@@ -20,8 +20,8 @@
   {
     "id": "INV-2026-0003",
     "vendor_name": "Figma Design",
-    "amount_cents": 316704,
-    "due_date": "2026-08-07",
+    "amount_cents": 742870,
+    "due_date": "2026-08-14",
     "currency": "USD",
     "fx_rate": 1.0,
     "status": "PAID"
@@ -29,8 +29,8 @@
   {
     "id": "INV-2026-0004",
     "vendor_name": "Slack Technologies",
-    "amount_cents": 192414,
-    "due_date": "2026-08-13",
+    "amount_cents": 265174,
+    "due_date": "2026-08-07",
     "currency": "USD",
     "fx_rate": 1.0,
     "status": "PAID"
@@ -38,8 +38,8 @@
   {
     "id": "INV-2026-0005",
     "vendor_name": "GitHub Inc",
-    "amount_cents": 381778,
-    "due_date": "2026-08-11",
+    "amount_cents": 445651,
+    "due_date": "2026-08-12",
     "currency": "USD",
     "fx_rate": 1.0,
     "status": "PAID"
@@ -47,8 +47,8 @@
   {
     "id": "INV-2026-0006",
     "vendor_name": "Atlassian Corp",
-    "amount_cents": 188032,
-    "due_date": "2026-08-10",
+    "amount_cents": 246231,
+    "due_date": "2026-08-24",
     "currency": "USD",
     "fx_rate": 1.0,
     "status": "PAID"
@@ -56,8 +56,8 @@
   {
     "id": "INV-2026-0007",
     "vendor_name": "Twilio API",
-    "amount_cents": 377944,
-    "due_date": "2026-08-08",
+    "amount_cents": 247955,
+    "due_date": "2026-08-22",
     "currency": "USD",
     "fx_rate": 1.0,
     "status": "PAID"
@@ -65,8 +65,8 @@
   {
     "id": "INV-2026-0008",
     "vendor_name": "Zoom Video",
-    "amount_cents": 122251,
-    "due_date": "2026-08-13",
+    "amount_cents": 699079,
+    "due_date": "2026-08-19",
     "currency": "USD",
     "fx_rate": 1.0,
     "status": "PAID"
@@ -74,8 +74,8 @@
   {
     "id": "INV-2026-0009",
     "vendor_name": "Notion Labs",
-    "amount_cents": 126414,
-    "due_date": "2026-08-12",
+    "amount_cents": 302746,
+    "due_date": "2026-08-09",
     "currency": "USD",
     "fx_rate": 1.0,
     "status": "PAID"
@@ -83,8 +83,8 @@
   {
     "id": "INV-2026-0010",
     "vendor_name": "Fastly CDN",
-    "amount_cents": 385663,
-    "due_date": "2026-08-16",
+    "amount_cents": 806177,
+    "due_date": "2026-08-25",
     "currency": "USD",
     "fx_rate": 1.0,
     "status": "PAID"
@@ -92,8 +92,8 @@
   {
     "id": "INV-2026-0011",
     "vendor_name": "Vercel Inc",
-    "amount_cents": 302370,
-    "due_date": "2026-08-07",
+    "amount_cents": 300504,
+    "due_date": "2026-08-25",
     "currency": "USD",
     "fx_rate": 1.0,
     "status": "PAID"
@@ -101,8 +101,8 @@
   {
     "id": "INV-2026-0012",
     "vendor_name": "Cloudflare DNS",
-    "amount_cents": 506741,
-    "due_date": "2026-08-15",
+    "amount_cents": 636878,
+    "due_date": "2026-08-18",
     "currency": "USD",
     "fx_rate": 1.0,
     "status": "PAID"
@@ -110,8 +110,8 @@
   {
     "id": "INV-2026-0013",
     "vendor_name": "Docker Inc",
-    "amount_cents": 155889,
-    "due_date": "2026-08-13",
+    "amount_cents": 254974,
+    "due_date": "2026-08-12",
     "currency": "USD",
     "fx_rate": 1.0,
     "status": "PAID"
@@ -119,8 +119,8 @@
   {
     "id": "INV-2026-0014",
     "vendor_name": "MongoDB Atlas",
-    "amount_cents": 107627,
-    "due_date": "2026-08-15",
+    "amount_cents": 542488,
+    "due_date": "2026-08-06",
     "currency": "USD",
     "fx_rate": 1.0,
     "status": "PAID"
@@ -128,61 +128,61 @@
   {
     "id": "INV-2026-0015",
     "vendor_name": "PagerDuty Operations",
-    "amount_cents": 332419,
-    "due_date": "2026-08-16",
+    "amount_cents": 927931,
+    "due_date": "2026-08-08",
     "currency": "USD",
     "fx_rate": 1.0,
     "status": "PAID"
   },
   {
     "id": "INV-2026-0016",
-    "vendor_name": "AWS Cloud Dublin",
-    "amount_cents": 120000,
-    "due_date": "2026-08-13",
-    "currency": "EUR",
-    "fx_rate": 1.085,
+    "vendor_name": "Supabase Inc",
+    "amount_cents": 682924,
+    "due_date": "2026-08-12",
+    "currency": "USD",
+    "fx_rate": 1.0,
     "status": "PAID"
   },
   {
     "id": "INV-2026-0017",
-    "vendor_name": "DATADOG US",
-    "amount_cents": 85000,
-    "due_date": "2026-08-15",
-    "currency": "GBP",
-    "fx_rate": 1.28,
+    "vendor_name": "Postman Inc",
+    "amount_cents": 650380,
+    "due_date": "2026-08-09",
+    "currency": "USD",
+    "fx_rate": 1.0,
     "status": "PAID"
   },
   {
     "id": "INV-2026-0018",
-    "vendor_name": "MSFT AZURE",
-    "amount_cents": 450000,
-    "due_date": "2026-08-17",
+    "vendor_name": "Stripe Infrastructure",
+    "amount_cents": 425156,
+    "due_date": "2026-08-26",
     "currency": "USD",
     "fx_rate": 1.0,
     "status": "PAID"
   },
   {
     "id": "INV-2026-0019",
-    "vendor_name": "GOOGLE IRELAND",
-    "amount_cents": 320000,
-    "due_date": "2026-08-19",
+    "vendor_name": "OpenAI LLC",
+    "amount_cents": 579816,
+    "due_date": "2026-08-16",
     "currency": "USD",
     "fx_rate": 1.0,
     "status": "PAID"
   },
   {
     "id": "INV-2026-0020",
-    "vendor_name": "SNOWFLAKE COMPUTING",
-    "amount_cents": 580000,
-    "due_date": "2026-08-21",
+    "vendor_name": "Linear Orbit",
+    "amount_cents": 927592,
+    "due_date": "2026-08-04",
     "currency": "USD",
     "fx_rate": 1.0,
     "status": "PAID"
   },
   {
     "id": "INV-2026-0021",
-    "vendor_name": "Figma Design",
-    "amount_cents": 175000,
+    "vendor_name": "Retool Inc",
+    "amount_cents": 739825,
     "due_date": "2026-08-23",
     "currency": "USD",
     "fx_rate": 1.0,
@@ -190,18 +190,495 @@
   },
   {
     "id": "INV-2026-0022",
-    "vendor_name": "Slack Technologies",
-    "amount_cents": 98000,
-    "due_date": "2026-08-24",
+    "vendor_name": "Redis Labs",
+    "amount_cents": 830934,
+    "due_date": "2026-08-14",
     "currency": "USD",
     "fx_rate": 1.0,
     "status": "PAID"
   },
   {
     "id": "INV-2026-0023",
+    "vendor_name": "Sentry Dev",
+    "amount_cents": 332757,
+    "due_date": "2026-08-18",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0024",
+    "vendor_name": "HashiCorp Inc",
+    "amount_cents": 500763,
+    "due_date": "2026-08-06",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0025",
+    "vendor_name": "Elastic NV",
+    "amount_cents": 549902,
+    "due_date": "2026-08-13",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0026",
+    "vendor_name": "Datadog Inc",
+    "amount_cents": 136579,
+    "due_date": "2026-08-17",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0027",
+    "vendor_name": "Snowflake Inc",
+    "amount_cents": 663551,
+    "due_date": "2026-08-11",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0028",
+    "vendor_name": "Figma Design",
+    "amount_cents": 417077,
+    "due_date": "2026-08-13",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0029",
+    "vendor_name": "Slack Technologies",
+    "amount_cents": 841449,
+    "due_date": "2026-08-20",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0030",
+    "vendor_name": "GitHub Inc",
+    "amount_cents": 653038,
+    "due_date": "2026-08-17",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0031",
+    "vendor_name": "Atlassian Corp",
+    "amount_cents": 45422,
+    "due_date": "2026-08-09",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0032",
+    "vendor_name": "Twilio API",
+    "amount_cents": 946406,
+    "due_date": "2026-08-14",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0033",
+    "vendor_name": "Zoom Video",
+    "amount_cents": 85738,
+    "due_date": "2026-08-15",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0034",
+    "vendor_name": "Notion Labs",
+    "amount_cents": 107582,
+    "due_date": "2026-08-09",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0035",
+    "vendor_name": "Fastly CDN",
+    "amount_cents": 880662,
+    "due_date": "2026-08-10",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0036",
+    "vendor_name": "Vercel Inc",
+    "amount_cents": 828035,
+    "due_date": "2026-08-09",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0037",
+    "vendor_name": "Cloudflare DNS",
+    "amount_cents": 716798,
+    "due_date": "2026-08-23",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0038",
+    "vendor_name": "Docker Inc",
+    "amount_cents": 198148,
+    "due_date": "2026-08-16",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0039",
+    "vendor_name": "MongoDB Atlas",
+    "amount_cents": 939812,
+    "due_date": "2026-08-26",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0040",
+    "vendor_name": "PagerDuty Operations",
+    "amount_cents": 247086,
+    "due_date": "2026-08-22",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0041",
+    "vendor_name": "Supabase Inc",
+    "amount_cents": 772581,
+    "due_date": "2026-08-16",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0042",
+    "vendor_name": "Postman Inc",
+    "amount_cents": 729314,
+    "due_date": "2026-08-18",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0043",
+    "vendor_name": "Stripe Infrastructure",
+    "amount_cents": 567717,
+    "due_date": "2026-08-18",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0044",
+    "vendor_name": "OpenAI LLC",
+    "amount_cents": 284947,
+    "due_date": "2026-08-11",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0045",
+    "vendor_name": "Linear Orbit",
+    "amount_cents": 379508,
+    "due_date": "2026-08-08",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0046",
+    "vendor_name": "Retool Inc",
+    "amount_cents": 605828,
+    "due_date": "2026-08-15",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0047",
+    "vendor_name": "Redis Labs",
+    "amount_cents": 255914,
+    "due_date": "2026-08-04",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0048",
+    "vendor_name": "Sentry Dev",
+    "amount_cents": 767225,
+    "due_date": "2026-08-06",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0049",
+    "vendor_name": "HashiCorp Inc",
+    "amount_cents": 95674,
+    "due_date": "2026-08-07",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0050",
+    "vendor_name": "Elastic NV",
+    "amount_cents": 99299,
+    "due_date": "2026-08-21",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0051",
+    "vendor_name": "AWS Cloud Dublin",
+    "amount_cents": 120000,
+    "due_date": "2026-08-11",
+    "currency": "EUR",
+    "fx_rate": 1.085,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0052",
+    "vendor_name": "DATADOG US",
+    "amount_cents": 85000,
+    "due_date": "2026-08-12",
+    "currency": "GBP",
+    "fx_rate": 1.28,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0053",
+    "vendor_name": "Shopify Canada",
+    "amount_cents": 240000,
+    "due_date": "2026-08-13",
+    "currency": "CAD",
+    "fx_rate": 0.745,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0054",
+    "vendor_name": "SoftBank Tokyo",
+    "amount_cents": 45000000,
+    "due_date": "2026-08-14",
+    "currency": "JPY",
+    "fx_rate": 0.0068,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0055",
+    "vendor_name": "Canva Sydney",
+    "amount_cents": 160000,
+    "due_date": "2026-08-15",
+    "currency": "AUD",
+    "fx_rate": 0.665,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0056",
+    "vendor_name": "Logitech Vaud",
+    "amount_cents": 95000,
+    "due_date": "2026-08-16",
+    "currency": "CHF",
+    "fx_rate": 1.135,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0057",
+    "vendor_name": "Grab Singapore",
+    "amount_cents": 310000,
+    "due_date": "2026-08-17",
+    "currency": "SGD",
+    "fx_rate": 0.762,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0058",
+    "vendor_name": "Spotify Stockholm",
+    "amount_cents": 185000,
+    "due_date": "2026-08-18",
+    "currency": "EUR",
+    "fx_rate": 1.092,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0059",
+    "vendor_name": "MSFT AZURE",
+    "amount_cents": 450000,
+    "due_date": "2026-08-13",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0060",
+    "vendor_name": "GOOGLE IRELAND",
+    "amount_cents": 320000,
+    "due_date": "2026-08-14",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0061",
+    "vendor_name": "SNOWFLAKE COMPUTING",
+    "amount_cents": 580000,
+    "due_date": "2026-08-15",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0062",
+    "vendor_name": "AWS",
+    "amount_cents": 275000,
+    "due_date": "2026-08-16",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0063",
+    "vendor_name": "STRIPE INC",
+    "amount_cents": 195000,
+    "due_date": "2026-08-17",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0064",
+    "vendor_name": "DATADOG INC",
+    "amount_cents": 340000,
+    "due_date": "2026-08-18",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0065",
+    "vendor_name": "AMZN",
+    "amount_cents": 210000,
+    "due_date": "2026-08-19",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0066",
+    "vendor_name": "GCP",
+    "amount_cents": 410000,
+    "due_date": "2026-08-20",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0067",
+    "vendor_name": "Figma Design",
+    "amount_cents": 175000,
+    "due_date": "2026-08-21",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0068",
+    "vendor_name": "Atlassian Corp",
+    "amount_cents": 240000,
+    "due_date": "2026-08-22",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0069",
+    "vendor_name": "Docker Inc",
+    "amount_cents": 120000,
+    "due_date": "2026-08-23",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0070",
+    "vendor_name": "Slack Technologies",
+    "amount_cents": 98000,
+    "due_date": "2026-08-22",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0071",
+    "vendor_name": "Notion Labs",
+    "amount_cents": 145000,
+    "due_date": "2026-08-23",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0072",
+    "vendor_name": "Cloudflare DNS",
+    "amount_cents": 210000,
+    "due_date": "2026-08-24",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "PAID"
+  },
+  {
+    "id": "INV-2026-0073",
     "vendor_name": "Vercel Inc",
     "amount_cents": 210000,
-    "due_date": "2026-08-09",
+    "due_date": "2026-08-08",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "OPEN"
+  },
+  {
+    "id": "INV-2026-0074",
+    "vendor_name": "MongoDB Atlas",
+    "amount_cents": 340000,
+    "due_date": "2026-08-10",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "OPEN"
+  },
+  {
+    "id": "INV-2026-0075",
+    "vendor_name": "Fastly CDN",
+    "amount_cents": 165000,
+    "due_date": "2026-08-12",
+    "currency": "USD",
+    "fx_rate": 1.0,
+    "status": "OPEN"
+  },
+  {
+    "id": "INV-2026-0076",
+    "vendor_name": "Twilio API",
+    "amount_cents": 280000,
+    "due_date": "2026-08-14",
     "currency": "USD",
     "fx_rate": 1.0,
     "status": "OPEN"
