@@ -34,7 +34,7 @@
 
 In enterprise treasury and finance operations, spreadsheet reconciliation breaks under multi-source variance: timing delays, processor interchange cuts, batch bank deposits, vendor alias drift, and statutory tax withholdings.
 
-The **AI Finance Controller** replaces error-prone spreadsheet work with a dual-engine architecture:
+**RazorLedger AI** replaces error-prone spreadsheet work with a dual-engine architecture:
 1. **Deterministic-First Core:** Integer-cents math, bijective atomic set locking, and bounded subset-sum algorithms resolve exact parity and wire bundles at **>71,000 records/sec** with zero hallucination.
 2. **Evidence-Grounded AI Investigator:** Pluggable LLM reasoning (Gemini / OpenAI / Local Offline Heuristic) investigates residual exceptions with strict ambiguity gating ($\text{Gap} < 8\% \rightarrow \text{Human Review}$).
 3. **Closed-Loop Remediation:** Instant 1-click accounting workbench backed by tamper-evident **SHA-256 hash-chained audit logging** in SQLite WAL mode.
@@ -241,18 +241,20 @@ The engine classifies every record across a standardized, auditable 9-scenario t
 
 ## 🖥️ Interactive Operations Console & Copilot
 
-The web operations console (`http://localhost:8000`) provides a purpose-built, dark-mode fintech interface:
+The web operations console (`http://localhost:8000`) provides a purpose-built, dark-mode fintech workspace with 6 dedicated tabs:
 
-- **Executive KPI Cards:** Real-time Reconciled Volume, Baseline Match Rate, AI Recovery Rate, Quarantined Fraud Exposure, and Net Adjusted Cash.
-- **Chart.js Visualizations:** Dynamic 30-Day Forward Cash Trajectory chart and Liquidity Waterfall Bridge.
-- **4-Way Transaction Stream Explorer:** Multi-tab data grid (`ALL`, `MATCHED`, `AI_INVESTIGATED`, `EXCEPTIONS`) with live search, risk badges, and scenario pills.
+- **1. Executive Overview & Analytics (`#tab-overview`):** Real-time Reconciled Volume, Baseline Match Rate, AI Recovery Rate, Quarantined Fraud Exposure, Net Adjusted Cash, dynamic 30-Day Forward Cash Trajectory chart, and an **instant USD ($) / INR (₹) Dual-Currency toggle** that recalculates all metrics live.
+- **2. 4-Way Transactions Ledger Explorer (`#tab-transactions`):** Multi-ledger stream (Bank, Gateway, ERP, AP) with 1:1 parity and subledger balance counters (`Showing 60 of 60 transactions`).
+- **3. Dedicated Exceptions Triage Workbench (`#tab-exceptions`):** Active quarantine queue with triage KPI cards (`Open Exceptions`, `Financial Exposure`, `P0/P1 High Severity`, `AI Auto-Resolvable`), category quick-filter chips (`Duplicate Payments`, `Missing Settlements`, `Tax Differences`, `P0 Fraud`, `Customer Refunds`), and inline 1-click **Investigate** and **Resolve** actions.
+- **4. Forensic AI Investigation Workspace (`#tab-investigator`):** Master-detail split-screen view with evidence inspection, candidate comparison, root-cause diagnosis, and a dynamic confidence progress breakdown.
+- **5. Controller Approvals & Remediation Workbench (`#tab-approvals`):** Full-width human-in-the-loop review queue for recommended journal adjustments, disputes, and write-offs with historical remediation logs.
+- **6. Cryptographic Audit Log (`#tab-audit-trail`):** Immutable SHA-256 hash chaining with actor category filtering (`All`, `Human`, `AI`, `System`) and genesis block linkage.
+- **Reconciliation Workpaper Export (CSV / MD / JSON):** 1-Click download of tabular **CSV Workpapers (`.csv`)** for Microsoft Excel and Google Sheets, alongside narrative **Executive Audit Memos (`.md`)** and **Forensic JSON Snapshots (`.json`)**.
 - **Slide-Out Forensic Inspection Drawer:** Inspects candidate record links, rule match traces, LLM chain-of-thought diagnostics, and SHA-256 audit hashes.
-- **1-Click Remediation Modals:** Interactive dialogs to approve variances, generate double-entry vouchers, log disputes, or post write-offs.
 - **Grounded Financial Copilot (NL-to-SQL):** Embedded controller assistant that executes deterministic SQL queries against SQLite tables with **zero hallucination**:
   - *"What is our current match rate?"*
   - *"Show all P0 critical exceptions."*
   - *"What is our 30-day projected runway?"*
-- **Month-End Audit Memo Export:** 1-Click generation of executive audit workpapers in Markdown, JSON, and CSV format.
 
 ---
 
@@ -262,16 +264,16 @@ The web operations console (`http://localhost:8000`) provides a purpose-built, d
 ```text
 ============================= test session starts =============================
 platform win32 -- Python 3.13.14, pytest-8.3.2
-collected 81 items
+collected 85 items
 
-tests/test_phase0_foundation.py ......................                  [ 27%]
-tests/test_phase1_deterministic_engine.py .........                     [ 38%]
-tests/test_phase2_ai_investigator.py ............                       [ 53%]
-tests/test_phase3_operations_and_audit.py ................              [ 72%]
-tests/test_phase4_cash_forecasting.py .........                         [ 83%]
-tests/test_phase5_e2e_dashboard_and_copilot.py .............            [100%]
+tests/test_phase0_foundation.py ......................                  [ 26%]
+tests/test_phase1_deterministic_engine.py .........                     [ 36%]
+tests/test_phase2_ai_investigator.py ............                       [ 50%]
+tests/test_phase3_operations_and_audit.py ................              [ 71%]
+tests/test_phase4_cash_forecasting.py .........                         [ 82%]
+tests/test_phase5_e2e_dashboard_and_copilot.py ...............          [100%]
 
-============================= 81 passed in 1.73s ==============================
+============================= 85 passed in 1.27s ==============================
 ```
 
 ### 20-Seed Monte Carlo Robustness Benchmark (1,200 Scenarios)
@@ -296,25 +298,28 @@ To prove the controller does not rely on cherry-picked data, the engine was eval
 
 ## 📡 REST API Reference
 
-The FastAPI backend exposes 15 production-ready REST endpoints:
+The FastAPI backend exposes production-ready REST endpoints across 6 domains:
 
 | Domain | Method | Endpoint | Description |
 | :--- | :--- | :--- | :--- |
-| **System** | `GET` | `/health` | Service and database health check |
+| **System** | `GET` | `/health` | Service, database, and engine health check |
 | **UI** | `GET` | `/` | Serves interactive Fintech Operations Console |
 | **Reconciliation** | `POST` | `/api/v1/reconcile/run` | Triggers 4-way multi-source reconciliation batch |
-| **Reconciliation** | `GET` | `/api/v1/reconcile/kpis` | Returns real-time match rates and KPI statistics |
+| **Reconciliation** | `GET` | `/api/v1/reconcile/kpis` | Returns real-time match rates, exposure, and KPI metrics |
 | **Reconciliation** | `GET` | `/api/v1/reconcile/records` | Returns transaction stream with status/risk filtering |
 | **Reconciliation** | `GET` | `/api/v1/reconcile/records/{id}` | Returns forensic deep-dive evidence for inspection drawer |
 | **Workbench** | `POST` | `/api/v1/workbench/actions/approve-variance` | 1-Click human controller variance approval |
 | **Workbench** | `POST` | `/api/v1/workbench/actions/post-gl-entry` | Posts balanced compensating double-entry journal voucher |
 | **Workbench** | `POST` | `/api/v1/workbench/actions/file-dispute` | Freezes transaction and creates dispute ticket |
 | **Workbench** | `POST` | `/api/v1/workbench/actions/write-off` | Posts bad debt write-off entry |
+| **Audit Trail** | `GET` | `/api/v1/workbench/audit-trail` | Returns cryptographically sealed SHA-256 audit log |
+| **Audit Trail** | `POST` | `/api/v1/workbench/log-event` | Seals a manual or AI forensic event into the hash chain |
 | **Forecasting** | `GET` | `/api/v1/forecast/position` | Returns real-time multi-tier treasury cash position |
-| **Forecasting** | `GET` | `/api/v1/forecast/horizons` | Returns 7-day, 14-day, and 30-day forward cash forecast |
-| **Forecasting** | `GET` | `/api/v1/forecast/waterfall` | Returns Chart.js liquidity waterfall bridge data |
-| **Copilot** | `POST` | `/api/v1/copilot/query` | Grounded NL-to-SQL copilot query endpoint |
-| **Reporting** | `GET` | `/api/v1/reports/audit-memo` | Generates and exports executive Month-End Audit Memo |
+| **Forecasting** | `GET` | `/api/v1/forecast/projections` | Returns 7-day, 14-day, and 30-day forward cash forecast |
+| **Forecasting** | `GET` | `/api/v1/forecast/trajectory` | Returns daily Chart.js time-series projection payload |
+| **Forecasting** | `GET` | `/api/v1/forecast/waterfall` | Returns liquidity waterfall bridge data connecting cash |
+| **Copilot** | `POST` | `/api/v1/copilot/query` | Grounded financial assistant (NL-to-SQL & zero hallucination) |
+| **Reporting** | `GET` | `/api/v1/reports/audit-memo` | Exports Tabular CSV Workpaper (default), Markdown, or JSON |
 
 ---
 
@@ -334,14 +339,14 @@ ai-finance-controller/
 │   ├── ui/                      # Dark-mode fintech dashboard (Tailwind, Lucide, Chart.js)
 │   ├── copilot/                 # Grounded financial NL-to-SQL assistant
 │   ├── evaluation/              # Metrics evaluator & 20-seed Monte Carlo robustness suite
-│   └── reporting/               # Month-End Audit Memo exporter (MD, JSON, CSV)
+│   └── reporting/               # Month-End Audit Memo exporter (CSV, MD, JSON)
 ├── data/
 │   ├── canonical/               # 196 benchmark entities (Bank, Gateway, ERP, AP)
 │   ├── ground_truth/            # Isolated ground-truth evaluation scenarios
 │   ├── reports/                 # Auto-generated Month-End Audit Memos
 │   └── finance_controller.db    # SQLite WAL database
 ├── docs/phases/                 # Complete phase architectural reports (Phases 0 - 5)
-├── tests/                       # 81 automated tests (100% passing)
+├── tests/                       # 85 automated tests (100% passing)
 ├── Dockerfile                   # 1-Click container image
 ├── docker-compose.yml           # 1-Click Docker deployment
 ├── requirements.txt             # Project dependencies
