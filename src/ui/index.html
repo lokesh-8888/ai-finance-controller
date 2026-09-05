@@ -239,10 +239,51 @@
 
       <!-- Action Controls -->
       <div class="flex items-center gap-3 text-xs">
-        <button id="btn-export-audit-memo" onclick="downloadAuditMemo()" title="Export Executive Audit Memo" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-white/10 transition-all font-medium">
-          <i data-lucide="download" class="w-3.5 h-3.5"></i>
-          <span>Export Audit Memo</span>
-        </button>
+        <div class="relative inline-block text-left" id="export-dropdown-wrapper">
+          <div class="flex items-center rounded-xl bg-slate-800/90 hover:bg-slate-700/90 border border-white/10 hover:border-white/20 shadow-sm transition-all overflow-hidden">
+            <button id="btn-export-audit-memo" onclick="downloadAuditMemo('csv')" title="Export Reconciliation Workpapers (CSV for Excel / Sheets)" class="flex items-center gap-1.5 px-3 py-1.5 text-slate-200 hover:text-white font-medium transition-all">
+              <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5 text-emerald-400"></i>
+              <span>Export CSV Workpaper</span>
+            </button>
+            <span class="w-[1px] h-4 bg-white/10"></span>
+            <button id="btn-export-dropdown" onclick="toggleExportMenu(event)" title="Choose export format (CSV, Markdown Memo, JSON)" class="px-2 py-1.5 text-slate-400 hover:text-white hover:bg-white/5 transition-all">
+              <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+          <!-- Dropdown format menu -->
+          <div id="export-menu" class="hidden absolute right-0 mt-1.5 w-64 rounded-xl bg-slate-900 border border-white/10 shadow-2xl p-1.5 z-50 space-y-1 text-xs">
+            <button onclick="downloadAuditMemo('csv'); hideExportMenu();" class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800 text-left transition-all">
+              <div class="flex items-center gap-2">
+                <i data-lucide="file-spreadsheet" class="w-4 h-4 text-emerald-400"></i>
+                <div>
+                  <div class="font-medium text-white">Reconciliation CSV</div>
+                  <div class="text-[10px] text-slate-400">Excel / Google Sheets workpapers</div>
+                </div>
+              </div>
+              <span class="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">.csv</span>
+            </button>
+            <button onclick="downloadAuditMemo('markdown'); hideExportMenu();" class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800 text-left transition-all">
+              <div class="flex items-center gap-2">
+                <i data-lucide="file-text" class="w-4 h-4 text-cyan-400"></i>
+                <div>
+                  <div class="font-medium text-white">Executive Audit Memo</div>
+                  <div class="text-[10px] text-slate-400">SOX-404 compliance markdown</div>
+                </div>
+              </div>
+              <span class="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">.md</span>
+            </button>
+            <button onclick="downloadAuditMemo('json'); hideExportMenu();" class="w-full flex items-center justify-between px-3 py-2 rounded-lg text-slate-200 hover:bg-slate-800 text-left transition-all">
+              <div class="flex items-center gap-2">
+                <i data-lucide="code" class="w-4 h-4 text-purple-400"></i>
+                <div>
+                  <div class="font-medium text-white">Forensic JSON Snapshot</div>
+                  <div class="text-[10px] text-slate-400">Cryptographic audit snapshot</div>
+                </div>
+              </div>
+              <span class="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20">.json</span>
+            </button>
+          </div>
+        </div>
         <span class="text-slate-600">|</span>
         <div class="flex items-center gap-2 font-mono text-slate-400 text-xs">
           <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
@@ -3751,36 +3792,64 @@
       }
     }
 
-    async function downloadAuditMemo() {
+    function toggleExportMenu(e) {
+      if (e) e.stopPropagation();
+      const menu = document.getElementById('export-menu');
+      if (menu) {
+        menu.classList.toggle('hidden');
+        if (!menu.classList.contains('hidden')) {
+          lucide.createIcons();
+        }
+      }
+    }
+
+    function hideExportMenu() {
+      const menu = document.getElementById('export-menu');
+      if (menu) menu.classList.add('hidden');
+    }
+
+    // Close export dropdown on click outside
+    document.addEventListener('click', (e) => {
+      const wrapper = document.getElementById('export-dropdown-wrapper');
+      if (wrapper && !wrapper.contains(e.target)) {
+        hideExportMenu();
+      }
+    });
+
+    async function downloadAuditMemo(format = 'csv') {
       try {
-        const res = await fetch(`${API_BASE}/api/v1/reports/audit-memo`);
+        const res = await fetch(`${API_BASE}/api/v1/reports/audit-memo?format=${format}`);
         if (!res.ok) {
           throw new Error(`Server returned HTTP ${res.status}: ${res.statusText}`);
         }
-        const contentType = res.headers.get('content-type') || '';
-        let markdownContent = '';
-        if (contentType.includes('application/json')) {
-          const data = await res.json();
-          markdownContent = data.markdown_memo || JSON.stringify(data, null, 2);
+        let blob;
+        let filename;
+        const dateStr = new Date().toISOString().slice(0, 10);
+        if (format === 'csv') {
+          const csvText = await res.text();
+          blob = new Blob([csvText], { type: 'text/csv;charset=utf-8;' });
+          filename = `Reconciliation_Audit_Workpapers_${dateStr}.csv`;
+        } else if (format === 'json') {
+          const jsonData = await res.json();
+          blob = new Blob([JSON.stringify(jsonData, null, 2)], { type: 'application/json;charset=utf-8;' });
+          filename = `Reconciliation_Audit_Snapshot_${dateStr}.json`;
         } else {
-          markdownContent = await res.text();
+          const mdText = await res.text();
+          blob = new Blob([mdText], { type: 'text/markdown;charset=utf-8;' });
+          filename = `Reconciliation_Audit_Memo_${dateStr}.md`;
         }
-        if (!markdownContent) {
-          throw new Error('Audit memo content is empty');
-        }
-        const blob = new Blob([markdownContent], { type: 'text/markdown;charset=utf-8' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `Reconciliation_Audit_Report_${new Date().toISOString().slice(0, 10)}.md`;
+        a.download = filename;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
         setTimeout(() => URL.revokeObjectURL(url), 1000);
-        showToast("📄 Audit Memo downloaded successfully!");
+        showToast(`📊 ${filename} downloaded successfully!`);
       } catch (e) {
         console.error("Audit memo download error:", e);
-        showToast("❌ Report download failed: " + e.message);
+        showToast("❌ Export download failed: " + e.message);
       }
     }
 

@@ -11,10 +11,11 @@ report_gen = MonthEndAuditReportGenerator()
 
 
 @router.get("/audit-memo")
-def get_audit_memo(format: str = Query("markdown", description="Format: markdown or json")):
-    """Retrieve the Month-End Reconciliation Audit Memo."""
+def get_audit_memo(format: str = Query("csv", description="Format: csv, markdown, or json")):
+    """Retrieve Month-End Reconciliation Audit artifacts in CSV, Markdown, or JSON format."""
     files = report_gen.generate()
-    if format == "json":
+    fmt = format.lower().strip()
+    if fmt == "json":
         import json
         with open(files["json"], "r", encoding="utf-8") as f:
             data = json.load(f)
@@ -22,8 +23,21 @@ def get_audit_memo(format: str = Query("markdown", description="Format: markdown
             data["markdown_memo"] = f.read()
         return data
 
-    with open(files["markdown"], "r", encoding="utf-8") as f:
-        return PlainTextResponse(f.read(), media_type="text/markdown; charset=utf-8")
+    if fmt in ("md", "markdown"):
+        with open(files["markdown"], "r", encoding="utf-8") as f:
+            return PlainTextResponse(
+                f.read(),
+                media_type="text/markdown; charset=utf-8",
+                headers={"Content-Disposition": "attachment; filename=reconciliation_audit_memo.md"},
+            )
+
+    # Default to CSV workpaper export (preferred by financial controllers and accountants)
+    with open(files["csv"], "r", encoding="utf-8") as f:
+        return PlainTextResponse(
+            f.read(),
+            media_type="text/csv; charset=utf-8",
+            headers={"Content-Disposition": "attachment; filename=reconciliation_audit_workpapers.csv"},
+        )
 
 
 @router.post("/export")

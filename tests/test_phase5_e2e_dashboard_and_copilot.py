@@ -259,19 +259,33 @@ class TestMonthEndAuditReportGenerator:
         assert log_data["actor"] == "AI_INVESTIGATOR"
         assert log_data["hash_signature"] is not None
 
-    def test_audit_memo_endpoint_markdown_and_json(self, client):
-        # 1. Default markdown format
-        res_md = client.get("/api/v1/reports/audit-memo")
+    def test_audit_memo_endpoint_csv_markdown_and_json(self, client):
+        # 1. Default format is CSV (preferred for finance and accounting workpapers)
+        res_default = client.get("/api/v1/reports/audit-memo")
+        assert res_default.status_code == 200
+        assert "text/csv" in res_default.headers.get("content-type", "")
+        assert "scenario_id,scenario_type,risk_priority" in res_default.text
+        assert "SCEN-EX-001" in res_default.text
+
+        # 2. Explicit CSV format
+        res_csv = client.get("/api/v1/reports/audit-memo?format=csv")
+        assert res_csv.status_code == 200
+        assert "text/csv" in res_csv.headers.get("content-type", "")
+        assert "scenario_id,scenario_type,risk_priority" in res_csv.text
+
+        # 3. Markdown format
+        res_md = client.get("/api/v1/reports/audit-memo?format=markdown")
         assert res_md.status_code == 200
         assert "text/markdown" in res_md.headers.get("content-type", "")
         assert "Executive Month-End Reconciliation Audit Memo" in res_md.text
 
-        # 2. Explicit JSON format
+        # 4. Explicit JSON format
         res_json = client.get("/api/v1/reports/audit-memo?format=json")
         assert res_json.status_code == 200
         data = res_json.json()
         assert "markdown_memo" in data
         assert "benchmark_report" in data
         assert "Executive Month-End Reconciliation Audit Memo" in data["markdown_memo"]
+
 
 
