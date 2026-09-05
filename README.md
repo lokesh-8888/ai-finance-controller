@@ -3,7 +3,7 @@
 # 🏛️ RazorLedger AI
 ### *Autonomous Multi-Source Financial Reconciliation & Forward Cash Ops*
 
-[![Tests](https://img.shields.io/badge/Pytest-81%20Passed%20(100%25)-00C853?style=for-the-badge&logo=pytest&logoColor=white)](tests/)
+[![Tests](https://img.shields.io/badge/Pytest-85%20Passed%20(100%25)-00C853?style=for-the-badge&logo=pytest&logoColor=white)](tests/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![Python](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker&logoColor=white)](docker-compose.yml)
@@ -158,7 +158,7 @@ python run.py --benchmark --runs 20
 # Export Month-End Executive Reconciliation Audit Memos (MD, JSON, CSV)
 python run.py --report
 
-# Execute Full Automated Test Suite (81 Tests)
+# Execute Full Automated Test Suite (85 Tests)
 pytest -v
 ```
 
